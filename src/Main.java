@@ -1,20 +1,11 @@
 
+import java.util.Scanner;
+
 public class Main {
 
-    public static void imprimirCentrado(String texto) {
-        int ancho = 80; // ancho aproximado de consola
-        int espacios = (ancho - texto.length()) / 2;
-
-        if (espacios > 0) {
-            System.out.println(" ".repeat(espacios) + texto);
-        } else {
-            System.out.println(texto);
-        }
-    }
-
-    //---------------------------------------------------------------------------
-    //---------------------------------------------------------------------------
     public static void main(String[] args) {
+        Scanner lector = new Scanner(System.in);
+
         Hospital hospital1 = new Hospital(
                 "Hospital San Martín",
                 "Av. Los Próceres 145, Arequipa",
@@ -26,11 +17,29 @@ public class Main {
 
         //------------------------------------------------------------------------------------------
         //--------   INICIO DEL HOSPITAL -----------------------
-        imprimirCentrado(separacion);
-        
-        imprimirCentrado(hospital1.getNombreHospital());
+        boolean comprobarMenuPrincipal = true;
+        do {
+            System.out.println(separacion);
 
-        imprimirCentrado(separacion);
+            System.out.println(hospital1.getNombreHospital());
+            System.out.println("1.- Iniciar sesión");
+            System.out.println("2.- Registrarse (solo pacientes)");
+            System.out.println("3.- Salir\n");
+            System.out.print("Ingrese una opcion: ");
+            int opcionInicio = lector.nextInt();
+                if(opcionInicio==1){
+                    System.out.println("Iniciar sesion:");
+                }
+                if(opcionInicio==2){
+                    System.out.println("Registrar");
+                }
+                if(opcionInicio ==3){
+                    System.out.println("Saliendo del Hospital");
+                    comprobarMenuPrincipal = false;
+                }
+
+            System.out.println(separacion);
+        } while (comprobarMenuPrincipal);
         //--------   FINAL DEL HOSPITAL  -------------------------
         //------------------------------------------------------------------------------------------
     }
