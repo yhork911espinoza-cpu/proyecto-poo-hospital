@@ -1,8 +1,12 @@
+import java.util.Date;
+import java.util.List;
 
-public class Paciente {
+public class Paciente extends Usuario{
     private String numeroHistoriaClinica;
     private String grupoSanguineo;
     private List<String> alergias;
-    prvate Date fechaNacimiento;
-    private
+    private Date fechaNacimiento;
+    private String seguroMedico;
+    private EstadoPaciente estadoPaciente;
+    private Doctor doctorAsignado;
 }

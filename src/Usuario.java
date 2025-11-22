@@ -10,5 +10,6 @@ public abstract class Usuario {
     private String email;
     private LocalDate fechaNacimiento; //Poner la fecha de creacion del Hospital
     private String genero;
-    
+
+    //Metodos de usuario
 }
