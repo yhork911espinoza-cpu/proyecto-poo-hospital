@@ -8,5 +8,10 @@ public class Paciente extends Usuario{
     private Date fechaNacimiento;
     private String seguroMedico;
     private EstadoPaciente estadoPaciente;
-    private Doctor doctorAsignado;
+    private Doctor doctorAsignado;  
+
+    public CitaMedica solicitarCita(Doctor doctor, Date fecha){
+        CitaMedica nuevaCita = new CitaMedica();
+        return nuevaCita;
+    };
 }
