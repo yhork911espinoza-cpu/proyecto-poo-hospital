@@ -12,14 +12,9 @@ public class Paciente extends Usuario{
     //Constructor/s de paciente
     
     public Paciente(String nombre, String primerApellido, String segundoApellido, String direccion, String telefono, String email, LocalDate fechaNacimiento, String genero, //de la clase heredada usuario
-                    String numeroHistoriaClinica, String grupoSanguineo, List<String> alergias, String seguroMedico, EstadoPaciente estadoPaciente, Doctor doctorAsignado) {
+                    List<String> alergias) {
         super(nombre, primerApellido, segundoApellido, direccion, telefono, email, fechaNacimiento, genero);
-        this.numeroHistoriaClinica = numeroHistoriaClinica;
-        this.grupoSanguineo = grupoSanguineo;
         this.alergias = alergias;
-        this.seguroMedico = seguroMedico;
-        this.estadoPaciente = estadoPaciente;
-        this.doctorAsignado = doctorAsignado;
     }
 
     //get y set de paciente

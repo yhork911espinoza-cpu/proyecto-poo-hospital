@@ -8,14 +8,27 @@ import java.util.Scanner;
 public class Main {
 
     public static Paciente registrarPaciente(Scanner lector) {
-        System.out.print("Nombre Completo: ");
+        System.out.print("Nombres: ");
         String nombre = lector.nextLine();
-        System.out.print("Primer Apellido: ");
+        System.out.print("Primer apellido: ");
         String apellido1 = lector.nextLine();
         System.out.print("Segundo apellido: ");
         String apellido2 = lector.nextLine();
-        System.out.print("Fecha de nacimiento (YYYY-MM-DD): ");
-        LocalDate fechaNacimiento = LocalDate.parse(lector.nextLine());
+
+        LocalDate fechaNacimiento = null; //*** Caso de fecha de nacimiento */
+        while (true) {
+            try {
+                System.out.print("Fecha de nacimiento (YYYY-MM-DD): ");
+                String fechaStr = lector.nextLine();
+
+                fechaNacimiento = LocalDate.parse(fechaStr); // intenta convertir
+
+                break; // si llega aquí, es una fecha correcta
+            } catch (Exception e) {
+                System.out.println("Formato inválido. Intenta de nuevo. Ejemplo: 2005-11-01");
+            }
+        }
+
         System.out.print("Dirección: ");
         String direccion = lector.nextLine();
         System.out.print("Teléfono: ");
@@ -23,10 +36,27 @@ public class Main {
         System.out.print("Correo: ");
         String email = lector.nextLine();
         System.out.print("Género: ");
-        String grupoSanguineo = lector.nextLine();
-        System.out.println("¿Tienes alergías?");
+        String genero = lector.nextLine();
+
+        //************ Alergias del paciente *************************/
         List<String> alergias = new ArrayList<>();
-        Paciente nuevoPaciente = new Paciente();
+        System.out.println("¿Tienes alergías? (si/no)");
+        String comprobarAlergias = lector.nextLine().toLowerCase();
+        if (comprobarAlergias.equalsIgnoreCase("si")) {
+            System.out.println("Ingrese las alergías una por una:");
+            System.out.println("Cuando termines, escribe (fin).");
+            while (true) {
+                System.out.print("Alergia: ");
+                String alergia = lector.nextLine();
+                if(alergia.equalsIgnoreCase("fin") || alergia.isBlank()){
+                    break; // termina ingreso
+                }
+
+                alergias.add(alergia);
+            }
+        }
+
+        Paciente nuevoPaciente = new Paciente(nombre, apellido1, apellido2, direccion, telefono, email, fechaNacimiento, genero, alergias);
         return nuevoPaciente;
     }
 
@@ -68,6 +98,8 @@ public class Main {
 
                     case 2:
                         System.out.println("=== REGISTRO DE PACIENTE ===");
+                        registrarPaciente(lector);
+                        
                         break;
 
                     case 3:
