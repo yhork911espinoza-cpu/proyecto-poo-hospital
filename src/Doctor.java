@@ -13,5 +13,10 @@ public class Doctor extends Usuario{
         super(nombre, primerApellido, segundoApellido, contraseña,DNI, direccion, telefono, email, fechaNacimiento, genero);
     }
 
-    
+    //public Diagnostico diagnosticar(Paciente paciente){}
+    //public Prescripcion recetarMedicamentos(Paciente paciente){}
+    //public Examen solicitarExamen(Paciente paciente, String tipo){}
+    public void actualizarExapediente(ExpedienteMedico expediente){}
+    //public List<CitaMedica> verAgenda(){}
+    public void agregarHorario(Horario horario){}
 }
