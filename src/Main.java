@@ -15,7 +15,7 @@ public class Main {
         System.out.print("Segundo apellido: ");
         String apellido2 = lector.nextLine();
 
-        LocalDate fechaNacimiento = null; //*** Caso de fecha de nacimiento */
+        LocalDate fechaNacimiento = null; // *** Caso de fecha de nacimiento */
         while (true) {
             try {
                 System.out.print("Fecha de nacimiento (YYYY-MM-DD): ");
@@ -38,7 +38,7 @@ public class Main {
         System.out.print("Género: ");
         String genero = lector.nextLine();
 
-        //************ Alergias del paciente *************************/
+        // ************ Alergias del paciente *************************/
         List<String> alergias = new ArrayList<>();
         System.out.println("¿Tienes alergías? (si/no)");
         String comprobarAlergias = lector.nextLine().toLowerCase();
@@ -48,7 +48,7 @@ public class Main {
             while (true) {
                 System.out.print("Alergia: ");
                 String alergia = lector.nextLine();
-                if(alergia.equalsIgnoreCase("fin") || alergia.isBlank()){
+                if (alergia.equalsIgnoreCase("fin") || alergia.isBlank()) {
                     break; // termina ingreso
                 }
 
@@ -56,11 +56,12 @@ public class Main {
             }
         }
 
-        Paciente nuevoPaciente = new Paciente(nombre, apellido1, apellido2, direccion, telefono, email, fechaNacimiento, genero, alergias);
+        Paciente nuevoPaciente = new Paciente(nombre, apellido1, apellido2, direccion, telefono, email, fechaNacimiento,
+                genero, alergias);
         return nuevoPaciente;
     }
 
-    //--------------------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------
     public static void main(String[] args) {
 
         Scanner lector = new Scanner(System.in);
@@ -70,8 +71,7 @@ public class Main {
                 "Av. Los Próceres 145, Arequipa",
                 "054-789456",
                 "contacto@sanmartin.pe",
-                250
-        );
+                250);
 
         String separacion = "===========================================================================";
 
@@ -86,7 +86,7 @@ public class Main {
             System.out.println("3.- Salir\n");
             System.out.print("Ingrese una opción: ");
 
-            try { //por si hay errores al poner el entero
+            try { // por si hay errores al poner el entero
                 int opcion = lector.nextInt();
                 lector.nextLine();
 
@@ -98,8 +98,58 @@ public class Main {
 
                     case 2:
                         System.out.println("=== REGISTRO DE PACIENTE ===");
-                        registrarPaciente(lector);
-                        
+                        Paciente nuevopaciente = registrarPaciente(lector);
+                        hospital1.agregarPaciente(nuevopaciente);
+
+                        Paciente pacientebuscado = hospital1.buscarPaciente(0);
+
+                        boolean comprobarPacienteAcciones = true;
+
+                        do {
+                            System.out.println("=== " + pacientebuscado.getNombre() + " " +
+                                    pacientebuscado.getPrimerApellido() + " " +
+                                    pacientebuscado.getSegundoApellido() + " ===");
+
+                            System.out.println("=== ACCIONES DISPONIBLES ===");
+                            System.out.println("1.- Ver mis datos");
+                            System.out.println("2.- Editar mis datos");
+                            System.out.println("3.- Registrar cita médica");
+                            System.out.println("4.- Ver mis citas");
+                            System.out.println("5.- Salir");
+
+                            System.out.print("Ingrese una opción: ");
+                            int opcionPacienteAcciones = lector.nextInt();
+                            lector.nextLine(); // limpiar buffer
+
+                            switch (opcionPacienteAcciones) {
+
+                                case 1:
+                                    System.out.println("Mostrando datos del paciente...");
+                                    break;
+
+                                case 2:
+                                    System.out.println("Editar datos...");
+                                    break;
+
+                                case 3:
+                                    System.out.println("Registrar cita...");
+                                    break;
+
+                                case 4:
+                                    System.out.println("Mostrando citas...");
+                                    break;
+
+                                case 5:
+                                    System.out.println("Volviendo al menú principal...");
+                                    comprobarPacienteAcciones = false;
+                                    break;
+
+                                default:
+                                    System.out.println("Opción no válida.");
+                            }
+
+                        } while (comprobarPacienteAcciones); // para que se pueda salir al menu del inicio sin iniciar sesion
+
                         break;
 
                     case 3:

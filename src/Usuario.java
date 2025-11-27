@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 
 public abstract class Usuario {
-    private String idUsuario; /// pensando en eso
+    protected int idUsuario; /// pensando en eso
     private String nombre;
     private String primerApellido;
     private String segundoApellido;
@@ -12,7 +12,12 @@ public abstract class Usuario {
     private String genero;
 
     //Contructor de usuarios
+    private static int contadorIds = 1;  // Se usa para generar IDs automáticos
+
     public Usuario (String nombre, String primerApellido, String segundoApellido, String direccion, String telefono, String email, LocalDate fechaNacimiento, String genero){
+
+        this.idUsuario = contadorIds++;
+
         this.nombre = nombre;
         this.primerApellido = primerApellido;
         this.segundoApellido = segundoApellido;
@@ -22,16 +27,17 @@ public abstract class Usuario {
         this.fechaNacimiento = fechaNacimiento;
         this.genero = genero;
     }
+    //*----------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
     //Metodos de usuario
 
     //Get y Set de los atributos
 
-    public String getIdUsuario() {
+    public int getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(String idUsuario) {
+    public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
 
