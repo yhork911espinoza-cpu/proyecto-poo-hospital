@@ -1,13 +1,18 @@
-
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    private static final String SEPARACION = "===========================================================================";
+    private static Scanner lector = new Scanner(System.in);
 
-    public static Paciente registrarPaciente(Scanner lector) {
+    // ======================== MÉTODOS DE REGISTRO ========================
+    public static Paciente registrarPaciente() {
+        System.out.println("\n=== REGISTRO DE PACIENTE ===");
         System.out.print("Nombres: ");
         String nombre = lector.nextLine();
         System.out.print("Primer apellido: ");
@@ -16,19 +21,27 @@ public class Main {
         String apellido2 = lector.nextLine();
         System.out.print("Contraseña: ");
         String contraseña = lector.nextLine();
-        System.out.print("DNI: ");
-        int dni = lector.nextInt();
-        lector.nextLine(); // para que lea el salto de line en el INT
+        
+        int dni = 0;
+        while (true) {
+            try {
+                System.out.print("DNI: ");
+                dni = lector.nextInt();
+                lector.nextLine();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("DNI inválido. Debe ser un número.");
+                lector.nextLine();
+            }
+        }
 
-        LocalDate fechaNacimiento = null; // *** Caso de fecha de nacimiento */
+        LocalDate fechaNacimiento = null;
         while (true) {
             try {
                 System.out.print("Fecha de nacimiento (YYYY-MM-DD): ");
                 String fechaStr = lector.nextLine();
-
-                fechaNacimiento = LocalDate.parse(fechaStr); // intenta convertir
-
-                break; // si llega aquí, es una fecha correcta
+                fechaNacimiento = LocalDate.parse(fechaStr);
+                break;
             } catch (Exception e) {
                 System.out.println("Formato inválido. Intenta de nuevo. Ejemplo: 2005-11-01");
             }
@@ -43,185 +56,595 @@ public class Main {
         System.out.print("Género: ");
         String genero = lector.nextLine();
 
-        // ************ Alergias del paciente *************************/
         List<String> alergias = new ArrayList<>();
-        System.out.println("¿Tienes alergías? (si/no)");
+        System.out.print("¿Tienes alergías? (si/no): ");
         String comprobarAlergias = lector.nextLine().toLowerCase();
         if (comprobarAlergias.equalsIgnoreCase("si")) {
-            System.out.println("Ingrese las alergías una por una:");
-            System.out.println("Cuando termines, escribe (fin).");
+            System.out.println("Ingrese las alergías una por una (escribe 'fin' para terminar):");
             while (true) {
                 System.out.print("Alergia: ");
                 String alergia = lector.nextLine();
                 if (alergia.equalsIgnoreCase("fin") || alergia.isBlank()) {
-                    break; // termina ingreso
+                    break;
                 }
-
                 alergias.add(alergia);
             }
         }
 
-        Paciente nuevoPaciente = new Paciente(nombre, apellido1, apellido2, contraseña, dni, direccion, telefono, email,
-                fechaNacimiento,
-                genero, alergias);
-        return nuevoPaciente;
+        return new Paciente(nombre, apellido1, apellido2, contraseña, dni, direccion, 
+                          telefono, email, fechaNacimiento, genero, alergias);
     }
 
-    // --------------------------------------------------------------------------------------------
+    // ======================== MÉTODOS DE LOGIN ========================
+    public static Paciente loginPaciente(Hospital hospital) {
+        System.out.println("\n=== LOGIN PACIENTE ===");
+        System.out.print("DNI: ");
+        int dni = lector.nextInt();
+        lector.nextLine();
+        System.out.print("Contraseña: ");
+        String contraseña = lector.nextLine();
+
+        Paciente paciente = hospital.buscarPaciente(dni);
+        if (paciente != null && paciente.validarCredenciales(dni, contraseña)) {
+            System.out.println("✓ Inicio de sesión exitoso!");
+            return paciente;
+        } else {
+            System.out.println("✗ DNI o contraseña incorrectos.");
+            return null;
+        }
+    }
+
+    public static Doctor loginDoctor(Hospital hospital) {
+        System.out.println("\n=== LOGIN DOCTOR ===");
+        System.out.print("DNI: ");
+        int dni = lector.nextInt();
+        lector.nextLine();
+        System.out.print("Contraseña: ");
+        String contraseña = lector.nextLine();
+
+        Doctor doctor = hospital.buscarDoctor(dni);
+        if (doctor != null && doctor.validarCredenciales(dni, contraseña)) {
+            System.out.println("✓ Inicio de sesión exitoso!");
+            return doctor;
+        } else {
+            System.out.println("✗ DNI o contraseña incorrectos.");
+            return null;
+        }
+    }
+
+    public static Enfermera loginEnfermera(Hospital hospital) {
+        System.out.println("\n=== LOGIN ENFERMERA ===");
+        System.out.print("DNI: ");
+        int dni = lector.nextInt();
+        lector.nextLine();
+        System.out.print("Contraseña: ");
+        String contraseña = lector.nextLine();
+
+        Enfermera enfermera = hospital.buscarEnfermera(dni);
+        if (enfermera != null && enfermera.validarCredenciales(dni, contraseña)) {
+            System.out.println("✓ Inicio de sesión exitoso!");
+            return enfermera;
+        } else {
+            System.out.println("✗ DNI o contraseña incorrectos.");
+            return null;
+        }
+    }
+
+    public static Administrador loginAdministrador(Hospital hospital) {
+        System.out.println("\n=== LOGIN ADMINISTRADOR ===");
+        System.out.print("DNI: ");
+        int dni = lector.nextInt();
+        lector.nextLine();
+        System.out.print("Contraseña: ");
+        String contraseña = lector.nextLine();
+
+        Administrador admin = hospital.buscarAdministrador(dni);
+        if (admin != null && admin.validarCredenciales(dni, contraseña)) {
+            System.out.println("✓ Inicio de sesión exitoso!");
+            return admin;
+        } else {
+            System.out.println("✗ DNI o contraseña incorrectos.");
+            return null;
+        }
+    }
+
+    // ======================== MENÚS DE USUARIO ========================
+    public static void menuPaciente(Paciente paciente, Hospital hospital) {
+        boolean salir = false;
+        while (!salir) {
+            System.out.println("\n" + SEPARACION);
+            System.out.println("BIENVENIDO: " + paciente.getNombre() + " " + 
+                             paciente.getPrimerApellido());
+            System.out.println("=== MENÚ PACIENTE ===");
+            System.out.println("1. Ver mis datos");
+            System.out.println("2. Editar mis datos");
+            System.out.println("3. Registrar cita médica");
+            System.out.println("4. Ver mis citas");
+            System.out.println("5. Ver mi historial médico");
+            System.out.println("6. Cerrar sesión");
+            System.out.print("Opción: ");
+
+            try {
+                int opcion = lector.nextInt();
+                lector.nextLine();
+
+                switch (opcion) {
+                    case 1:
+                        paciente.mostrarDatos();
+                        break;
+                    case 2:
+                        editarDatosPaciente(paciente);
+                        break;
+                    case 3:
+                        registrarCita(paciente, hospital);
+                        break;
+                    case 4:
+                        paciente.mostrarCitas();
+                        break;
+                    case 5:
+                        paciente.getHistorialMedico().mostrarHistorial();
+                        break;
+                    case 6:
+                        System.out.println("Cerrando sesión...");
+                        salir = true;
+                        break;
+                    default:
+                        System.out.println("Opción no válida.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Debe ingresar un número.");
+                lector.nextLine();
+            }
+        }
+    }
+
+    public static void menuDoctor(Doctor doctor, Hospital hospital) {
+        boolean salir = false;
+        while (!salir) {
+            System.out.println("\n" + SEPARACION);
+            System.out.println("BIENVENIDO: Dr. " + doctor.getNombre() + " " + 
+                             doctor.getPrimerApellido());
+            System.out.println("=== MENÚ DOCTOR ===");
+            System.out.println("1. Ver mis datos");
+            System.out.println("2. Ver mis citas");
+            System.out.println("3. Ver mis pacientes");
+            System.out.println("4. Agregar diagnóstico");
+            System.out.println("5. Agregar tratamiento");
+            System.out.println("6. Cerrar sesión");
+            System.out.print("Opción: ");
+
+            try {
+                int opcion = lector.nextInt();
+                lector.nextLine();
+
+                switch (opcion) {
+                    case 1:
+                        doctor.mostrarDatos();
+                        break;
+                    case 2:
+                        doctor.mostrarCitas();
+                        break;
+                    case 3:
+                        doctor.mostrarPacientes();
+                        break;
+                    case 4:
+                        agregarDiagnostico(doctor, hospital);
+                        break;
+                    case 5:
+                        agregarTratamiento(doctor, hospital);
+                        break;
+                    case 6:
+                        System.out.println("Cerrando sesión...");
+                        salir = true;
+                        break;
+                    default:
+                        System.out.println("Opción no válida.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Debe ingresar un número.");
+                lector.nextLine();
+            }
+        }
+    }
+
+    public static void menuEnfermera(Enfermera enfermera, Hospital hospital) {
+        boolean salir = false;
+        while (!salir) {
+            System.out.println("\n" + SEPARACION);
+            System.out.println("BIENVENIDA: " + enfermera.getNombre() + " " + 
+                             enfermera.getPrimerApellido());
+            System.out.println("=== MENÚ ENFERMERA ===");
+            System.out.println("1. Ver mis datos");
+            System.out.println("2. Ver mis pacientes");
+            System.out.println("3. Buscar paciente");
+            System.out.println("4. Cerrar sesión");
+            System.out.print("Opción: ");
+
+            try {
+                int opcion = lector.nextInt();
+                lector.nextLine();
+
+                switch (opcion) {
+                    case 1:
+                        enfermera.mostrarDatos();
+                        break;
+                    case 2:
+                        enfermera.mostrarPacientes();
+                        break;
+                    case 3:
+                        buscarPacienteEnfermera(hospital);
+                        break;
+                    case 4:
+                        System.out.println("Cerrando sesión...");
+                        salir = true;
+                        break;
+                    default:
+                        System.out.println("Opción no válida.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Debe ingresar un número.");
+                lector.nextLine();
+            }
+        }
+    }
+
+    public static void menuAdministrador(Administrador admin, Hospital hospital) {
+        boolean salir = false;
+        while (!salir) {
+            System.out.println("\n" + SEPARACION);
+            System.out.println("BIENVENIDO: " + admin.getNombre() + " " + 
+                             admin.getPrimerApellido());
+            System.out.println("=== MENÚ ADMINISTRADOR ===");
+            System.out.println("1. Ver mis datos");
+            System.out.println("2. Registrar doctor");
+            System.out.println("3. Registrar enfermera");
+            System.out.println("4. Ver estadísticas");
+            System.out.println("5. Cerrar sesión");
+            System.out.print("Opción: ");
+
+            try {
+                int opcion = lector.nextInt();
+                lector.nextLine();
+
+                switch (opcion) {
+                    case 1:
+                        admin.mostrarDatos();
+                        break;
+                    case 2:
+                        registrarDoctor(hospital);
+                        break;
+                    case 3:
+                        registrarEnfermera(hospital);
+                        break;
+                    case 4:
+                        mostrarEstadisticas(hospital);
+                        break;
+                    case 5:
+                        System.out.println("Cerrando sesión...");
+                        salir = true;
+                        break;
+                    default:
+                        System.out.println("Opción no válida.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Debe ingresar un número.");
+                lector.nextLine();
+            }
+        }
+    }
+
+    // ======================== FUNCIONES AUXILIARES ========================
+    public static void editarDatosPaciente(Paciente paciente) {
+        System.out.println("\n=== EDITAR DATOS ===");
+        System.out.println("1. Dirección");
+        System.out.println("2. Teléfono");
+        System.out.println("3. Email");
+        System.out.println("4. Agregar alergia");
+        System.out.print("¿Qué deseas editar?: ");
+        
+        int opcion = lector.nextInt();
+        lector.nextLine();
+
+        switch (opcion) {
+            case 1:
+                System.out.print("Nueva dirección: ");
+                paciente.setDireccion(lector.nextLine());
+                System.out.println("✓ Dirección actualizada.");
+                break;
+            case 2:
+                System.out.print("Nuevo teléfono: ");
+                paciente.setTelefono(lector.nextLine());
+                System.out.println("✓ Teléfono actualizado.");
+                break;
+            case 3:
+                System.out.print("Nuevo email: ");
+                paciente.setEmail(lector.nextLine());
+                System.out.println("✓ Email actualizado.");
+                break;
+            case 4:
+                System.out.print("Nueva alergia: ");
+                paciente.agregarAlergia(lector.nextLine());
+                System.out.println("✓ Alergia agregada.");
+                break;
+            default:
+                System.out.println("Opción no válida.");
+        }
+    }
+
+    public static void registrarCita(Paciente paciente, Hospital hospital) {
+        System.out.println("\n=== REGISTRAR CITA ===");
+        
+        if (hospital.getDoctores().isEmpty()) {
+            System.out.println("No hay doctores disponibles.");
+            return;
+        }
+
+        System.out.println("Doctores disponibles:");
+        List<Doctor> doctores = hospital.getDoctores();
+        for (int i = 0; i < doctores.size(); i++) {
+            Doctor d = doctores.get(i);
+            System.out.println((i + 1) + ". Dr. " + d.getNombre() + " " + 
+                             d.getPrimerApellido() + " - " + d.getEspecialidad());
+        }
+
+        System.out.print("Seleccione doctor (número): ");
+        int opcionDoctor = lector.nextInt() - 1;
+        lector.nextLine();
+
+        if (opcionDoctor < 0 || opcionDoctor >= doctores.size()) {
+            System.out.println("Selección inválida.");
+            return;
+        }
+
+        Doctor doctorSeleccionado = doctores.get(opcionDoctor);
+
+        System.out.print("Fecha y hora (YYYY-MM-DD HH:MM): ");
+        String fechaHoraStr = lector.nextLine();
+        LocalDateTime fechaHora = null;
+        try {
+            fechaHora = LocalDateTime.parse(fechaHoraStr, 
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        } catch (Exception e) {
+            System.out.println("Formato de fecha inválido.");
+            return;
+        }
+
+        System.out.print("Motivo de la cita: ");
+        String motivo = lector.nextLine();
+
+        System.out.print("Consultorio: ");
+        String consultorio = lector.nextLine();
+
+        CitaMedica cita = new CitaMedica(fechaHora, motivo, paciente, 
+                                        doctorSeleccionado, consultorio);
+        paciente.agregarCita(cita);
+        doctorSeleccionado.agregarCita(cita);
+        doctorSeleccionado.agregarPaciente(paciente);
+
+        System.out.println("✓ Cita registrada exitosamente!");
+    }
+
+    public static void agregarDiagnostico(Doctor doctor, Hospital hospital) {
+        System.out.print("\nDNI del paciente: ");
+        int dni = lector.nextInt();
+        lector.nextLine();
+
+        Paciente paciente = hospital.buscarPaciente(dni);
+        if (paciente == null) {
+            System.out.println("Paciente no encontrado.");
+            return;
+        }
+
+        System.out.print("Descripción del diagnóstico: ");
+        String descripcion = lector.nextLine();
+
+        Diagnostico diagnostico = new Diagnostico(descripcion, LocalDate.now(), doctor);
+        paciente.getHistorialMedico().agregarDiagnostico(diagnostico);
+
+        System.out.println("✓ Diagnóstico agregado.");
+    }
+
+    public static void agregarTratamiento(Doctor doctor, Hospital hospital) {
+        System.out.print("\nDNI del paciente: ");
+        int dni = lector.nextInt();
+        lector.nextLine();
+
+        Paciente paciente = hospital.buscarPaciente(dni);
+        if (paciente == null) {
+            System.out.println("Paciente no encontrado.");
+            return;
+        }
+
+        System.out.print("Descripción del tratamiento: ");
+        String descripcion = lector.nextLine();
+
+        System.out.print("Fecha inicio (YYYY-MM-DD): ");
+        LocalDate fechaInicio = LocalDate.parse(lector.nextLine());
+
+        System.out.print("Fecha fin (YYYY-MM-DD): ");
+        LocalDate fechaFin = LocalDate.parse(lector.nextLine());
+
+        Tratamiento tratamiento = new Tratamiento(descripcion, fechaInicio, 
+                                                  fechaFin, doctor);
+        paciente.getHistorialMedico().agregarTratamiento(tratamiento);
+
+        System.out.println("✓ Tratamiento agregado.");
+    }
+
+    public static void buscarPacienteEnfermera(Hospital hospital) {
+        System.out.print("\nDNI del paciente: ");
+        int dni = lector.nextInt();
+        lector.nextLine();
+
+        Paciente paciente = hospital.buscarPaciente(dni);
+        if (paciente != null) {
+            paciente.mostrarDatos();
+        } else {
+            System.out.println("Paciente no encontrado.");
+        }
+    }
+
+    public static void registrarDoctor(Hospital hospital) {
+        System.out.println("\n=== REGISTRAR DOCTOR ===");
+        System.out.print("Nombres: ");
+        String nombre = lector.nextLine();
+        System.out.print("Primer apellido: ");
+        String apellido1 = lector.nextLine();
+        System.out.print("Segundo apellido: ");
+        String apellido2 = lector.nextLine();
+        System.out.print("Contraseña: ");
+        String contraseña = lector.nextLine();
+        System.out.print("DNI: ");
+        int dni = lector.nextInt();
+        lector.nextLine();
+        System.out.print("Especialidad: ");
+        String especialidad = lector.nextLine();
+        System.out.print("Número de licencia: ");
+        String licencia = lector.nextLine();
+        System.out.print("Teléfono: ");
+        String telefono = lector.nextLine();
+        System.out.print("Email: ");
+        String email = lector.nextLine();
+
+        Doctor doctor = new Doctor(nombre, apellido1, apellido2, contraseña, dni, 
+                                  "", telefono, email, LocalDate.now(), "M", 
+                                  especialidad, licencia);
+        hospital.agregarDoctor(doctor);
+        System.out.println("✓ Doctor registrado exitosamente!");
+    }
+
+    public static void registrarEnfermera(Hospital hospital) {
+        System.out.println("\n=== REGISTRAR ENFERMERA ===");
+        System.out.print("Nombres: ");
+        String nombre = lector.nextLine();
+        System.out.print("Primer apellido: ");
+        String apellido1 = lector.nextLine();
+        System.out.print("Segundo apellido: ");
+        String apellido2 = lector.nextLine();
+        System.out.print("Contraseña: ");
+        String contraseña = lector.nextLine();
+        System.out.print("DNI: ");
+        int dni = lector.nextInt();
+        lector.nextLine();
+        System.out.print("Turno (Mañana/Tarde/Noche): ");
+        String turno = lector.nextLine();
+        System.out.print("Teléfono: ");
+        String telefono = lector.nextLine();
+        System.out.print("Email: ");
+        String email = lector.nextLine();
+
+        Enfermera enfermera = new Enfermera(nombre, apellido1, apellido2, contraseña, 
+                                           dni, "", telefono, email, LocalDate.now(), 
+                                           "F", turno);
+        hospital.agregarEnfermera(enfermera);
+        System.out.println("✓ Enfermera registrada exitosamente!");
+    }
+
+    public static void mostrarEstadisticas(Hospital hospital) {
+        System.out.println("\n=== ESTADÍSTICAS DEL HOSPITAL ===");
+        System.out.println("Total de pacientes: " + hospital.buscarPaciente(0));
+        System.out.println("Total de doctores: " + hospital.getDoctores().size());
+        // Más estadísticas aquí...
+    }
+
+    // ======================== MAIN ========================
     public static void main(String[] args) {
-
-        Scanner lector = new Scanner(System.in);
-
-        Hospital hospital1 = new Hospital(
+        Hospital hospital = new Hospital(
                 "Hospital San Martín",
                 "Av. Los Próceres 145, Arequipa",
                 "054-789456",
                 "contacto@sanmartin.pe",
                 250);
 
-        String separacion = "===========================================================================";
+        // Datos de prueba
+        Administrador admin = new Administrador("Juan", "Pérez", "López", "admin123", 
+                                               12345678, "", "987654321", 
+                                               "admin@hospital.pe", LocalDate.of(1980, 5, 15), 
+                                               "M", "Administrador General");
+        hospital.agregarAdministrador(admin);
 
-        boolean comprobarMenuPrincipal = true;
+        Doctor doctor1 = new Doctor("María", "García", "Sánchez", "doc123", 87654321, 
+                                   "", "987123456", "mgarcia@hospital.pe", 
+                                   LocalDate.of(1985, 8, 20), "F", "Cardiología", "LIC-12345");
+        hospital.agregarDoctor(doctor1);
 
-        // ----------------------- INICIO DEL HOSPITAL --------------------------
-        do {
-            System.out.println(separacion);
-            System.out.println(hospital1.getNombreHospital());
-            System.out.println("1.- Iniciar sesión");
-            System.out.println("2.- Registrarse (solo pacientes)");
-            System.out.println("3.- Salir\n");
-            System.out.print("Ingrese una opción: ");
+        Enfermera enfermera1 = new Enfermera("Ana", "Torres", "Ruiz", "enf123", 
+                                            45678912, "", "987789456", 
+                                            "atorres@hospital.pe", 
+                                            LocalDate.of(1990, 3, 10), "F", "Mañana");
+        hospital.agregarEnfermera(enfermera1);
 
-            try { // por si hay errores al poner el entero
+        boolean continuar = true;
+        while (continuar) {
+            System.out.println("\n" + SEPARACION);
+            System.out.println(hospital.getNombreHospital());
+            System.out.println("=== SISTEMA DE GESTIÓN HOSPITALARIA ===");
+            System.out.println("1. Iniciar sesión");
+            System.out.println("2. Registrarse (solo pacientes)");
+            System.out.println("3. Salir");
+            System.out.print("Opción: ");
+
+            try {
                 int opcion = lector.nextInt();
                 lector.nextLine();
 
                 switch (opcion) {
-
                     case 1:
-                        System.out.println("=== INICIAR SESIÓN ===");
-                        System.out.println("""
-                                ¿Quién eres tú?
-                                1. Paciente
-                                2. Doctor
-                                3. Enfermera
-                                4. Administrador
-                                5. Volver
-                                """);
+                        System.out.println("\n¿Quién eres?");
+                        System.out.println("1. Paciente");
+                        System.out.println("2. Doctor");
+                        System.out.println("3. Enfermera");
+                        System.out.println("4. Administrador");
+                        System.out.print("Opción: ");
+                        
+                        int tipoUsuario = lector.nextInt();
+                        lector.nextLine();
 
-                        System.out.print("Elige una opción: ");
-
-                        int opcionUsuarioIniciarSesion = lector.nextInt();
-                        lector.nextLine(); //limpiar el salto de línea
-
-                        switch (opcionUsuarioIniciarSesion) {
+                        switch (tipoUsuario) {
                             case 1:
-                                System.out.println("Iniciando sesión como PACIENTE...");
-                                // Aquí llamas al método para login de paciente
-                                // loginPaciente();
+                                Paciente p = loginPaciente(hospital);
+                                if (p != null) menuPaciente(p, hospital);
                                 break;
-
                             case 2:
-                                System.out.println("Iniciando sesión como DOCTOR...");
-                                // loginDoctor();
+                                Doctor d = loginDoctor(hospital);
+                                if (d != null) menuDoctor(d, hospital);
                                 break;
-
                             case 3:
-                                System.out.println("Iniciando sesión como ENFERMERA...");
-                                // loginEnfermera();
+                                Enfermera e = loginEnfermera(hospital);
+                                if (e != null) menuEnfermera(e, hospital);
                                 break;
-
                             case 4:
-                                System.out.println("Iniciando sesión como ADMINISTRADOR...");
-                                // loginAdministrador();
+                                Administrador a = loginAdministrador(hospital);
+                                if (a != null) menuAdministrador(a, hospital);
                                 break;
-
-                            case 5:
-                                System.out.println("Volviendo al menú...");
-                                break;
-
                             default:
-                                System.out.println("Opción inválida. Intente nuevamente.");
-                                break;
+                                System.out.println("Opción no válida.");
                         }
-
                         break;
 
                     case 2:
-                        System.out.println("=== REGISTRO DE PACIENTE ===");
-                        Paciente nuevopaciente = registrarPaciente(lector);
-                        hospital1.agregarPaciente(nuevopaciente);
-
-                        Paciente pacientebuscado = hospital1.buscarPaciente(0);
-
-                        boolean comprobarPacienteAcciones = true;
-
-                        do {
-                            System.out.println("=== " + pacientebuscado.getNombre() + " " +
-                                    pacientebuscado.getPrimerApellido() + " " +
-                                    pacientebuscado.getSegundoApellido() + " ===");
-
-                            System.out.println("=== ACCIONES DISPONIBLES ===");
-                            System.out.println("1.- Ver mis datos");
-                            System.out.println("2.- Editar mis datos");
-                            System.out.println("3.- Registrar cita médica");
-                            System.out.println("4.- Ver mis citas");
-                            System.out.println("5.- Salir");
-
-                            System.out.print("Ingrese una opción: ");
-                            int opcionPacienteAcciones = lector.nextInt();
-                            lector.nextLine(); // limpiar buffer
-
-                            switch (opcionPacienteAcciones) {
-
-                                case 1:
-                                    System.out.println("Mostrando datos del paciente...");
-                                    nuevopaciente.mostrarDatos();
-                                    break;
-
-                                case 2:
-                                    System.out.println("Editar datos...");
-                                    break;
-
-                                case 3:
-                                    System.out.println("Registrar cita...");
-                                    break;
-
-                                case 4:
-                                    System.out.println("Mostrando citas...");
-                                    break;
-
-                                case 5:
-                                    System.out.println("Volviendo al menú principal...");
-                                    comprobarPacienteAcciones = false;
-                                    break;
-
-                                default:
-                                    System.out.println("Opción no válida.");
-                            }
-
-                        } while (comprobarPacienteAcciones); // para que se pueda salir al menu del inicio sin iniciar
-                                                             // sesion
-
+                        Paciente nuevoPaciente = registrarPaciente();
+                        hospital.agregarPaciente(nuevoPaciente);
+                        System.out.println("✓ Registro exitoso! Ahora puedes iniciar sesión.");
                         break;
 
                     case 3:
-                        System.out.println("Saliendo del sistema del hospital...");
-                        comprobarMenuPrincipal = false;
+                        System.out.println("Saliendo del sistema...");
+                        continuar = false;
                         break;
 
                     default:
-                        System.out.println("Ingrese una opción válida (1 - 3)");
+                        System.out.println("Opción no válida.");
                 }
-
             } catch (InputMismatchException e) {
-                System.out.println("Debe ingresar un número entero válido.");
-                lector.nextLine(); // limpiar entrada inválida
+                System.out.println("Debe ingresar un número.");
+                lector.nextLine();
             }
 
-            System.out.println(separacion);
+            System.out.println(SEPARACION);
+        }
 
-        } while (comprobarMenuPrincipal);
-        // ----------------------- FINAL DEL HOSPITAL -----------------------------
+        lector.close();
+        System.out.println("\n¡Hasta luego!");
     }
 }

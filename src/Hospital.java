@@ -1,5 +1,4 @@
-
-import java.time.LocalDate;
+// ==================== Hospital.java ====================
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,134 +8,64 @@ public class Hospital {
     private String telefono;
     private String email;
     private int capacidadCamas;
-    private List<Doctor> doctores;
     private List<Paciente> pacientes;
+    private List<Doctor> doctores;
     private List<Enfermera> enfermeras;
     private List<Administrador> administradores;
-    private List<Farmacia> farmacias;
     private List<Departamento> departamentos;
 
-    // Contructor
-    public Hospital(String nombreHospital, String direccion, String telefono, String email, int capacidadCamas) {
+    public Hospital(String nombreHospital, String direccion, String telefono, 
+                   String email, int capacidadCamas) {
         this.nombreHospital = nombreHospital;
         this.direccion = direccion;
         this.telefono = telefono;
         this.email = email;
         this.capacidadCamas = capacidadCamas;
-        this.doctores = new ArrayList<>();
         this.pacientes = new ArrayList<>();
+        this.doctores = new ArrayList<>();
         this.enfermeras = new ArrayList<>();
         this.administradores = new ArrayList<>();
-        this.farmacias = new ArrayList<>();
         this.departamentos = new ArrayList<>();
-
-        // ********************************************************************* */
-        // ************************* ADMINISTRADORES ************************* */
-        Administrador admin1 = new Administrador("Paolo", "Coaquira", "Anccori", "contraseñaPaolo", 75554491, "Av. Peru 123", "987654321",
-                "paolo@gmail.com", LocalDate.of(2003, 5, 15), "Masculino");
-        administradores.add(admin1);
-        // ********************************************************************* */
-        // ********************************************************************* */
     }
 
-    // Metodo agregar paciente
-    public void agregarPaciente(Paciente paciente) {
-        pacientes.add(paciente);
-        System.out.println("Paciente registrado.");
+    public String getNombreHospital() { return nombreHospital; }
+    
+    // Métodos para agregar usuarios
+    public void agregarPaciente(Paciente paciente) { pacientes.add(paciente); }
+    public void agregarDoctor(Doctor doctor) { doctores.add(doctor); }
+    public void agregarEnfermera(Enfermera enfermera) { enfermeras.add(enfermera); }
+    public void agregarAdministrador(Administrador admin) { administradores.add(admin); }
+    public void agregarDepartamento(Departamento depto) { departamentos.add(depto); }
+
+    // Métodos de búsqueda
+    public Paciente buscarPaciente(int dni) {
+        for (Paciente p : pacientes) {
+            if (p.getDni() == dni) return p;
+        }
+        return null;
     }
 
-    public Paciente buscarPaciente(int idPaciente) {
-        return pacientes.get(idPaciente);
+    public Doctor buscarDoctor(int dni) {
+        for (Doctor d : doctores) {
+            if (d.getDni() == dni) return d;
+        }
+        return null;
     }
 
-    // Get y set
-
-    public String getNombreHospital() {
-        return nombreHospital;
+    public Enfermera buscarEnfermera(int dni) {
+        for (Enfermera e : enfermeras) {
+            if (e.getDni() == dni) return e;
+        }
+        return null;
     }
 
-    public void setNombreHospital(String nombreHospital) {
-        this.nombreHospital = nombreHospital;
+    public Administrador buscarAdministrador(int dni) {
+        for (Administrador a : administradores) {
+            if (a.getDni() == dni) return a;
+        }
+        return null;
     }
 
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getCapacidadCamas() {
-        return capacidadCamas;
-    }
-
-    public void setCapacidadCamas(int capacidadCamas) {
-        this.capacidadCamas = capacidadCamas;
-    }
-
-    public List<Doctor> getDoctores() {
-        return doctores;
-    }
-
-    public void setDoctores(List<Doctor> doctores) {
-        this.doctores = doctores;
-    }
-
-    public List<Paciente> getPacientes() {
-        return pacientes;
-    }
-
-    public void setPacientes(List<Paciente> pacientes) {
-        this.pacientes = pacientes;
-    }
-
-    public List<Enfermera> getEnfermeras() {
-        return enfermeras;
-    }
-
-    public void setEnfermeras(List<Enfermera> enfermeras) {
-        this.enfermeras = enfermeras;
-    }
-
-    public List<Administrador> getAdministradores() {
-        return administradores;
-    }
-
-    public void setAdministradores(List<Administrador> administradores) {
-        this.administradores = administradores;
-    }
-
-    public List<Farmacia> getFarmacias() {
-        return farmacias;
-    }
-
-    public void setFarmacias(List<Farmacia> farmacias) {
-        this.farmacias = farmacias;
-    }
-
-    public List<Departamento> getDepartamentos() {
-        return departamentos;
-    }
-
-    public void setDepartamentos(List<Departamento> departamentos) {
-        this.departamentos = departamentos;
-    }
-
+    public List<Doctor> getDoctores() { return doctores; }
+    public List<Departamento> getDepartamentos() { return departamentos; }
 }
