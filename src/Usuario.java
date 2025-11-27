@@ -1,10 +1,20 @@
 import java.time.LocalDate;
 
 public abstract class Usuario {
+
+    public static int getContadorIds() {
+        return contadorIds;
+    }
+
+    public static void setContadorIds(int contadorIds) {
+        Usuario.contadorIds = contadorIds;
+    }
     protected int idUsuario; /// pensando en eso
     private String nombre;
     private String primerApellido;
     private String segundoApellido;
+    private String contraseña;
+    private int DNI;
     private String direccion;
     private String telefono;
     private String email;
@@ -14,13 +24,15 @@ public abstract class Usuario {
     //Contructor de usuarios
     private static int contadorIds = 1;  // Se usa para generar IDs automáticos
 
-    public Usuario (String nombre, String primerApellido, String segundoApellido, String direccion, String telefono, String email, LocalDate fechaNacimiento, String genero){
+    public Usuario (String nombre, String primerApellido, String segundoApellido, String contraseña ,int DNI , String direccion, String telefono, String email, LocalDate fechaNacimiento, String genero){
 
         this.idUsuario = contadorIds++;
 
         this.nombre = nombre;
         this.primerApellido = primerApellido;
         this.segundoApellido = segundoApellido;
+        this.contraseña = contraseña;
+        this.DNI = DNI;
         this.direccion = direccion;
         this.telefono = telefono;
         this.email = email;
@@ -65,6 +77,14 @@ public abstract class Usuario {
         this.segundoApellido = segundoApellido;
     }
 
+    public int getDNI() {
+        return DNI;
+    }
+
+    public void setDNI(int DNI) {
+        this.DNI = DNI;
+    }
+
     public String getDireccion() {
         return direccion;
     }
@@ -104,6 +124,8 @@ public abstract class Usuario {
     public void setGenero(String genero) {
         this.genero = genero;
     }
+
+    
     
     
 }

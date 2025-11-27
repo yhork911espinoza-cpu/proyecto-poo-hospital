@@ -1,4 +1,5 @@
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,7 @@ public class Hospital {
     private List<Farmacia> farmacias;
     private List<Departamento> departamentos;
 
-
-    //Contructor
+    // Contructor
     public Hospital(String nombreHospital, String direccion, String telefono, String email, int capacidadCamas) {
         this.nombreHospital = nombreHospital;
         this.direccion = direccion;
@@ -29,19 +29,27 @@ public class Hospital {
         this.administradores = new ArrayList<>();
         this.farmacias = new ArrayList<>();
         this.departamentos = new ArrayList<>();
+
+        // ********************************************************************* */
+        // ************************* ADMINISTRADORES ************************* */
+        Administrador admin1 = new Administrador("Paolo", "Coaquira", "Anccori", "contraseñaPaolo", 75554491, "Av. Peru 123", "987654321",
+                "paolo@gmail.com", LocalDate.of(2003, 5, 15), "Masculino");
+        administradores.add(admin1);
+        // ********************************************************************* */
+        // ********************************************************************* */
     }
 
-    //Metodo agregar paciente
-    public void agregarPaciente(Paciente paciente){
+    // Metodo agregar paciente
+    public void agregarPaciente(Paciente paciente) {
         pacientes.add(paciente);
         System.out.println("Paciente registrado.");
     }
 
-    public Paciente buscarPaciente(int idPaciente){
+    public Paciente buscarPaciente(int idPaciente) {
         return pacientes.get(idPaciente);
     }
 
-    //Get y set
+    // Get y set
 
     public String getNombreHospital() {
         return nombreHospital;
@@ -130,8 +138,5 @@ public class Hospital {
     public void setDepartamentos(List<Departamento> departamentos) {
         this.departamentos = departamentos;
     }
-    
-    
 
-    
 }

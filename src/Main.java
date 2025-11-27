@@ -14,6 +14,11 @@ public class Main {
         String apellido1 = lector.nextLine();
         System.out.print("Segundo apellido: ");
         String apellido2 = lector.nextLine();
+        System.out.print("Contraseña: ");
+        String contraseña = lector.nextLine();
+        System.out.print("DNI: ");
+        int dni = lector.nextInt();
+        lector.nextLine(); // para que lea el salto de line en el INT
 
         LocalDate fechaNacimiento = null; // *** Caso de fecha de nacimiento */
         while (true) {
@@ -56,7 +61,8 @@ public class Main {
             }
         }
 
-        Paciente nuevoPaciente = new Paciente(nombre, apellido1, apellido2, direccion, telefono, email, fechaNacimiento,
+        Paciente nuevoPaciente = new Paciente(nombre, apellido1, apellido2, contraseña, dni, direccion, telefono, email,
+                fechaNacimiento,
                 genero, alergias);
         return nuevoPaciente;
     }
@@ -94,6 +100,51 @@ public class Main {
 
                     case 1:
                         System.out.println("=== INICIAR SESIÓN ===");
+                        System.out.println("""
+                                ¿Quién eres tú?
+                                1. Paciente
+                                2. Doctor
+                                3. Enfermera
+                                4. Administrador
+                                5. Volver
+                                """);
+
+                        System.out.print("Elige una opción: ");
+
+                        int opcionUsuarioIniciarSesion = lector.nextInt();
+                        lector.nextLine(); //limpiar el salto de línea
+
+                        switch (opcionUsuarioIniciarSesion) {
+                            case 1:
+                                System.out.println("Iniciando sesión como PACIENTE...");
+                                // Aquí llamas al método para login de paciente
+                                // loginPaciente();
+                                break;
+
+                            case 2:
+                                System.out.println("Iniciando sesión como DOCTOR...");
+                                // loginDoctor();
+                                break;
+
+                            case 3:
+                                System.out.println("Iniciando sesión como ENFERMERA...");
+                                // loginEnfermera();
+                                break;
+
+                            case 4:
+                                System.out.println("Iniciando sesión como ADMINISTRADOR...");
+                                // loginAdministrador();
+                                break;
+
+                            case 5:
+                                System.out.println("Volviendo al menú...");
+                                break;
+
+                            default:
+                                System.out.println("Opción inválida. Intente nuevamente.");
+                                break;
+                        }
+
                         break;
 
                     case 2:
@@ -125,6 +176,7 @@ public class Main {
 
                                 case 1:
                                     System.out.println("Mostrando datos del paciente...");
+                                    nuevopaciente.mostrarDatos();
                                     break;
 
                                 case 2:
@@ -148,7 +200,8 @@ public class Main {
                                     System.out.println("Opción no válida.");
                             }
 
-                        } while (comprobarPacienteAcciones); // para que se pueda salir al menu del inicio sin iniciar sesion
+                        } while (comprobarPacienteAcciones); // para que se pueda salir al menu del inicio sin iniciar
+                                                             // sesion
 
                         break;
 

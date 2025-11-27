@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 public class Paciente extends Usuario{
     private String numeroHistoriaClinica;
@@ -10,11 +11,22 @@ public class Paciente extends Usuario{
     private Doctor doctorAsignado;
 
     //Constructor/s de paciente
-    
-    public Paciente(String nombre, String primerApellido, String segundoApellido, String direccion, String telefono, String email, LocalDate fechaNacimiento, String genero, //de la clase heredada usuario
+    public Paciente(String nombre, String primerApellido, String segundoApellido, String contraseña, int DNI, String direccion, String telefono, String email, LocalDate fechaNacimiento, String genero, //de la clase heredada usuario
                     List<String> alergias) {
-        super(nombre, primerApellido, segundoApellido, direccion, telefono, email, fechaNacimiento, genero);
+        super(nombre, primerApellido, segundoApellido, contraseña,DNI, direccion, telefono, email, fechaNacimiento, genero);
         this.alergias = alergias;
+        this.numeroHistoriaClinica = "HC-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+    }
+
+    //-------------------------------------------------------------------
+    //-----------------  Metodos  ---------------------------------------
+    //MNostrar datos del paciente
+    public void mostrarDatos(){
+        System.out.println("Nombre: " + getNombre());
+        System.out.println("Apellidos: " + getPrimerApellido() + " " + getSegundoApellido());
+        System.out.println("Número de Historia Clinica: " + getNumeroHistoriaClinica());
+        System.out.println("DNI: " + getDNI());
+        System.out.println("etc..."); //falta poner más datos o como llenarlos
     }
 
     //get y set de paciente
