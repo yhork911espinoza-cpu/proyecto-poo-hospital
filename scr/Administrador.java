@@ -1,70 +1,28 @@
-class Inventario {}
-class Report {}
-class Solicitud {}
-
-import java.util.Date;
-import java.util.List;
-import java.util.ArrayList;
+// ==================== Administrador.java ====================
+import java.time.LocalDate;
 
 public class Administrador extends Usuario {
-    private String areaGestion;
-    private int nivelAcceso;
+    private String rol;
 
-    public Administrador(
-        String idUsuario, String nombre, String apellido, String direccion, String telefono, String email, Date fechaNacimiento, String genero,
-        String areaGestion, int nivelAcceso
-    ) {
-        super(idUsuario, nombre, apellido, direccion, telefono, email, fechaNacimiento, genero);
-        this.areaGestion = areaGestion;
-        this.nivelAcceso = nivelAcceso;
+    public Administrador(String nombre, String primerApellido, String segundoApellido, 
+                        String contraseña, int dni, String direccion, String telefono, 
+                        String email, LocalDate fechaNacimiento, String genero, 
+                        String rol) {
+        super(nombre, primerApellido, segundoApellido, contraseña, dni, direccion, 
+              telefono, email, fechaNacimiento, genero);
+        this.rol = rol;
     }
 
-    public List<Usuario> gestionarEmpleados() {
-        System.out.println("ADMIN: Gestión de empleados iniciada.");
-        return new ArrayList<>();
-    }
-
-    public Report generarReportes() {
-        System.out.println("ADMIN: Generando reporte...");
-        return new Report();
-    }
-
-    public Inventario gestionarInventario() {
-        System.out.println("ADMIN: Accediendo a inventario.");
-        return new Inventario();
-    }
-
-    public void aprobarSolicitudes(Solicitud solicitud) {
-        System.out.println("ADMIN: Revisando solicitud.");
-    }
-
-    public void gestionarPresupuesto() {
-        System.out.println("ADMIN: Gestionando presupuesto.");
-    }
-
-    public void asignarRecursos() {
-        System.out.println("ADMIN: Asignando recursos.");
-    }
+    public String getRol() { return rol; }
+    public void setRol(String rol) { this.rol = rol; }
 
     @Override
-    public void iniciarSesion() {
-        super.iniciarSesion();
-        System.out.println("ADMIN: Acceso al sistema de gestión concedido (Nivel " + this.nivelAcceso + ").");
-    }
-
-    public String getAreaGestion() {
-        return areaGestion;
-    }
-
-    public void setAreaGestion(String areaGestion) {
-        this.areaGestion = areaGestion;
-    }
-
-    public int getNivelAcceso() {
-        return nivelAcceso;
-    }
-
-    public void setNivelAcceso(int nivelAcceso) {
-        this.nivelAcceso = nivelAcceso;
+    public void mostrarDatos() {
+        System.out.println("\n=== DATOS DEL ADMINISTRADOR ===");
+        System.out.println("Nombre: " + nombre + " " + primerApellido + " " + segundoApellido);
+        System.out.println("DNI: " + dni);
+        System.out.println("Rol: " + rol);
+        System.out.println("Teléfono: " + telefono);
+        System.out.println("Email: " + email);
     }
 }
