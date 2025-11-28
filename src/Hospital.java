@@ -67,5 +67,6 @@ public class Hospital {
     }
 
     public List<Doctor> getDoctores() { return doctores; }
+    public List<Administrador> getAdministradores() { return administradores;}
     public List<Departamento> getDepartamentos() { return departamentos; }
 }

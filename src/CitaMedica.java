@@ -2,11 +2,11 @@
 import java.time.LocalDateTime;
 
 public class CitaMedica {
+    private Paciente paciente;
+    private Doctor doctor;
     private LocalDateTime fechaHora;
     private String motivo;
     private String estado;
-    private Paciente paciente;
-    private Doctor doctor;
     private String consultorio;
 
     public CitaMedica(LocalDateTime fechaHora, String motivo, Paciente paciente, 

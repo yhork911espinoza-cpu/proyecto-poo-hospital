@@ -544,6 +544,7 @@ public class Main {
         System.out.println("\n=== ESTADÍSTICAS DEL HOSPITAL ===");
         System.out.println("Total de pacientes: " + hospital.buscarPaciente(0));
         System.out.println("Total de doctores: " + hospital.getDoctores().size());
+        System.out.println("Total de Administradores: " + hospital.getAdministradores().size());
         // Más estadísticas aquí...
     }
 
@@ -557,8 +558,8 @@ public class Main {
                 250);
 
         // Datos de prueba
-        Administrador admin = new Administrador("Juan", "Pérez", "López", "admin123", 
-                                               12345678, "", "987654321", 
+        Administrador admin = new Administrador("Paolo Josue", "Coaquira", "Anccori", "pao20505", 
+                                               75554491, "", "987654321", 
                                                "admin@hospital.pe", LocalDate.of(1980, 5, 15), 
                                                "M", "Administrador General");
         hospital.agregarAdministrador(admin);
