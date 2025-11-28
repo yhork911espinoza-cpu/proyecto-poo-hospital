@@ -155,6 +155,8 @@ public class Main {
             System.out.println("\n" + SEPARACION);
             System.out.println("BIENVENIDO: " + paciente.getNombre() + " " +
                     paciente.getPrimerApellido());
+                    // ========================================================
+                    // ================ paciente ==============================
             System.out.println("=== MENÚ PACIENTE ===");
             System.out.println("1. Ver mis datos");
             System.out.println("2. Editar mis datos");

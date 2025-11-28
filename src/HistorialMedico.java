@@ -25,7 +25,7 @@ public class HistorialMedico {
         examenes.add(examen);
     }
 
-    public void mostrarHistorial() {
+    public void mostrarHistorial() {   // se muestra en el manu paciente
         System.out.println("\n=== HISTORIAL MÉDICO ===");
         
         System.out.println("\nDiagnósticos:");
