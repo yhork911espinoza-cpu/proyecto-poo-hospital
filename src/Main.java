@@ -588,6 +588,12 @@ public class Main {
                 LocalDate.of(1990, 3, 10), "F", "Mañana");
         hospital.agregarEnfermera(enfermera1);
 
+        Enfermera enfermera2 = new Enfermera("Paolo", "Coaquira", "Anccori", "pao20505",
+                75554491, "Psj Sna Lima", "9377319442",
+                "atorres@hospital.pe",
+                LocalDate.of(1990, 3, 10), "F", "Mañana");
+        hospital.agregarEnfermera(enfermera2);
+
         // *********************************Pacientes de ejemplo***************** */
         Paciente p1 = new Paciente("Carlos", "Gómez", "Rivas", "pass123", 12345678,
                 "Av. Siempre Viva 123", "987654321", "carlos@gmail.com",
