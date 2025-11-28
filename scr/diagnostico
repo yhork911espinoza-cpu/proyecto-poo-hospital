@@ -1,0 +1,22 @@
+import java.time.LocalDate;
+
+public class Diagnostico {
+    private String descripcion;
+    private LocalDate fecha;
+    private Doctor doctor;
+
+    public Diagnostico(String descripcion, LocalDate fecha, Doctor doctor) {
+        this.descripcion = descripcion;
+        this.fecha = fecha;
+        this.doctor = doctor;
+    }
+
+    public String getDescripcion() { return descripcion; }
+    public LocalDate getFecha() { return fecha; }
+    public Doctor getDoctor() { return doctor; }
+
+    @Override
+    public String toString() {
+        return fecha + " - " + descripcion + " (Dr. " + doctor.getNombre() + ")";
+    }
+}
