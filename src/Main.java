@@ -86,10 +86,10 @@ public class Main {
 
         Paciente paciente = hospital.buscarPaciente(dni);
         if (paciente != null && paciente.validarCredenciales(dni, contraseña)) {
-            System.out.println("  Inicio de sesión exitoso!");
+            System.out.println("✓ Inicio de sesión exitoso!");
             return paciente;
         } else {
-            System.out.println("   DNI o contraseña incorrectos.");
+            System.out.println("✗ DNI o contraseña incorrectos.");
             return null;
         }
     }
@@ -104,10 +104,10 @@ public class Main {
 
         Doctor doctor = hospital.buscarDoctor(dni);
         if (doctor != null && doctor.validarCredenciales(dni, contraseña)) {
-            System.out.println("  Inicio de sesión exitoso!");
+            System.out.println("✓ Inicio de sesión exitoso!");
             return doctor;
         } else {
-            System.out.println("   DNI o contraseña incorrectos.");
+            System.out.println("✗ DNI o contraseña incorrectos.");
             return null;
         }
     }
@@ -122,10 +122,10 @@ public class Main {
 
         Enfermera enfermera = hospital.buscarEnfermera(dni);
         if (enfermera != null && enfermera.validarCredenciales(dni, contraseña)) {
-            System.out.println(" Inicio de sesión exitoso!");
+            System.out.println("✓ Inicio de sesión exitoso!");
             return enfermera;
         } else {
-            System.out.println("   DNI o contraseña incorrectos.");
+            System.out.println("✗ DNI o contraseña incorrectos.");
             return null;
         }
     }
@@ -140,10 +140,10 @@ public class Main {
 
         Administrador admin = hospital.buscarAdministrador(dni);
         if (admin != null && admin.validarCredenciales(dni, contraseña)) {
-            System.out.println(" Inicio de sesión exitoso!");
+            System.out.println("✓ Inicio de sesión exitoso!");
             return admin;
         } else {
-            System.out.println(" DNI o contraseña incorrectos.");
+            System.out.println("✗ DNI o contraseña incorrectos.");
             return null;
         }
     }
@@ -351,22 +351,22 @@ public class Main {
             case 1:
                 System.out.print("Nueva dirección: ");
                 paciente.setDireccion(lector.nextLine());
-                System.out.println("  Dirección actualizada.");
+                System.out.println("✓ Dirección actualizada.");
                 break;
             case 2:
                 System.out.print("Nuevo teléfono: ");
                 paciente.setTelefono(lector.nextLine());
-                System.out.println("  Teléfono actualizado.");
+                System.out.println("✓ Teléfono actualizado.");
                 break;
             case 3:
                 System.out.print("Nuevo email: ");
                 paciente.setEmail(lector.nextLine());
-                System.out.println("  Email actualizado.");
+                System.out.println("✓ Email actualizado.");
                 break;
             case 4:
                 System.out.print("Nueva alergia: ");
                 paciente.agregarAlergia(lector.nextLine());
-                System.out.println("  Alergia agregada.");
+                System.out.println("✓ Alergia agregada.");
                 break;
             default:
                 System.out.println("Opción no válida.");
@@ -423,7 +423,7 @@ public class Main {
         doctorSeleccionado.agregarCita(cita);
         doctorSeleccionado.agregarPaciente(paciente);
 
-        System.out.println("  Cita registrada exitosamente!");
+        System.out.println("✓ Cita registrada exitosamente!");
     }
 
     public static void agregarDiagnostico(Doctor doctor, Hospital hospital) {
@@ -443,7 +443,7 @@ public class Main {
         Diagnostico diagnostico = new Diagnostico(descripcion, LocalDate.now(), doctor);
         paciente.getHistorialMedico().agregarDiagnostico(diagnostico);
 
-        System.out.println("  Diagnóstico agregado.");
+        System.out.println("✓ Diagnóstico agregado.");
     }
 
     public static void agregarTratamiento(Doctor doctor, Hospital hospital) {
@@ -470,7 +470,7 @@ public class Main {
                 fechaFin, doctor);
         paciente.getHistorialMedico().agregarTratamiento(tratamiento);
 
-        System.out.println("  Tratamiento agregado.");
+        System.out.println("✓ Tratamiento agregado.");
     }
 
     public static void buscarPacienteEnfermera(Hospital hospital) {
@@ -512,7 +512,7 @@ public class Main {
                 "", telefono, email, LocalDate.now(), "M",
                 especialidad, licencia);
         hospital.agregarDoctor(doctor);
-        System.out.println("  Doctor registrado exitosamente!");
+        System.out.println("✓ Doctor registrado exitosamente!");
     }
 
     public static void registrarEnfermera(Hospital hospital) {
@@ -539,7 +539,7 @@ public class Main {
                 dni, "", telefono, email, LocalDate.now(),
                 "F", turno);
         hospital.agregarEnfermera(enfermera);
-        System.out.println("  Enfermera registrada exitosamente!");
+        System.out.println("✓ Enfermera registrada exitosamente!");
     }
 
     public static void mostrarEstadisticas(Hospital hospital) {
@@ -577,6 +577,11 @@ public class Main {
                 LocalDate.of(1985, 8, 20), "F", "Cardiología", "LIC-12345");
         hospital.agregarDoctor(doctor1);
 
+        Doctor doctor2 = new Doctor("Paolo", "Coaquira", "Anccori", "pao20505", 75554491,
+                "", "987123456", "coaquiraan@hospital.pe",
+                LocalDate.of(1985, 8, 20), "F", "Cardiología", "LIC-12345");
+        hospital.agregarDoctor(doctor2);
+
         Enfermera enfermera1 = new Enfermera("Ana", "Torres", "Ruiz", "enf123",
                 45678912, "", "987789456",
                 "atorres@hospital.pe",
@@ -590,8 +595,8 @@ public class Main {
                 List.of("Polen", "Penicilina"));
                 hospital.agregarPaciente(p1);
 
-        Paciente p2 = new Paciente("María", "Fernández", "Lopez", "maria2024", 87654321,
-                "Calle Lima 450", "912345678", "maria@gmail.com",
+        Paciente p2 = new Paciente("Paolo", "Coaquira", "Anccori", "pao20505", 75554481,
+                "Calle Lima 450", "912345678", "paocoaquira@gmail.com",
                 LocalDate.parse("1985-10-30"), "Femenino",
                 List.of());
                 hospital.agregarPaciente(p2);
@@ -699,7 +704,7 @@ public class Main {
                     case 2:
                         Paciente nuevoPaciente = registrarPaciente();
                         hospital.agregarPaciente(nuevoPaciente);
-                        System.out.println("  Registro exitoso! Ahora puedes iniciar sesión.");
+                        System.out.println("✓ Registro exitoso! Ahora puedes iniciar sesión.");
                         break;
 
                     case 3:
