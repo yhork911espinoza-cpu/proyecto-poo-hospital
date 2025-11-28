@@ -566,6 +566,12 @@ public class Main {
                 "M", "Administrador General");
         hospital.agregarAdministrador(admin);
 
+        Administrador admin1 = new Administrador("Jhork Antony", "Espinoza", "Quintana", "kanox123",
+                76724541, "", "901699054",
+                "admin@hospital.pe", LocalDate.of(1980, 5, 15),
+                "M", "Administrador General");
+        hospital.agregarAdministrador(admin1);
+
         Doctor doctor1 = new Doctor("María", "García", "Sánchez", "doc123", 87654321,
                 "", "987123456", "mgarcia@hospital.pe",
                 LocalDate.of(1985, 8, 20), "F", "Cardiología", "LIC-12345");
