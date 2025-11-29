@@ -16,6 +16,7 @@ public class Departamento {
         this.enfermeras = new ArrayList<>();
     }
 
+    // ======== GETTERS Y SETTERS ===================
     public String getNombreDepartamento() { return nombreDepartamento; }
     public String getUbicacion() { return ubicacion; }
     public List<Doctor> getDoctores() { return doctores; }
