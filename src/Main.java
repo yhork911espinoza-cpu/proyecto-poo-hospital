@@ -163,7 +163,7 @@ public class Main {
             System.out.println("3. Registrar cita médica");
             System.out.println("4. Ver mis citas");
             System.out.println("5. Ver mi historial médico");
-            System.out.println("6. Cerrar sesión");
+            System.out.println("0. Cerrar sesión");
             System.out.print("Opción: ");
 
             try {
@@ -186,7 +186,7 @@ public class Main {
                     case 5:
                         paciente.getHistorialMedico().mostrarHistorial();
                         break;
-                    case 6:
+                    case 0:
                         System.out.println("Cerrando sesión...");
                         salir = true;
                         break;
@@ -212,7 +212,7 @@ public class Main {
             System.out.println("3. Ver mis pacientes");
             System.out.println("4. Agregar diagnóstico");
             System.out.println("5. Agregar tratamiento");
-            System.out.println("6. Cerrar sesión");
+            System.out.println("0. Cerrar sesión");
             System.out.print("Opción: ");
 
             try {
@@ -235,7 +235,7 @@ public class Main {
                     case 5:
                         agregarTratamiento(doctor, hospital);
                         break;
-                    case 6:
+                    case 0:
                         System.out.println("Cerrando sesión...");
                         salir = true;
                         break;
@@ -259,7 +259,7 @@ public class Main {
             System.out.println("1. Ver mis datos");
             System.out.println("2. Ver mis pacientes");
             System.out.println("3. Buscar paciente");
-            System.out.println("4. Cerrar sesión");
+            System.out.println("0. Cerrar sesión");
             System.out.print("Opción: ");
 
             try {
@@ -276,7 +276,7 @@ public class Main {
                     case 3:
                         buscarPacienteEnfermera(hospital);
                         break;
-                    case 4:
+                    case 0:
                         System.out.println("Cerrando sesión...");
                         salir = true;
                         break;
@@ -301,7 +301,7 @@ public class Main {
             System.out.println("2. Registrar doctor");
             System.out.println("3. Registrar enfermera");
             System.out.println("4. Ver estadísticas");
-            System.out.println("5. Cerrar sesión");
+            System.out.println("0. Cerrar sesión");
             System.out.print("Opción: ");
 
             try {
@@ -321,7 +321,7 @@ public class Main {
                     case 4:
                         mostrarEstadisticas(hospital);
                         break;
-                    case 5:
+                    case 0:
                         System.out.println("Cerrando sesión...");
                         salir = true;
                         break;
@@ -341,7 +341,7 @@ public class Main {
         System.out.println("1. Dirección");
         System.out.println("2. Teléfono");
         System.out.println("3. Email");
-        System.out.println("4. Agregar alergia");
+        System.out.println("0. Agregar alergia");
         System.out.print("¿Qué deseas editar?: ");
 
         int opcion = lector.nextInt();
@@ -363,7 +363,7 @@ public class Main {
                 paciente.setEmail(lector.nextLine());
                 System.out.println(" Email actualizado.");
                 break;
-            case 4:
+            case 0:
                 System.out.print("Nueva alergia: ");
                 paciente.agregarAlergia(lector.nextLine());
                 System.out.println(" Alergia agregada.");
@@ -710,7 +710,7 @@ public class Main {
                     case 2:
                         Paciente nuevoPaciente = registrarPaciente();
                         hospital.agregarPaciente(nuevoPaciente);
-                        System.out.println("✓ Registro exitoso! Ahora puedes iniciar sesión.");
+                        System.out.println("Registro exitoso! Ahora puedes iniciar sesión.");
                         break;
 
                     case 3:
