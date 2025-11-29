@@ -58,6 +58,8 @@ public abstract class Usuario {
     public String getGenero() { return genero; }
     public void setGenero(String genero) { this.genero = genero; }
 
+    //******  METODOS USUARIO */
+
     public abstract void mostrarDatos();
     
     public boolean validarCredenciales(int dni, String contraseña) {
