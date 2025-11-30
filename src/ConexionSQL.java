@@ -4,9 +4,10 @@ import java.sql.SQLException;
 
 public class ConexionSQL {
 
-    private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=HospitalDB;encrypt=false;";
-    private static final String USER = "sa"; // tu usuario SQL Server
-    private static final String PASS = "paolo2005"; // tu contraseña SQL
+    private static final String URL =
+            "jdbc:sqlserver://localhost:1433;databaseName=HospitalDB;instanceName=SQLEXPRESS;encrypt=false;";
+    private static final String USER = "sa";
+    private static final String PASS = "paolo2005";
 
     public static Connection getConexion() {
         try {
