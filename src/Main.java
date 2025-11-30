@@ -155,8 +155,8 @@ public class Main {
             System.out.println("\n" + SEPARACION);
             System.out.println("BIENVENIDO: " + paciente.getNombre() + " " +
                     paciente.getPrimerApellido());
-                    // ========================================================
-                    // ================ paciente ==============================
+            // ========================================================
+            // ================ paciente ==============================
             System.out.println("=== MENÚ PACIENTE ===");
             System.out.println("1. Ver mis datos");
             System.out.println("2. Editar mis datos");
@@ -300,7 +300,8 @@ public class Main {
             System.out.println("1. Ver mis datos");
             System.out.println("2. Registrar doctor");
             System.out.println("3. Registrar enfermera");
-            System.out.println("4. Ver estadísticas");
+            System.out.println("4. Crear departamento");
+            System.out.println("5. Ver estadísticas");
             System.out.println("0. Cerrar sesión");
             System.out.print("Opción: ");
 
@@ -319,6 +320,9 @@ public class Main {
                         registrarEnfermera(hospital);
                         break;
                     case 4:
+                        crearDepartamento(hospital);
+                        break;
+                    case 5:
                         mostrarEstadisticas(hospital);
                         break;
                     case 0:
@@ -542,11 +546,21 @@ public class Main {
         System.out.println("Enfermera registrada exitosamente!");
     }
 
+    public static void crearDepartamento(Hospital hospital){
+        System.out.print("Nombre del Dpartamento: ");
+        String nombreDepa = lector.nextLine();
+        System.out.print("Ubicación: ");
+        String ubicacionDepa = lector.nextLine();
+        Departamento departamento = new Departamento(nombreDepa, ubicacionDepa);
+        hospital.agregarDepartamento(departamento);
+    }
+
     public static void mostrarEstadisticas(Hospital hospital) {
         System.out.println("\n=== ESTADÍSTICAS DEL HOSPITAL ===");
         System.out.println("Total de pacientes: " + hospital.getPacientes().size());
         System.out.println("Total de doctores: " + hospital.getDoctores().size());
         System.out.println("Total de Administradores: " + hospital.getAdministradores().size());
+        System.out.println("Total de departamentos: " + hospital.getDepartamentos().size());
         // Más estadísticas aquí...
     }
 
@@ -599,61 +613,61 @@ public class Main {
                 "Av. Siempre Viva 123", "987654321", "carlos@gmail.com",
                 LocalDate.parse("1990-05-12"), "Masculino",
                 List.of("Polen", "Penicilina"));
-                hospital.agregarPaciente(p1);
+        hospital.agregarPaciente(p1);
 
         Paciente p2 = new Paciente("Paolo", "Coaquira", "Anccori", "pao20505", 75554481,
                 "Calle Lima 450", "912345678", "paocoaquira@gmail.com",
                 LocalDate.parse("1985-10-30"), "Femenino",
                 List.of());
-                hospital.agregarPaciente(p2);
+        hospital.agregarPaciente(p2);
 
         Paciente p3 = new Paciente("José", "Pérez", "Mamani", "jperez11", 44556677,
                 "Jr. Las Flores 234", "956789123", "josep@hotmail.com",
                 LocalDate.parse("2000-03-22"), "Masculino",
                 List.of("Maní"));
-                hospital.agregarPaciente(p3);
+        hospital.agregarPaciente(p3);
 
         Paciente p4 = new Paciente("Lucía", "Quispe", "Torres", "lucy88", 11223344,
                 "Urb. Santa Rosa Mz C", "998877665", "lucia@outlook.com",
                 LocalDate.parse("1998-01-10"), "Femenino",
                 List.of());
-                hospital.agregarPaciente(p4);
+        hospital.agregarPaciente(p4);
 
         Paciente p5 = new Paciente("Miguel", "Ramos", "Soto", "miguel33", 22334455,
                 "Calle Arequipa 789", "945612378", "miguel@gmail.com",
                 LocalDate.parse("2002-07-18"), "Masculino",
                 List.of("Gluten"));
-                hospital.agregarPaciente(p5);
+        hospital.agregarPaciente(p5);
 
         Paciente p6 = new Paciente("Andrea", "Valdez", "Chavez", "andreaXY", 33445566,
                 "Av. Dolores 432", "934567812", "andrea@gmail.com",
                 LocalDate.parse("1996-09-14"), "Femenino",
                 List.of("Lácteos"));
-                hospital.agregarPaciente(p6);
+        hospital.agregarPaciente(p6);
 
         Paciente p7 = new Paciente("Luis", "Huaraca", "Cruz", "luis321", 55667788,
                 "Av. Kennedy 303", "987321654", "lhuaraca@yahoo.com",
                 LocalDate.parse("1993-12-01"), "Masculino",
                 List.of());
-                hospital.agregarPaciente(p7);
+        hospital.agregarPaciente(p7);
 
         Paciente p8 = new Paciente("Sofía", "Mendoza", "Paredes", "sofipass", 66778899,
                 "Jr. Progreso 999", "923456781", "sofia@gmail.com",
                 LocalDate.parse("2001-04-25"), "Femenino",
                 List.of("Polen", "Mariscos"));
-                hospital.agregarPaciente(p8);
+        hospital.agregarPaciente(p8);
 
         Paciente p9 = new Paciente("Ricardo", "Loayza", "Calle", "ricky22", 77889900,
                 "Calle Mercaderes 514", "987555444", "ricardo@hotmail.com",
                 LocalDate.parse("1994-06-08"), "Masculino",
                 List.of());
-                hospital.agregarPaciente(p9);
+        hospital.agregarPaciente(p9);
 
         Paciente p10 = new Paciente("Valeria", "Suárez", "Nina", "vale007", 88990011,
                 "Urb. Los Olivos B12", "912987654", "valeria@gmail.com",
                 LocalDate.parse("1999-02-19"), "Femenino",
                 List.of("Polvo", "Aspirina"));
-                hospital.agregarPaciente(p10);
+        hospital.agregarPaciente(p10);
 
         boolean continuar = true;
         while (continuar) {
