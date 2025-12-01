@@ -555,6 +555,7 @@ public class Main {
         String ubicacionDepa = lector.nextLine();
         Departamento departamento = new Departamento(nombreDepa, ubicacionDepa);
         hospital.agregarDepartamento(departamento);
+        System.out.println("Departamento creado exitosamente");
     }
 
     public static void mostrarEstadisticas(Hospital hospital) {
