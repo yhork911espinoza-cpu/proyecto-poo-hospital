@@ -300,10 +300,11 @@ public class Main {
                     admin.getPrimerApellido());
             System.out.println("=== MENÚ ADMINISTRADOR ===");
             System.out.println("1. Ver mis datos");
-            System.out.println("2. Registrar doctor");
-            System.out.println("3. Registrar enfermera");
-            System.out.println("4. Crear departamento");
-            System.out.println("5. Ver estadísticas");
+            System.out.println("2. Ver estadísticas");
+            System.out.println("3. Registrar doctor");
+            System.out.println("4. Registrar enfermera");
+            System.out.println("5. Crear departamento");
+            System.out.println("6. Ver registros");
             System.out.println("0. Cerrar sesión");
             System.out.print("Opción: ");
 
@@ -316,16 +317,19 @@ public class Main {
                         admin.mostrarDatos();
                         break;
                     case 2:
-                        registrarDoctor(hospital);
+                        mostrarEstadisticas(hospital);
                         break;
                     case 3:
-                        registrarEnfermera(hospital);
+                        registrarDoctor(hospital);
                         break;
                     case 4:
-                        crearDepartamento(hospital);
+                        registrarEnfermera(hospital);
                         break;
                     case 5:
-                        mostrarEstadisticas(hospital);
+                        crearDepartamento(hospital);
+                        break;
+                    case 6:
+                        verRegistros(hospital);
                         break;
                     case 0:
                         System.out.println("Cerrando sesión...");
@@ -548,7 +552,7 @@ public class Main {
         System.out.println("Enfermera registrada exitosamente!");
     }
 
-    public static void crearDepartamento(Hospital hospital){
+    public static void crearDepartamento(Hospital hospital) {
         System.out.print("Nombre del Dpartamento: ");
         String nombreDepa = lector.nextLine();
         System.out.print("Ubicación: ");
@@ -567,6 +571,67 @@ public class Main {
         // Más estadísticas aquí...
     }
 
+    public static void verRegistros(Hospital hospital) {
+
+        boolean salir = false;
+        while (!salir) {
+            System.out.println("=== CONSULTAR REGISTROS ===");
+            System.out.println("1. Pacientes");
+            System.out.println("2. Doctores");
+            System.out.println("3. Enfermeras");
+            System.out.println("4. Administradores");
+            System.out.println("5. Departamentos");
+            System.out.println("0. Volver");
+            System.out.print("Opción: ");
+
+            try {
+                int opcion = lector.nextInt();
+                lector.nextLine();
+
+                switch (opcion) {
+                    case 1:
+                        System.out.println("Pacientes:");
+                        hospital.mostrarPacientesTotal();
+                        System.out.println("===========================");
+                        break;
+                    case 2:
+                        System.out.println("Doctores:");
+                        hospital.mostrarDoctoresTotal();
+                        System.out.println("===========================");
+                        break;
+                    case 3:
+                        System.out.println("Enfermeras:");
+                        hospital.mostrarEnfermerasTotal();
+                        System.out.println("===========================");
+                        break;
+                    case 4:
+                        System.out.println("Administradores:");
+                        hospital.mostrarAdministradoresTotal();
+                        System.out.println("===========================");
+                        break;
+                    case 5:
+                        System.out.println("Departamentos:");
+                        hospital.mostrarDepartamentosTotal();
+                        System.out.println("===========================");
+                        break;
+                    case 0:
+                        System.out.println("Volviendo...");
+                        System.out.println("===========================");
+                        salir = true;
+                        break;
+                    default:
+                        System.out.println("Opción no válida.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Debe ingresar un número.");
+                lector.nextLine();
+            }
+        }
+    }
+
+    // =====================================================================================================================================================================
+    // =====================================================================================================================================================================
+    // =====================================================================================================================================================================
     // ======================== MAIN ========================
     public static void main(String[] args) {
         Hospital hospital = new Hospital(
