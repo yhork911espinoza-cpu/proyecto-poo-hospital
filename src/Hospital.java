@@ -13,6 +13,9 @@ public class Hospital {
     private List<Doctor> doctores;
     private List<Enfermera> enfermeras;
     private List<Administrador> administradores;
+    private List<PersonalLimpieza> personalLimpieza;
+    private List<GuardiaSeguridad> guardiasSeguridad;
+    private List<Cocinero> cocineros;
     private List<Departamento> departamentos;
 
     public Hospital(String nombreHospital, String direccion, String telefono,
@@ -26,6 +29,9 @@ public class Hospital {
         this.doctores = new ArrayList<>();
         this.enfermeras = new ArrayList<>();
         this.administradores = new ArrayList<>();
+        this.personalLimpieza = new ArrayList<>();
+        this.guardiasSeguridad = new ArrayList<>();
+        this.cocineros = new ArrayList<>();
         this.departamentos = new ArrayList<>();
     }
 
@@ -48,6 +54,17 @@ public class Hospital {
 
     public void agregarAdministrador(Administrador admin) {
         administradores.add(admin);
+    }
+
+    public void agregarPersonalLimpieza(PersonalLimpieza perLimpieza){
+        personalLimpieza.add(perLimpieza);
+    }
+
+    public void agregarguardiaSeguridad(GuardiaSeguridad guardiaSeguridad){
+        guardiasSeguridad.add(guardiaSeguridad);
+    }
+    public void agregarCocinero(Cocinero cocinero){
+        cocineros.add(cocinero);
     }
 
     public void agregarDepartamento(Departamento depto) {
@@ -87,52 +104,76 @@ public class Hospital {
         return null;
     }
 
+    public PersonalLimpieza buscarPersonalLimpieza(int dni) {
+        for (PersonalLimpieza L : personalLimpieza) {
+            if (L.getDni() == dni)
+                return L;
+        }
+        return null;
+    }
+
+    public GuardiaSeguridad buscarGuardiaSeguridad(int dni) {
+        for (GuardiaSeguridad G : guardiasSeguridad) {
+            if (G.getDni() == dni)
+                return G;
+        }
+        return null;
+    }
+
+    public Cocinero buscarCocinero(int dni) {
+        for (Cocinero c : cocineros) {
+            if (c.getDni() == dni)
+                return c;
+        }
+        return null;
+    }
+
     // Metodos para mostrar usuarios total xd
     public void mostrarPacientesTotal() {
-        if(pacientes.isEmpty()){
+        if (pacientes.isEmpty()) {
             System.out.println("No hay pacientes registrados");
         } else {
             for (int i = 0; i < pacientes.size(); i++) {
-            Paciente pacien = pacientes.get(i);
-            System.out.println((i + 1) + ". " + pacien.getNombre() + " " + pacien.getPrimerApellido() + " "
-                    + pacien.getSegundoApellido());
-        }
+                Paciente pacien = pacientes.get(i);
+                System.out.println((i + 1) + ". " + pacien.getNombre() + " " + pacien.getPrimerApellido() + " "
+                        + pacien.getSegundoApellido());
+            }
         }
     }
 
     public void mostrarDoctoresTotal() {
-        if( doctores.isEmpty()){
+        if (doctores.isEmpty()) {
             System.out.println("No hay doctores registrados");
-        } else{
+        } else {
             for (int i = 0; i < doctores.size(); i++) {
-            Doctor doc = doctores.get(i);
-            System.out.println((i + 1) + ". " + doc.getNombre() + " " + doc.getPrimerApellido() + " "
-                    + doc.getSegundoApellido());
-        }
+                Doctor doc = doctores.get(i);
+                System.out.println((i + 1) + ". " + doc.getNombre() + " " + doc.getPrimerApellido() + " "
+                        + doc.getSegundoApellido());
+            }
         }
     }
 
     public void mostrarEnfermerasTotal() {
-        if(enfermeras.isEmpty()){
+        if (enfermeras.isEmpty()) {
             System.out.println("No hay enfermeras registrados");
         } else {
             for (int i = 0; i < enfermeras.size(); i++) {
-            Enfermera enfer = enfermeras.get(i);
-            System.out.println((i + 1) + ". " + enfer.getNombre() + " " + enfer.getPrimerApellido() + " "
-                    + enfer.getSegundoApellido());
-        }
+                Enfermera enfer = enfermeras.get(i);
+                System.out.println((i + 1) + ". " + enfer.getNombre() + " " + enfer.getPrimerApellido() + " "
+                        + enfer.getSegundoApellido());
+            }
         }
     }
 
     public void mostrarAdministradoresTotal() {
-        if(administradores.isEmpty()){
+        if (administradores.isEmpty()) {
             System.out.println("No hay Administradores registrados");
         } else {
             for (int i = 0; i < administradores.size(); i++) {
-            Administrador admin = administradores.get(i);
-            System.out.println((i + 1) + ". " + admin.getNombre() + " " + admin.getPrimerApellido() + " "
-                    + admin.getSegundoApellido());
-        }
+                Administrador admin = administradores.get(i);
+                System.out.println((i + 1) + ". " + admin.getNombre() + " " + admin.getPrimerApellido() + " "
+                        + admin.getSegundoApellido());
+            }
         }
     }
 

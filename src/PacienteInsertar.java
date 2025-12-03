@@ -63,11 +63,11 @@ public class PacienteInsertar {
 
             int filas = stmt.executeUpdate();
             if (filas > 0) {
-                System.out.println("✔ Paciente registrado correctamente");
+                System.out.println("Paciente registrado correctamente");
             }
 
         } catch (SQLException e) {
-            System.out.println("❌ Error al insertar datos: " + e.getMessage());
+            System.out.println("Error al insertar datos: " + e.getMessage());
         }
     }
 }

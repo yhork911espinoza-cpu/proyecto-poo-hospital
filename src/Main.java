@@ -132,6 +132,69 @@ public class Main {
         }
     }
 
+    public static PersonalHospital loginPersonalHospital(Hospital hospital) {
+        System.out.println("=== ¿Qué tipo de trabajador eres? ===");
+        System.out.println("1. Personal de Limpieza\n2. Guardia de Seguridad\n3. Cocinero");
+        System.out.print("Opcion: ");
+        int opcion = lector.nextInt();
+        switch (opcion) {
+            case 1: {
+                System.out.println("=== LOGIN PERSONAL DE LIMPIEZA ===");
+                System.out.print("DNI: ");
+                int dni = lector.nextInt();
+                lector.nextLine();
+                System.out.print("Contraseña: ");
+                String contraseña = lector.nextLine();
+
+                PersonalLimpieza trabajadorLimpieza = hospital.buscarPersonalLimpieza(dni);
+                if (trabajadorLimpieza != null && trabajadorLimpieza.validarCredenciales(dni, contraseña)) {
+                    System.out.println(" Inicio de sesión exitoso!");
+                    return trabajadorLimpieza;
+                } else {
+                    System.out.println("DNI o contraseña incorrectos.");
+                    return null;
+                }
+            }
+            case 2: {
+                System.out.println("=== LOGIN GUARDIA DE SEGURIDAD ===");
+                System.out.print("DNI: ");
+                int dni = lector.nextInt();
+                lector.nextLine();
+                System.out.print("Contraseña: ");
+                String contraseña = lector.nextLine();
+
+                GuardiaSeguridad guardiaSeguridad = hospital.buscarGuardiaSeguridad(dni);
+                if (guardiaSeguridad != null && guardiaSeguridad.validarCredenciales(dni, contraseña)) {
+                    System.out.println(" Inicio de sesión exitoso!");
+                    return guardiaSeguridad;
+                } else {
+                    System.out.println("DNI o contraseña incorrectos.");
+                    return null;
+                }
+            }
+            case 3: {
+                System.out.println("=== LOGIN COCINERO ===");
+                System.out.print("DNI: ");
+                int dni = lector.nextInt();
+                lector.nextLine();
+                System.out.print("Contraseña: ");
+                String contraseña = lector.nextLine();
+
+                Cocinero cocinero = hospital.buscarCocinero(dni);
+                if (cocinero != null && cocinero.validarCredenciales(dni, contraseña)) {
+                    System.out.println(" Inicio de sesión exitoso!");
+                    return cocinero;
+                } else {
+                    System.out.println("DNI o contraseña incorrectos.");
+                    return null;
+                }
+            }
+            default:
+                System.out.println("Opción no válida.");
+        }
+        return null;
+    }
+
     public static Administrador loginAdministrador(Hospital hospital) {
         System.out.println("\n=== LOGIN ADMINISTRADOR ===");
         System.out.print("DNI: ");
@@ -145,7 +208,7 @@ public class Main {
             System.out.println(" Inicio de sesión exitoso!");
             return admin;
         } else {
-            System.out.println(" DNI o contraseña incorrectos.");
+            System.out.println("DNI o contraseña incorrectos.");
             return null;
         }
     }
@@ -341,6 +404,111 @@ public class Main {
             } catch (InputMismatchException e) {
                 System.out.println("Debe ingresar un número.");
                 lector.nextLine();
+            }
+        }
+    }
+
+    public static void menuLimpieza(PersonalLimpieza L, Hospital hospital) {
+        boolean salir = false;
+        while (!salir) {
+            System.out.println(SEPARACION);
+            System.out.println("BIENVENIDO: " + L.getNombre() + " " + L.getPrimerApellido() + " " + L.getSegundoApellido());
+            System.out.println("\n=== MENÚ PERSONAL DE LIMPIEZA ===");
+            System.out.println("1. Ver mis datos");
+            System.out.println("2. Ver área asignada");
+            System.out.println("3. Registrar limpieza realizada");
+            System.out.println("0. Cerrar sesión");
+            System.out.print("Opción: ");
+
+            int opcion = lector.nextInt();
+            lector.nextLine();
+
+            switch (opcion) {
+                case 1:
+                    L.mostrarDatos();
+                    break;
+                case 2:
+                    System.out.println("Área asignada: " + L.getAreaAsignada());
+                    break;
+                case 3:
+                    System.out.println("Registro guardado!");
+                    break;
+                case 0:
+                    salir = true;
+                    System.out.println("Cerrando sesión...");
+                    break;
+                default:
+                    System.out.println("Opción inválida.");
+            }
+        }
+    }
+
+    public static void menuGuardia(GuardiaSeguridad G, Hospital hospital) {
+        boolean salir = false;
+        while (!salir) {
+            System.out.println(SEPARACION);
+            System.out.println("BIENVENIDO: " + G.getNombre() + " " + G.getPrimerApellido() + " " + G.getSegundoApellido());
+            System.out.println("\n=== MENÚ GUARDIA DE SEGURIDAD ===");
+            System.out.println("1. Ver mis datos");
+            System.out.println("2. Ver turno");
+            System.out.println("3. Registrar incidencia");
+            System.out.println("0. Cerrar sesión");
+            System.out.print("Opción: ");
+
+            int opcion = lector.nextInt();
+            lector.nextLine();
+
+            switch (opcion) {
+                case 1:
+                    G.mostrarDatos();
+                    break;
+                case 2:
+                    System.out.println("Turno: " + G.getTurno());
+                    break;
+                case 3:
+                    System.out.println("Incidencia registrada.");
+                    break;
+                case 0:
+                    salir = true;
+                    System.out.println("Cerrando sesión...");
+                    break;
+                default:
+                    System.out.println("Opción inválida.");
+            }
+        }
+    }
+
+    public static void menuCocinero(Cocinero C, Hospital hospital) {
+        boolean salir = false;
+        while (!salir) {
+            System.out.println(SEPARACION);
+            System.out.println("BIENVENIDO: " + C.getNombre() + " " + C.getPrimerApellido() + " " + C.getSegundoApellido());
+            System.out.println("\n=== MENÚ COCINERO ===");
+            System.out.println("1. Ver mis datos");
+            System.out.println("2. Ver menú del día");
+            System.out.println("3. Registrar comida preparada");
+            System.out.println("0. Cerrar sesión");
+            System.out.print("Opción: ");
+
+            int opcion = lector.nextInt();
+            lector.nextLine();
+
+            switch (opcion) {
+                case 1:
+                    C.mostrarDatos();
+                    break;
+                case 2:
+                    System.out.println("Menú del día: Sopa + Segundo");
+                    break;
+                case 3:
+                    System.out.println("Registro guardado!");
+                    break;
+                case 0:
+                    salir = true;
+                    System.out.println("Cerrando sesión...");
+                    break;
+                default:
+                    System.out.println("Opción inválida.");
             }
         }
     }
@@ -676,14 +844,16 @@ public class Main {
                 LocalDate.of(1990, 3, 10), "F", "Mañana");
         hospital.agregarEnfermera(enfermera2);
 
-        // *********************************Pacientes de ejemplo***************** */
+        // =========================================================================================================================================
+        // ********************************* Pacientes de ejemplo
+        // ****************************************************************** */
         Paciente p1 = new Paciente("Carlos", "Gómez", "Rivas", "pass123", 12345678,
                 "Av. Siempre Viva 123", "987654321", "carlos@gmail.com",
                 LocalDate.parse("1990-05-12"), "Masculino",
                 List.of("Polen", "Penicilina"));
         hospital.agregarPaciente(p1);
 
-        Paciente p2 = new Paciente("Paolo", "Coaquira", "Anccori", "pao20505", 75554481,
+        Paciente p2 = new Paciente("Paolo", "Coaquira", "Anccori", "pao20505", 75554491,
                 "Calle Lima 450", "912345678", "paocoaquira@gmail.com",
                 LocalDate.parse("1985-10-30"), "Femenino",
                 List.of());
@@ -737,6 +907,55 @@ public class Main {
                 List.of("Polvo", "Aspirina"));
         hospital.agregarPaciente(p10);
 
+        Cocinero cocinero1 = new Cocinero(
+                "Paolo",               // nombre
+                "Coaquira",              // primerApellido
+                "Anccori",             // segundoApellido
+                "pao20505",           // contraseña
+                75554491,             // DNI
+                "Av. Lima 123",       // dirección
+                "987654321",          // teléfono
+                "cocinero@hospital.com", // email
+                LocalDate.of(1990, 5, 20),  // fecha nacimiento
+                "Masculino",          // género
+                "Mañana",             // turno
+                "Comida Criolla"      // especialidad
+        );
+        hospital.agregarCocinero(cocinero1);
+        
+        GuardiaSeguridad guardia1 = new GuardiaSeguridad(
+                "Puerta Principal",   // areaAsignada
+                true,                 // armado
+                "Paolo",             // nombre
+                "Coaquira",             // primerApellido
+                "Anccori",             // segundoApellido
+                "pao20505",           // contraseña
+                75554491,             // DNI
+                "Av. Cusco 456",      // dirección
+                "912345678",          // teléfono
+                "guardia@hospital.com", // email
+                LocalDate.of(1985, 3, 14), // fecha nacimiento
+                "Masculino",          // género
+                "Noche"               // turno
+        );
+        hospital.agregarguardiaSeguridad(guardia1);
+
+        PersonalLimpieza limpieza1 = new PersonalLimpieza(
+                "Piso 2",             // areaAsignada
+                "Paolo",              // nombre
+                "Coaquira",              // primerApellido
+                "Anccori",             // segundoApellido
+                "pao20505",           // contraseña
+                75554491,             // DNI
+                "Av. Arequipa 789",   // dirección
+                "999222111",          // teléfono
+                "limpieza@hospital.com", // email
+                LocalDate.of(1995, 11, 2), // fecha nacimiento
+                "Femenino",           // genero
+                "Tarde"               // turno
+        );
+        hospital.agregarPersonalLimpieza(limpieza1);
+
         boolean continuar = true;
         while (continuar) {
             System.out.println("\n" + SEPARACION);
@@ -757,7 +976,8 @@ public class Main {
                         System.out.println("1. Paciente");
                         System.out.println("2. Doctor");
                         System.out.println("3. Enfermera");
-                        System.out.println("4. Administrador");
+                        System.out.println("4. Trabajador");
+                        System.out.println("5. Administrador");
                         System.out.print("Opción: ");
 
                         int tipoUsuario = lector.nextInt();
@@ -766,20 +986,37 @@ public class Main {
                         switch (tipoUsuario) {
                             case 1:
                                 Paciente p = loginPaciente(hospital);
-                                if (p != null)
+                                if (p != null) {
                                     menuPaciente(p, hospital);
+                                }
                                 break;
                             case 2:
                                 Doctor d = loginDoctor(hospital);
-                                if (d != null)
+                                if (d != null) {
                                     menuDoctor(d, hospital);
+                                }
                                 break;
                             case 3:
                                 Enfermera e = loginEnfermera(hospital);
-                                if (e != null)
+                                if (e != null) {
                                     menuEnfermera(e, hospital);
+                                }
                                 break;
                             case 4:
+                                PersonalHospital perH = loginPersonalHospital(hospital);
+                                if (perH != null) {
+
+                                    if (perH instanceof PersonalLimpieza)
+                                        menuLimpieza((PersonalLimpieza) perH, hospital);
+
+                                    else if (perH instanceof GuardiaSeguridad)
+                                        menuGuardia((GuardiaSeguridad) perH, hospital);
+
+                                    else if (perH instanceof Cocinero)
+                                        menuCocinero((Cocinero) perH, hospital);
+                                }
+                                break;
+                            case 5:
                                 Administrador a = loginAdministrador(hospital);
                                 if (a != null)
                                     menuAdministrador(a, hospital);
