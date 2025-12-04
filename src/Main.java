@@ -88,7 +88,7 @@ public class Main {
 
         Paciente paciente = hospital.buscarPaciente(dni);
         if (paciente != null && paciente.validarCredenciales(dni, contraseña)) {
-            System.out.println(" Inicio de sesión exitoso!");
+            System.out.println("Inicio de sesión exitoso!");
             return paciente;
         } else {
             System.out.println(" DNI o contraseña incorrectos.");
@@ -106,7 +106,7 @@ public class Main {
 
         Doctor doctor = hospital.buscarDoctor(dni);
         if (doctor != null && doctor.validarCredenciales(dni, contraseña)) {
-            System.out.println(" Inicio de sesión exitoso!");
+            System.out.println("Inicio de sesión exitoso!");
             return doctor;
         } else {
             System.out.println(" DNI o contraseña incorrectos.");
@@ -124,7 +124,7 @@ public class Main {
 
         Enfermera enfermera = hospital.buscarEnfermera(dni);
         if (enfermera != null && enfermera.validarCredenciales(dni, contraseña)) {
-            System.out.println(" Inicio de sesión exitoso!");
+            System.out.println("Inicio de sesión exitoso!");
             return enfermera;
         } else {
             System.out.println(" DNI o contraseña incorrectos.");
@@ -148,7 +148,7 @@ public class Main {
 
                 PersonalLimpieza trabajadorLimpieza = hospital.buscarPersonalLimpieza(dni);
                 if (trabajadorLimpieza != null && trabajadorLimpieza.validarCredenciales(dni, contraseña)) {
-                    System.out.println(" Inicio de sesión exitoso!");
+                    System.out.println("Inicio de sesión exitoso!");
                     return trabajadorLimpieza;
                 } else {
                     System.out.println("DNI o contraseña incorrectos.");
@@ -165,7 +165,7 @@ public class Main {
 
                 GuardiaSeguridad guardiaSeguridad = hospital.buscarGuardiaSeguridad(dni);
                 if (guardiaSeguridad != null && guardiaSeguridad.validarCredenciales(dni, contraseña)) {
-                    System.out.println(" Inicio de sesión exitoso!");
+                    System.out.println("Inicio de sesión exitoso!");
                     return guardiaSeguridad;
                 } else {
                     System.out.println("DNI o contraseña incorrectos.");
@@ -182,7 +182,7 @@ public class Main {
 
                 Cocinero cocinero = hospital.buscarCocinero(dni);
                 if (cocinero != null && cocinero.validarCredenciales(dni, contraseña)) {
-                    System.out.println(" Inicio de sesión exitoso!");
+                    System.out.println("Inicio de sesión exitoso!");
                     return cocinero;
                 } else {
                     System.out.println("DNI o contraseña incorrectos.");
@@ -205,7 +205,7 @@ public class Main {
 
         Administrador admin = hospital.buscarAdministrador(dni);
         if (admin != null && admin.validarCredenciales(dni, contraseña)) {
-            System.out.println(" Inicio de sesión exitoso!");
+            System.out.println("Inicio de sesión exitoso!");
             return admin;
         } else {
             System.out.println("DNI o contraseña incorrectos.");
