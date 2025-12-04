@@ -12,7 +12,6 @@ public class ConexionSQL {
     public static Connection getConexion() {
         try {
             Connection conn = DriverManager.getConnection(URL, USER, PASS);
-            System.out.println("Conexión exitosa a SQL Server");
             return conn;
         } catch (SQLException e) {
             System.out.println("Error de conexión: " + e.getMessage());

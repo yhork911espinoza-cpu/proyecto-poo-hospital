@@ -412,7 +412,8 @@ public class Main {
         boolean salir = false;
         while (!salir) {
             System.out.println(SEPARACION);
-            System.out.println("BIENVENIDO: " + L.getNombre() + " " + L.getPrimerApellido() + " " + L.getSegundoApellido());
+            System.out.println(
+                    "BIENVENIDO: " + L.getNombre() + " " + L.getPrimerApellido() + " " + L.getSegundoApellido());
             System.out.println("\n=== MENÚ PERSONAL DE LIMPIEZA ===");
             System.out.println("1. Ver mis datos");
             System.out.println("2. Ver área asignada");
@@ -447,7 +448,8 @@ public class Main {
         boolean salir = false;
         while (!salir) {
             System.out.println(SEPARACION);
-            System.out.println("BIENVENIDO: " + G.getNombre() + " " + G.getPrimerApellido() + " " + G.getSegundoApellido());
+            System.out.println(
+                    "BIENVENIDO: " + G.getNombre() + " " + G.getPrimerApellido() + " " + G.getSegundoApellido());
             System.out.println("\n=== MENÚ GUARDIA DE SEGURIDAD ===");
             System.out.println("1. Ver mis datos");
             System.out.println("2. Ver turno");
@@ -482,7 +484,8 @@ public class Main {
         boolean salir = false;
         while (!salir) {
             System.out.println(SEPARACION);
-            System.out.println("BIENVENIDO: " + C.getNombre() + " " + C.getPrimerApellido() + " " + C.getSegundoApellido());
+            System.out.println(
+                    "BIENVENIDO: " + C.getNombre() + " " + C.getPrimerApellido() + " " + C.getSegundoApellido());
             System.out.println("\n=== MENÚ COCINERO ===");
             System.out.println("1. Ver mis datos");
             System.out.println("2. Ver menú del día");
@@ -734,7 +737,11 @@ public class Main {
         System.out.println("\n=== ESTADÍSTICAS DEL HOSPITAL ===");
         System.out.println("Total de pacientes: " + hospital.getPacientes().size());
         System.out.println("Total de doctores: " + hospital.getDoctores().size());
-        System.out.println("Total de Administradores: " + hospital.getAdministradores().size());
+
+        AdministradorADO adminDAO = new AdministradorADO();
+        int totalAdmins = adminDAO.contarAdministradores();
+        System.out.println("Total de Administradores: " + totalAdmins);
+
         System.out.println("Total de departamentos: " + hospital.getDepartamentos().size());
         // Más estadísticas aquí...
     }
@@ -808,19 +815,6 @@ public class Main {
                 "054-789456",
                 "contacto@sanmartin.pe",
                 250);
-
-        // Datos de prueba
-        Administrador admin = new Administrador("Paolo Josue", "Coaquira", "Anccori", "pao20505",
-                75554491, "", "987654321",
-                "admin@hospital.pe", LocalDate.of(1980, 5, 15),
-                "M", "Administrador General");
-        hospital.agregarAdministrador(admin);
-
-        Administrador admin1 = new Administrador("Jhork Antony", "Espinoza", "Quintana", "kanox123",
-                76724541, "", "901699054",
-                "admin@hospital.pe", LocalDate.of(1980, 5, 15),
-                "M", "Administrador General");
-        hospital.agregarAdministrador(admin1);
 
         Doctor doctor1 = new Doctor("María", "García", "Sánchez", "doc123", 87654321,
                 "", "987123456", "mgarcia@hospital.pe",
@@ -908,51 +902,51 @@ public class Main {
         hospital.agregarPaciente(p10);
 
         Cocinero cocinero1 = new Cocinero(
-                "Paolo",               // nombre
-                "Coaquira",              // primerApellido
-                "Anccori",             // segundoApellido
-                "pao20505",           // contraseña
-                75554491,             // DNI
-                "Av. Lima 123",       // dirección
-                "987654321",          // teléfono
+                "Paolo", // nombre
+                "Coaquira", // primerApellido
+                "Anccori", // segundoApellido
+                "pao20505", // contraseña
+                75554491, // DNI
+                "Av. Lima 123", // dirección
+                "987654321", // teléfono
                 "cocinero@hospital.com", // email
-                LocalDate.of(1990, 5, 20),  // fecha nacimiento
-                "Masculino",          // género
-                "Mañana",             // turno
-                "Comida Criolla"      // especialidad
+                LocalDate.of(1990, 5, 20), // fecha nacimiento
+                "Masculino", // género
+                "Mañana", // turno
+                "Comida Criolla" // especialidad
         );
         hospital.agregarCocinero(cocinero1);
-        
+
         GuardiaSeguridad guardia1 = new GuardiaSeguridad(
-                "Puerta Principal",   // areaAsignada
-                true,                 // armado
-                "Paolo",             // nombre
-                "Coaquira",             // primerApellido
-                "Anccori",             // segundoApellido
-                "pao20505",           // contraseña
-                75554491,             // DNI
-                "Av. Cusco 456",      // dirección
-                "912345678",          // teléfono
+                "Puerta Principal", // areaAsignada
+                true, // armado
+                "Paolo", // nombre
+                "Coaquira", // primerApellido
+                "Anccori", // segundoApellido
+                "pao20505", // contraseña
+                75554491, // DNI
+                "Av. Cusco 456", // dirección
+                "912345678", // teléfono
                 "guardia@hospital.com", // email
                 LocalDate.of(1985, 3, 14), // fecha nacimiento
-                "Masculino",          // género
-                "Noche"               // turno
+                "Masculino", // género
+                "Noche" // turno
         );
         hospital.agregarguardiaSeguridad(guardia1);
 
         PersonalLimpieza limpieza1 = new PersonalLimpieza(
-                "Piso 2",             // areaAsignada
-                "Paolo",              // nombre
-                "Coaquira",              // primerApellido
-                "Anccori",             // segundoApellido
-                "pao20505",           // contraseña
-                75554491,             // DNI
-                "Av. Arequipa 789",   // dirección
-                "999222111",          // teléfono
+                "Piso 2", // areaAsignada
+                "Paolo", // nombre
+                "Coaquira", // primerApellido
+                "Anccori", // segundoApellido
+                "pao20505", // contraseña
+                75554491, // DNI
+                "Av. Arequipa 789", // dirección
+                "999222111", // teléfono
                 "limpieza@hospital.com", // email
                 LocalDate.of(1995, 11, 2), // fecha nacimiento
-                "Femenino",           // genero
-                "Tarde"               // turno
+                "Femenino", // genero
+                "Tarde" // turno
         );
         hospital.agregarPersonalLimpieza(limpieza1);
 

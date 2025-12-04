@@ -52,10 +52,10 @@ public class Hospital {
         enfermeras.add(enfermera);
     }
 
-    public void agregarAdministrador(Administrador admin) {
-        administradores.add(admin);
+    public boolean agregarAdministrador(Administrador admin) {
+        AdministradorADO dao = new AdministradorADO();
+        return dao.agregarAdministrador(admin); // Llama al método CRUD
     }
-
     public void agregarPersonalLimpieza(PersonalLimpieza perLimpieza){
         personalLimpieza.add(perLimpieza);
     }
@@ -97,12 +97,9 @@ public class Hospital {
     }
 
     public Administrador buscarAdministrador(int dni) {
-        for (Administrador a : administradores) {
-            if (a.getDni() == dni)
-                return a;
-        }
-        return null;
-    }
+    AdministradorADO dao = new AdministradorADO();
+    return dao.buscarAdministrador(dni);
+}
 
     public PersonalLimpieza buscarPersonalLimpieza(int dni) {
         for (PersonalLimpieza L : personalLimpieza) {
@@ -187,6 +184,9 @@ public class Hospital {
             }
         }
     }
+
+    // TOAL de USUARIOS
+
 
     // GETTERS
     public List<Doctor> getDoctores() {
