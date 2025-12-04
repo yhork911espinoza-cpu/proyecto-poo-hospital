@@ -4,7 +4,9 @@ import java.time.LocalDate;
 public class Cocinero  extends PersonalHospital{
     private String especialidad;
 
-    public Cocinero(String nombre, String primerApellido, String segundoApellido, String contraseña, int dni, String direccion, String telefono, String email, LocalDate fechaNacimiento, String genero, String turno, String especialidad) {
+    public Cocinero(String nombre, String primerApellido, String segundoApellido, String contraseña,
+         int dni, String direccion, String telefono, String email, LocalDate fechaNacimiento, 
+         String genero, String turno, String especialidad) {
         super(nombre, primerApellido, segundoApellido, contraseña, dni, direccion, telefono, email, fechaNacimiento, genero, turno);
         this.especialidad = especialidad;
     }

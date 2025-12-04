@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Departamento {
-    private String idDepartamento;
     private String nombreDepartamento;
     private String ubicacion;
     private List<Doctor> doctores;
