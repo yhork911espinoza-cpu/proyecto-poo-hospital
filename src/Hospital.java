@@ -51,8 +51,9 @@ public class Hospital {
         return doctorADO.agregarDoctor(doctor);
     }
 
-    public void agregarEnfermera(Enfermera enfermera) {
-        enfermeras.add(enfermera);
+    public boolean agregarEnfermera(Enfermera enfermera) {
+        EnfermeraADO enfermeraADO = new EnfermeraADO();
+        return enfermeraADO.agregarEnfermera(enfermera);
     }
 
     public boolean agregarAdministrador(Administrador admin) {
@@ -88,11 +89,8 @@ public class Hospital {
     }
 
     public Enfermera buscarEnfermera(int dni) {
-        for (Enfermera e : enfermeras) {
-            if (e.getDni() == dni)
-                return e;
-        }
-        return null;
+        EnfermeraADO enfermeraADO = new EnfermeraADO();
+        return enfermeraADO.buscarEnfermera(dni);
     }
 
     public Administrador buscarAdministrador(int dni) {

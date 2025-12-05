@@ -696,7 +696,7 @@ public class Main {
         lector.nextLine();
         System.out.print("Especialidad: ");
         String especialidad = lector.nextLine();
-        System.out.print("Número de licencia: ");
+        System.out.print("Número de licencia (ejemplo: LIC-12345): ");
         String licencia = lector.nextLine();
         System.out.print("Teléfono: ");
         String telefono = lector.nextLine();
@@ -707,7 +707,7 @@ public class Main {
                 "", telefono, email, LocalDate.now(), "M",
                 especialidad, licencia);
         hospital.agregarDoctor(doctor);
-        System.out.println(" Doctor registrado exitosamente!");
+        System.out.println("Doctor registrado exitosamente!");
     }
 
     public static void registrarEnfermera(Hospital hospital) {
@@ -757,6 +757,10 @@ public class Main {
         DoctorADO doctorADO = new DoctorADO();
         int totalDoctores = doctorADO.contarDoctores();
         System.out.println("Total de doctores: " + totalDoctores);
+
+        EnfermeraADO enfermeraADO = new EnfermeraADO();
+        int totalEnfermeras = enfermeraADO.contarEnfermeras();
+        System.out.println("Total de enfermeras: " + totalEnfermeras);
 
         AdministradorADO adminDAO = new AdministradorADO(); // para usar su metodo
         int totalAdmins = adminDAO.contarAdministradores();
@@ -835,19 +839,6 @@ public class Main {
                 "054-789456",
                 "contacto@sanmartin.pe",
                 250);
-
-        Enfermera enfermera1 = new Enfermera("Ana", "Torres", "Ruiz", "enf123",
-                45678912, "", "987789456",
-                "atorres@hospital.pe",
-                LocalDate.of(1990, 3, 10), "F", "Mañana");
-        hospital.agregarEnfermera(enfermera1);
-
-        Enfermera enfermera2 = new Enfermera("Paolo", "Coaquira", "Anccori", "pao20505",
-                75554491, "Psj Sna Lima", "9377319442",
-                "atorres@hospital.pe",
-                LocalDate.of(1990, 3, 10), "M", "Mañana");
-        hospital.agregarEnfermera(enfermera2);
-
         // =========================================================================================================================================
 
         Cocinero cocinero1 = new Cocinero(
