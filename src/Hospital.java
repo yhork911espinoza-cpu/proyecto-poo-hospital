@@ -39,9 +39,11 @@ public class Hospital {
         return nombreHospital;
     }
 
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     // Métodos para agregar usuarios
-    public void agregarPaciente(Paciente paciente) {
-        pacientes.add(paciente);
+    public boolean agregarPaciente(Paciente paciente) {
+        PacienteADO pacientADO = new PacienteADO();
+        return pacientADO.agregarPaciente(paciente);
     }
 
     public void agregarDoctor(Doctor doctor) {
@@ -54,7 +56,7 @@ public class Hospital {
 
     public boolean agregarAdministrador(Administrador admin) {
         AdministradorADO dao = new AdministradorADO();
-        return dao.agregarAdministrador(admin); // Llama al método CRUD
+        return dao.agregarAdministrador(admin);
     }
     public void agregarPersonalLimpieza(PersonalLimpieza perLimpieza){
         personalLimpieza.add(perLimpieza);
@@ -71,13 +73,12 @@ public class Hospital {
         departamentos.add(depto);
     }
 
+    // ===================================================================================
+    // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     // Métodos de búsqueda
     public Paciente buscarPaciente(int dni) {
-        for (Paciente p : pacientes) {
-            if (p.getDni() == dni)
-                return p;
-        }
-        return null;
+        PacienteADO pacienteADO = new PacienteADO();
+        return pacienteADO.buscarPaciente(dni);
     }
 
     public Doctor buscarDoctor(int dni) {
@@ -124,6 +125,7 @@ public class Hospital {
         }
         return null;
     }
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
     // Metodos para mostrar usuarios total xd
     public void mostrarPacientesTotal() {

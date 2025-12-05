@@ -36,6 +36,7 @@ public class AdministradorADO {
         }
     }
 
+    //--------------------------------------------------------------------
     public Administrador buscarAdministrador(int dni) {
         String sql = "SELECT * FROM Administradores WHERE dni = ?";
 
@@ -71,6 +72,7 @@ public class AdministradorADO {
         return null; // Si no encuentra nada o hay error
     }
 
+    //----------------------------------------------------------------------
     public int contarAdministradores() {
         String sql = "SELECT COUNT(*) AS total FROM Administradores";
 

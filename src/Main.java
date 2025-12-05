@@ -96,6 +96,24 @@ public class Main {
         }
     }
 
+    public static Administrador loginAdministrador(Hospital hospital) {
+        System.out.println("\n=== LOGIN ADMINISTRADOR ===");
+        System.out.print("DNI: ");
+        int dni = lector.nextInt();
+        lector.nextLine();
+        System.out.print("Contraseña: ");
+        String contraseña = lector.nextLine();
+
+        Administrador admin = hospital.buscarAdministrador(dni);
+        if (admin != null && admin.validarCredenciales(dni, contraseña)) {
+            System.out.println("Inicio de sesión exitoso!");
+            return admin;
+        } else {
+            System.out.println("DNI o contraseña incorrectos.");
+            return null;
+        }
+    }
+
     public static Doctor loginDoctor(Hospital hospital) {
         System.out.println("\n=== LOGIN DOCTOR ===");
         System.out.print("DNI: ");
@@ -193,24 +211,6 @@ public class Main {
                 System.out.println("Opción no válida.");
         }
         return null;
-    }
-
-    public static Administrador loginAdministrador(Hospital hospital) {
-        System.out.println("\n=== LOGIN ADMINISTRADOR ===");
-        System.out.print("DNI: ");
-        int dni = lector.nextInt();
-        lector.nextLine();
-        System.out.print("Contraseña: ");
-        String contraseña = lector.nextLine();
-
-        Administrador admin = hospital.buscarAdministrador(dni);
-        if (admin != null && admin.validarCredenciales(dni, contraseña)) {
-            System.out.println("Inicio de sesión exitoso!");
-            return admin;
-        } else {
-            System.out.println("DNI o contraseña incorrectos.");
-            return null;
-        }
     }
 
     // ======================== MENÚS DE USUARIO ========================
@@ -839,67 +839,6 @@ public class Main {
         hospital.agregarEnfermera(enfermera2);
 
         // =========================================================================================================================================
-        // ********************************* Pacientes de ejemplo
-        // ****************************************************************** */
-        Paciente p1 = new Paciente("Carlos", "Gómez", "Rivas", "pass123", 12345678,
-                "Av. Siempre Viva 123", "987654321", "carlos@gmail.com",
-                LocalDate.parse("1990-05-12"), "Masculino",
-                List.of("Polen", "Penicilina"));
-        hospital.agregarPaciente(p1);
-
-        Paciente p2 = new Paciente("Paolo", "Coaquira", "Anccori", "pao20505", 75554491,
-                "Calle Lima 450", "912345678", "paocoaquira@gmail.com",
-                LocalDate.parse("1985-10-30"), "Femenino",
-                List.of());
-        hospital.agregarPaciente(p2);
-
-        Paciente p3 = new Paciente("José", "Pérez", "Mamani", "jperez11", 44556677,
-                "Jr. Las Flores 234", "956789123", "josep@hotmail.com",
-                LocalDate.parse("2000-03-22"), "Masculino",
-                List.of("Maní"));
-        hospital.agregarPaciente(p3);
-
-        Paciente p4 = new Paciente("Lucía", "Quispe", "Torres", "lucy88", 11223344,
-                "Urb. Santa Rosa Mz C", "998877665", "lucia@outlook.com",
-                LocalDate.parse("1998-01-10"), "Femenino",
-                List.of());
-        hospital.agregarPaciente(p4);
-
-        Paciente p5 = new Paciente("Miguel", "Ramos", "Soto", "miguel33", 22334455,
-                "Calle Arequipa 789", "945612378", "miguel@gmail.com",
-                LocalDate.parse("2002-07-18"), "Masculino",
-                List.of("Gluten"));
-        hospital.agregarPaciente(p5);
-
-        Paciente p6 = new Paciente("Andrea", "Valdez", "Chavez", "andreaXY", 33445566,
-                "Av. Dolores 432", "934567812", "andrea@gmail.com",
-                LocalDate.parse("1996-09-14"), "Femenino",
-                List.of("Lácteos"));
-        hospital.agregarPaciente(p6);
-
-        Paciente p7 = new Paciente("Luis", "Huaraca", "Cruz", "luis321", 55667788,
-                "Av. Kennedy 303", "987321654", "lhuaraca@yahoo.com",
-                LocalDate.parse("1993-12-01"), "Masculino",
-                List.of());
-        hospital.agregarPaciente(p7);
-
-        Paciente p8 = new Paciente("Sofía", "Mendoza", "Paredes", "sofipass", 66778899,
-                "Jr. Progreso 999", "923456781", "sofia@gmail.com",
-                LocalDate.parse("2001-04-25"), "Femenino",
-                List.of("Polen", "Mariscos"));
-        hospital.agregarPaciente(p8);
-
-        Paciente p9 = new Paciente("Ricardo", "Loayza", "Calle", "ricky22", 77889900,
-                "Calle Mercaderes 514", "987555444", "ricardo@hotmail.com",
-                LocalDate.parse("1994-06-08"), "Masculino",
-                List.of());
-        hospital.agregarPaciente(p9);
-
-        Paciente p10 = new Paciente("Valeria", "Suárez", "Nina", "vale007", 88990011,
-                "Urb. Los Olivos B12", "912987654", "valeria@gmail.com",
-                LocalDate.parse("1999-02-19"), "Femenino",
-                List.of("Polvo", "Aspirina"));
-        hospital.agregarPaciente(p10);
 
         Cocinero cocinero1 = new Cocinero(
                 "Paolo", // nombre
