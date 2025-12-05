@@ -58,4 +58,5 @@ public class Paciente extends Usuario {
             System.out.println((i + 1) + ". " + citas.get(i));
         }
     }
+    
 }

@@ -219,7 +219,7 @@ public class Main {
         while (!salir) {
             System.out.println("\n" + SEPARACION);
             System.out.println("BIENVENIDO: " + paciente.getNombre() + " " +
-                    paciente.getPrimerApellido());
+                    paciente.getPrimerApellido() + " " + paciente.getSegundoApellido());
             // ========================================================
             // ================ paciente ==============================
             System.out.println("=== MENÚ PACIENTE ===");
@@ -270,7 +270,7 @@ public class Main {
         while (!salir) {
             System.out.println("\n" + SEPARACION);
             System.out.println("BIENVENIDO: Dr. " + doctor.getNombre() + " " +
-                    doctor.getPrimerApellido());
+                    doctor.getPrimerApellido() + " " + doctor.getSegundoApellido());
             System.out.println("=== MENÚ DOCTOR ===");
             System.out.println("1. Ver mis datos");
             System.out.println("2. Ver mis citas");
@@ -360,7 +360,7 @@ public class Main {
         while (!salir) {
             System.out.println("\n" + SEPARACION);
             System.out.println("BIENVENIDO: " + admin.getNombre() + " " +
-                    admin.getPrimerApellido());
+                    admin.getPrimerApellido() + " " + admin.getSegundoApellido());
             System.out.println("=== MENÚ ADMINISTRADOR ===");
             System.out.println("1. Ver mis datos");
             System.out.println("2. Ver estadísticas");
@@ -518,11 +518,13 @@ public class Main {
 
     // ======================== FUNCIONES AUXILIARES ========================
     public static void editarDatosPaciente(Paciente paciente) {
+        PacienteADO pacienteADO = new PacienteADO(); // para poder llamar los metodos
         System.out.println("\n=== EDITAR DATOS ===");
         System.out.println("1. Dirección");
         System.out.println("2. Teléfono");
         System.out.println("3. Email");
-        System.out.println("0. Agregar alergia");
+        System.out.println("4. Agregar alergia");
+        System.out.println("0. Salir");
         System.out.print("¿Qué deseas editar?: ");
 
         int opcion = lector.nextInt();
@@ -531,23 +533,35 @@ public class Main {
         switch (opcion) {
             case 1:
                 System.out.print("Nueva dirección: ");
-                paciente.setDireccion(lector.nextLine());
-                System.out.println(" Dirección actualizada.");
+                String nuevaDireccion = lector.nextLine();
+                paciente.setDireccion(nuevaDireccion);
+                pacienteADO.actualizarDireccion(paciente.getDni(), nuevaDireccion);
+                System.out.println("Dirección actualizada.");
                 break;
             case 2:
                 System.out.print("Nuevo teléfono: ");
-                paciente.setTelefono(lector.nextLine());
-                System.out.println(" Teléfono actualizado.");
+                String nuevoTelefono = lector.nextLine();
+                paciente.setTelefono(nuevoTelefono);
+                pacienteADO.actualizarTelefono(paciente.getDni(), nuevoTelefono);
+                System.out.println("Teléfono actualizado.");
                 break;
             case 3:
                 System.out.print("Nuevo email: ");
-                paciente.setEmail(lector.nextLine());
-                System.out.println(" Email actualizado.");
+                String nuevoEmail = lector.nextLine();
+                paciente.setEmail(nuevoEmail);
+                pacienteADO.actualizarEmail(paciente.getDni(), nuevoEmail);
+                System.out.println("Email actualizado.");
+                break;
+            case 4:
+                System.out.print("Nueva alergia: ");
+                String alergia = lector.nextLine();
+                paciente.agregarAlergia(alergia);
+                pacienteADO.agregarAlergia(paciente.getDni(), alergia);
+                System.out.println("Alergia agregada.");
                 break;
             case 0:
-                System.out.print("Nueva alergia: ");
-                paciente.agregarAlergia(lector.nextLine());
-                System.out.println(" Alergia agregada.");
+                System.out.println("No se edito nada...");
+                System.out.println(SEPARACION);
                 break;
             default:
                 System.out.println("Opción no válida.");
@@ -735,10 +749,16 @@ public class Main {
 
     public static void mostrarEstadisticas(Hospital hospital) {
         System.out.println("\n=== ESTADÍSTICAS DEL HOSPITAL ===");
-        System.out.println("Total de pacientes: " + hospital.getPacientes().size());
-        System.out.println("Total de doctores: " + hospital.getDoctores().size());
 
-        AdministradorADO adminDAO = new AdministradorADO();
+        PacienteADO pacienteADO = new PacienteADO();
+        int totalPacientes = pacienteADO.contarPacientes();
+        System.out.println("Total de pacientes: " + totalPacientes);
+
+        DoctorADO doctorADO = new DoctorADO();
+        int totalDoctores = doctorADO.contarDoctores();
+        System.out.println("Total de doctores: " + totalDoctores);
+
+        AdministradorADO adminDAO = new AdministradorADO(); // para usar su metodo
         int totalAdmins = adminDAO.contarAdministradores();
         System.out.println("Total de Administradores: " + totalAdmins);
 
@@ -816,16 +836,6 @@ public class Main {
                 "contacto@sanmartin.pe",
                 250);
 
-        Doctor doctor1 = new Doctor("María", "García", "Sánchez", "doc123", 87654321,
-                "", "987123456", "mgarcia@hospital.pe",
-                LocalDate.of(1985, 8, 20), "F", "Cardiología", "LIC-12345");
-        hospital.agregarDoctor(doctor1);
-
-        Doctor doctor2 = new Doctor("Paolo", "Coaquira", "Anccori", "pao20505", 75554491,
-                "", "987123456", "coaquiraan@hospital.pe",
-                LocalDate.of(1985, 8, 20), "F", "Cardiología", "LIC-12345");
-        hospital.agregarDoctor(doctor2);
-
         Enfermera enfermera1 = new Enfermera("Ana", "Torres", "Ruiz", "enf123",
                 45678912, "", "987789456",
                 "atorres@hospital.pe",
@@ -835,7 +845,7 @@ public class Main {
         Enfermera enfermera2 = new Enfermera("Paolo", "Coaquira", "Anccori", "pao20505",
                 75554491, "Psj Sna Lima", "9377319442",
                 "atorres@hospital.pe",
-                LocalDate.of(1990, 3, 10), "F", "Mañana");
+                LocalDate.of(1990, 3, 10), "M", "Mañana");
         hospital.agregarEnfermera(enfermera2);
 
         // =========================================================================================================================================

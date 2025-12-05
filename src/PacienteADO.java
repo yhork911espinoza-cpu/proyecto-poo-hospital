@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class PacienteADO {
 
+    // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     public boolean agregarPaciente(Paciente paciente) {
         String sqlPaciente = "INSERT INTO Pacientes "
                 + "(nombre, primerApellido, segundoApellido, dni, contraseña, direccion, telefono, email, fechaNacimiento, genero) "
@@ -54,7 +55,7 @@ public class PacienteADO {
         }
     }
 
-    // -----------------------------------------------------------
+    // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     public Paciente buscarPaciente(int dni) {
         String sqlPaciente = "SELECT * FROM Pacientes WHERE dni = ?";
         String sqlAlergias = "SELECT alergia FROM Alergias WHERE dniPaciente = ?";
@@ -103,6 +104,7 @@ public class PacienteADO {
         }
     }
 
+    // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     public int contarPacientes() {
         String sql = "SELECT COUNT(*) AS total FROM Pacientes";
 
@@ -123,5 +125,88 @@ public class PacienteADO {
 
         return 0;
     }
+
+    // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    //                                 ACTUALIZAR DATOS
+    public boolean actualizarDireccion(int dni, String nuevaDireccion) {
+        String sql = "UPDATE Pacientes SET direccion = ? WHERE dni = ?";
+
+        try (Connection con = ConexionSQL.getConexion();
+                PreparedStatement ps = con.prepareStatement(sql)) {
+
+            if (con == null)
+                return false;
+
+            ps.setString(1, nuevaDireccion);
+            ps.setInt(2, dni);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean actualizarTelefono(int dni, String nuevoTelefono) {
+        String sql = "UPDATE Pacientes SET telefono = ? WHERE dni = ?";
+
+        try (Connection con = ConexionSQL.getConexion();
+                PreparedStatement ps = con.prepareStatement(sql)) {
+
+            if (con == null)
+                return false;
+
+            ps.setString(1, nuevoTelefono);
+            ps.setInt(2, dni);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean actualizarEmail(int dni, String nuevoEmail) {
+        String sql = "UPDATE Pacientes SET email = ? WHERE dni = ?";
+
+        try (Connection con = ConexionSQL.getConexion();
+                PreparedStatement ps = con.prepareStatement(sql)) {
+
+            if (con == null)
+                return false;
+
+            ps.setString(1, nuevoEmail);
+            ps.setInt(2, dni);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean agregarAlergia(int dni, String alergia) {
+        String sql = "INSERT INTO Alergias (dniPaciente, alergia) VALUES (?, ?)";
+
+        try (Connection con = ConexionSQL.getConexion();
+                PreparedStatement ps = con.prepareStatement(sql)) {
+
+            if (con == null)
+                return false;
+
+            ps.setInt(1, dni);
+            ps.setString(2, alergia);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 }

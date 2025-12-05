@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 public class AdministradorADO {
 
+    //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     public boolean agregarAdministrador(Administrador admin) {
         String sql = "INSERT INTO Administradores "
                    + "(nombre, primerApellido, segundoApellido, dni, contraseña, direccion, telefono, email, fechaNacimiento, genero, rol) "
@@ -36,7 +37,7 @@ public class AdministradorADO {
         }
     }
 
-    //--------------------------------------------------------------------
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     public Administrador buscarAdministrador(int dni) {
         String sql = "SELECT * FROM Administradores WHERE dni = ?";
 
@@ -52,27 +53,27 @@ public class AdministradorADO {
                 Administrador admin = new Administrador(
                     rs.getString("nombre"),
                     rs.getString("primerApellido"),
-                    rs.getString("segundoApellido"),
-                    rs.getString("contraseña"),
-                    rs.getInt("dni"),
-                    rs.getString("direccion"),
-                    rs.getString("telefono"),
-                    rs.getString("email"),
-                    rs.getDate("fechaNacimiento") != null ? rs.getDate("fechaNacimiento").toLocalDate() : null,
-                    rs.getString("genero"),
-                    rs.getString("rol")
-                );
-                return admin;
+                        rs.getString("segundoApellido"),
+                        rs.getString("contraseña"),
+                        rs.getInt("dni"),
+                        rs.getString("direccion"),
+                        rs.getString("telefono"),
+                        rs.getString("email"),
+                        rs.getDate("fechaNacimiento") != null ? rs.getDate("fechaNacimiento").toLocalDate() : null,
+                        rs.getString("genero"),
+                        rs.getString("rol")
+                    );
+                    return admin;
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return null; // Si no encuentra nada o hay error
         }
 
-        return null; // Si no encuentra nada o hay error
-    }
-
-    //----------------------------------------------------------------------
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     public int contarAdministradores() {
         String sql = "SELECT COUNT(*) AS total FROM Administradores";
 
@@ -92,4 +93,5 @@ public class AdministradorADO {
 
         return 0; // Retorna 0 si hay error o no hay registros
     }
+    //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 }
