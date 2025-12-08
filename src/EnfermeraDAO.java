@@ -3,7 +3,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class EnfermeraADO {
+public class EnfermeraDAO {
     // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     public boolean agregarEnfermera(Enfermera enf) {
         String sql = "INSERT INTO Enfermeras "

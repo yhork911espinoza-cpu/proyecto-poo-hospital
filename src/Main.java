@@ -518,7 +518,7 @@ public class Main {
 
     // ======================== FUNCIONES AUXILIARES ========================
     public static void editarDatosPaciente(Paciente paciente) {
-        PacienteADO pacienteADO = new PacienteADO(); // para poder llamar los metodos
+        PacienteDAO pacienteADO = new PacienteDAO(); // para poder llamar los metodos
         System.out.println("\n=== EDITAR DATOS ===");
         System.out.println("1. Dirección");
         System.out.println("2. Teléfono");
@@ -750,19 +750,19 @@ public class Main {
     public static void mostrarEstadisticas(Hospital hospital) {
         System.out.println("\n=== ESTADÍSTICAS DEL HOSPITAL ===");
 
-        PacienteADO pacienteADO = new PacienteADO();
+        PacienteDAO pacienteADO = new PacienteDAO();
         int totalPacientes = pacienteADO.contarPacientes();
         System.out.println("Total de pacientes: " + totalPacientes);
 
-        DoctorADO doctorADO = new DoctorADO();
+        DoctorDAO doctorADO = new DoctorDAO();
         int totalDoctores = doctorADO.contarDoctores();
         System.out.println("Total de doctores: " + totalDoctores);
 
-        EnfermeraADO enfermeraADO = new EnfermeraADO();
+        EnfermeraDAO enfermeraADO = new EnfermeraDAO();
         int totalEnfermeras = enfermeraADO.contarEnfermeras();
         System.out.println("Total de enfermeras: " + totalEnfermeras);
 
-        AdministradorADO adminDAO = new AdministradorADO(); // para usar su metodo
+        AdministradorDAO adminDAO = new AdministradorDAO(); // para usar su metodo
         int totalAdmins = adminDAO.contarAdministradores();
         System.out.println("Total de Administradores: " + totalAdmins);
 

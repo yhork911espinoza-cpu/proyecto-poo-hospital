@@ -42,22 +42,22 @@ public class Hospital {
     //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     // Métodos para agregar usuarios
     public boolean agregarPaciente(Paciente paciente) {
-        PacienteADO pacientADO = new PacienteADO();
+        PacienteDAO pacientADO = new PacienteDAO();
         return pacientADO.agregarPaciente(paciente);
     }
 
     public boolean  agregarDoctor(Doctor doctor) {
-        DoctorADO doctorADO = new DoctorADO();
+        DoctorDAO doctorADO = new DoctorDAO();
         return doctorADO.agregarDoctor(doctor);
     }
 
     public boolean agregarEnfermera(Enfermera enfermera) {
-        EnfermeraADO enfermeraADO = new EnfermeraADO();
+        EnfermeraDAO enfermeraADO = new EnfermeraDAO();
         return enfermeraADO.agregarEnfermera(enfermera);
     }
 
     public boolean agregarAdministrador(Administrador admin) {
-        AdministradorADO dao = new AdministradorADO();
+        AdministradorDAO dao = new AdministradorDAO();
         return dao.agregarAdministrador(admin);
     }
     public void agregarPersonalLimpieza(PersonalLimpieza perLimpieza){
@@ -79,22 +79,22 @@ public class Hospital {
     // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     // Métodos de búsqueda
     public Paciente buscarPaciente(int dni) {
-        PacienteADO pacienteADO = new PacienteADO();
+        PacienteDAO pacienteADO = new PacienteDAO();
         return pacienteADO.buscarPaciente(dni);
     }
 
     public Doctor buscarDoctor(int dni) {
-        DoctorADO doctorADO = new DoctorADO();
+        DoctorDAO doctorADO = new DoctorDAO();
         return doctorADO.buscarDoctor(dni);
     }
 
     public Enfermera buscarEnfermera(int dni) {
-        EnfermeraADO enfermeraADO = new EnfermeraADO();
+        EnfermeraDAO enfermeraADO = new EnfermeraDAO();
         return enfermeraADO.buscarEnfermera(dni);
     }
 
     public Administrador buscarAdministrador(int dni) {
-    AdministradorADO dao = new AdministradorADO();
+    AdministradorDAO dao = new AdministradorDAO();
     return dao.buscarAdministrador(dni);
 }
 
