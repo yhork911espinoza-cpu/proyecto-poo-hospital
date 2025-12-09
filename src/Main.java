@@ -364,6 +364,8 @@ public class Main {
             System.out.println("=== MENÚ ADMINISTRADOR ===");
             System.out.println("1. Ver mis datos");
             System.out.println("2. Ver estadísticas");
+            System.out.println("3. Registrar un Usuario");
+            System.out.println("4. Buscar un usuario");
             System.out.println("3. Registrar doctor");
             System.out.println("4. Registrar enfermera");
             System.out.println("5. Crear departamento");
@@ -750,23 +752,37 @@ public class Main {
     public static void mostrarEstadisticas(Hospital hospital) {
         System.out.println("\n=== ESTADÍSTICAS DEL HOSPITAL ===");
 
-        PacienteDAO pacienteADO = new PacienteDAO();
-        int totalPacientes = pacienteADO.contarPacientes();
+        PacienteDAO pacienteDAO = new PacienteDAO();
+        int totalPacientes = pacienteDAO.contarPacientes();
         System.out.println("Total de pacientes: " + totalPacientes);
 
-        DoctorDAO doctorADO = new DoctorDAO();
-        int totalDoctores = doctorADO.contarDoctores();
+        DoctorDAO doctorDAO = new DoctorDAO();
+        int totalDoctores = doctorDAO.contarDoctores();
         System.out.println("Total de doctores: " + totalDoctores);
 
-        EnfermeraDAO enfermeraADO = new EnfermeraDAO();
-        int totalEnfermeras = enfermeraADO.contarEnfermeras();
+        EnfermeraDAO enfermeraDAO = new EnfermeraDAO();
+        int totalEnfermeras = enfermeraDAO.contarEnfermeras();
         System.out.println("Total de enfermeras: " + totalEnfermeras);
 
         AdministradorDAO adminDAO = new AdministradorDAO(); // para usar su metodo
         int totalAdmins = adminDAO.contarAdministradores();
         System.out.println("Total de Administradores: " + totalAdmins);
 
-        System.out.println("Total de departamentos: " + hospital.getDepartamentos().size());
+        PersonalLimpiezaDAO personalDAO = new PersonalLimpiezaDAO();
+        int totalLimpieza = personalDAO.contarPersonalLimpieza();
+        System.out.println("Total de trabajadores de Limpieza: " + totalLimpieza);
+
+        GuardiaSeguridadDAO guardiaDAO = new GuardiaSeguridadDAO();
+        int totalGuardias = guardiaDAO.contarGuardiaSeguridad();
+        System.out.println("Total de Guardias de Seguridad: " + totalGuardias);
+
+        CocineroDAO cocineroDAO = new CocineroDAO();
+        int totalCocineros = cocineroDAO.contarCocineros();
+        System.out.println("Total de Cocineros: " + totalCocineros);
+
+        DepartamentoDAO depaDAO = new DepartamentoDAO();
+        int totalDepartamentos = depaDAO.contarDepartamentos();
+        System.out.println("Total de departamentos: " + totalDepartamentos);
         // Más estadísticas aquí...
     }
 
@@ -839,56 +855,6 @@ public class Main {
                 "054-789456",
                 "contacto@sanmartin.pe",
                 250);
-        // =========================================================================================================================================
-
-        Cocinero cocinero1 = new Cocinero(
-                "Paolo", // nombre
-                "Coaquira", // primerApellido
-                "Anccori", // segundoApellido
-                "pao20505", // contraseña
-                75554491, // DNI
-                "Av. Lima 123", // dirección
-                "987654321", // teléfono
-                "cocinero@hospital.com", // email
-                LocalDate.of(1990, 5, 20), // fecha nacimiento
-                "Masculino", // género
-                "Mañana", // turno
-                "Comida Criolla" // especialidad
-        );
-        hospital.agregarCocinero(cocinero1);
-
-        GuardiaSeguridad guardia1 = new GuardiaSeguridad(
-                "Puerta Principal", // areaAsignada
-                true, // armado
-                "Paolo", // nombre
-                "Coaquira", // primerApellido
-                "Anccori", // segundoApellido
-                "pao20505", // contraseña
-                75554491, // DNI
-                "Av. Cusco 456", // dirección
-                "912345678", // teléfono
-                "guardia@hospital.com", // email
-                LocalDate.of(1985, 3, 14), // fecha nacimiento
-                "Masculino", // género
-                "Noche" // turno
-        );
-        hospital.agregarguardiaSeguridad(guardia1);
-
-        PersonalLimpieza limpieza1 = new PersonalLimpieza(
-                "Piso 2", // areaAsignada
-                "Paolo", // nombre
-                "Coaquira", // primerApellido
-                "Anccori", // segundoApellido
-                "pao20505", // contraseña
-                75554491, // DNI
-                "Av. Arequipa 789", // dirección
-                "999222111", // teléfono
-                "limpieza@hospital.com", // email
-                LocalDate.of(1995, 11, 2), // fecha nacimiento
-                "Femenino", // genero
-                "Tarde" // turno
-        );
-        hospital.agregarPersonalLimpieza(limpieza1);
 
         boolean continuar = true;
         while (continuar) {

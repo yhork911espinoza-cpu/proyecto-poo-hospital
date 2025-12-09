@@ -21,6 +21,8 @@ public class Cocinero  extends PersonalHospital{
         System.out.println("Dirección: " + direccion);
         System.out.println("Teléfono: " + telefono);
         System.out.println("Email: " + email);
+        System.out.println("Especialidad: " + especialidad);
+        System.out.println("Turno: " + turno);
     }
 
     public String getEspecialidad() {

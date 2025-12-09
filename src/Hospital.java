@@ -39,14 +39,14 @@ public class Hospital {
         return nombreHospital;
     }
 
-    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     // Métodos para agregar usuarios
     public boolean agregarPaciente(Paciente paciente) {
         PacienteDAO pacientADO = new PacienteDAO();
         return pacientADO.agregarPaciente(paciente);
     }
 
-    public boolean  agregarDoctor(Doctor doctor) {
+    public boolean agregarDoctor(Doctor doctor) {
         DoctorDAO doctorADO = new DoctorDAO();
         return doctorADO.agregarDoctor(doctor);
     }
@@ -60,19 +60,25 @@ public class Hospital {
         AdministradorDAO dao = new AdministradorDAO();
         return dao.agregarAdministrador(admin);
     }
-    public void agregarPersonalLimpieza(PersonalLimpieza perLimpieza){
-        personalLimpieza.add(perLimpieza);
+
+    public boolean agregarPersonalLimpieza(PersonalLimpieza perLimpieza) {
+        PersonalLimpiezaDAO personalLimmpiezaDAO = new PersonalLimpiezaDAO();
+        return personalLimmpiezaDAO.agregarPersonalLimpieza(perLimpieza);
     }
 
-    public void agregarguardiaSeguridad(GuardiaSeguridad guardiaSeguridad){
-        guardiasSeguridad.add(guardiaSeguridad);
-    }
-    public void agregarCocinero(Cocinero cocinero){
-        cocineros.add(cocinero);
+    public boolean agregarguardiaSeguridad(GuardiaSeguridad guardiaSeguridad) {
+        GuardiaSeguridadDAO guardiaDao = new GuardiaSeguridadDAO();
+        return guardiaDao.agregarGuardiaSeguridad(guardiaSeguridad);
     }
 
-    public void agregarDepartamento(Departamento depto) {
-        departamentos.add(depto);
+    public boolean agregarCocinero(Cocinero cocinero) {
+        CocineroDAO cocineroDAO = new CocineroDAO();
+        return cocineroDAO.agregarCocinero(cocinero);
+    }
+
+    public boolean agregarDepartamento(Departamento depto) {
+        DepartamentoDAO depaDAO = new DepartamentoDAO();
+        return depaDAO.agregarDepartamento(depto);
     }
 
     // ===================================================================================
@@ -94,34 +100,25 @@ public class Hospital {
     }
 
     public Administrador buscarAdministrador(int dni) {
-    AdministradorDAO dao = new AdministradorDAO();
-    return dao.buscarAdministrador(dni);
-}
+        AdministradorDAO dao = new AdministradorDAO();
+        return dao.buscarAdministrador(dni);
+    }
 
     public PersonalLimpieza buscarPersonalLimpieza(int dni) {
-        for (PersonalLimpieza L : personalLimpieza) {
-            if (L.getDni() == dni)
-                return L;
-        }
-        return null;
+        PersonalLimpiezaDAO personalLimpiezaDao = new PersonalLimpiezaDAO();
+        return personalLimpiezaDao.buscarPersonalLimpieza(dni);
     }
 
     public GuardiaSeguridad buscarGuardiaSeguridad(int dni) {
-        for (GuardiaSeguridad G : guardiasSeguridad) {
-            if (G.getDni() == dni)
-                return G;
-        }
-        return null;
+        GuardiaSeguridadDAO guardiaDao = new GuardiaSeguridadDAO();
+        return guardiaDao.buscarGuardiaSeguridad(dni);
     }
 
     public Cocinero buscarCocinero(int dni) {
-        for (Cocinero c : cocineros) {
-            if (c.getDni() == dni)
-                return c;
-        }
-        return null;
+        CocineroDAO cocinerodao = new CocineroDAO();
+        return cocinerodao.buscarCocinero(dni);
     }
-    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
     // Metodos para mostrar usuarios total xd
     public void mostrarPacientesTotal() {
@@ -184,7 +181,6 @@ public class Hospital {
     }
 
     // TOAL de USUARIOS
-
 
     // GETTERS
     public List<Doctor> getDoctores() {
