@@ -26,7 +26,7 @@ public class AdministradorDAO {
             ps.setString(8, admin.getEmail());
             ps.setDate(9, admin.getFechaNacimiento() != null ? java.sql.Date.valueOf(admin.getFechaNacimiento()) : null);
             ps.setString(10, admin.getGenero());
-            ps.setString(11, admin.getRol());
+            ps.setString(11, admin.getRolAdministrador());
 
             int filas = ps.executeUpdate();
             return filas > 0;

@@ -366,8 +366,6 @@ public class Main {
             System.out.println("2. Ver estadísticas");
             System.out.println("3. Registrar un Usuario");
             System.out.println("4. Buscar un usuario");
-            System.out.println("3. Registrar doctor");
-            System.out.println("4. Registrar enfermera");
             System.out.println("5. Crear departamento");
             System.out.println("6. Ver registros");
             System.out.println("0. Cerrar sesión");
@@ -385,10 +383,10 @@ public class Main {
                         mostrarEstadisticas(hospital);
                         break;
                     case 3:
-                        registrarDoctor(hospital);
+                        registrarUsuario(hospital, admin);
                         break;
                     case 4:
-                        registrarEnfermera(hospital);
+                        buscarUsuario(hospital);
                         break;
                     case 5:
                         crearDepartamento(hospital);
@@ -739,6 +737,253 @@ public class Main {
         System.out.println("Enfermera registrada exitosamente!");
     }
 
+    public static void registrarAdministrador(Hospital hospital) {
+
+        System.out.println("=== REGISTRAR ADMINISTRADOR ===");
+
+        System.out.print("Nombre: ");
+        String nombre = lector.nextLine();
+
+        System.out.print("Primer Apellido: ");
+        String ap1 = lector.nextLine();
+
+        System.out.print("Segundo Apellido: ");
+        String ap2 = lector.nextLine();
+
+        System.out.print("Contraseña: ");
+        String contraseña = lector.nextLine();
+
+        System.out.print("DNI: ");
+        int dni = lector.nextInt();
+        lector.nextLine();
+
+        System.out.print("Dirección: ");
+        String direccion = lector.nextLine();
+
+        System.out.print("Teléfono: ");
+        String telefono = lector.nextLine();
+
+        System.out.print("Email: ");
+        String email = lector.nextLine();
+
+        System.out.print("Fecha de nacimiento (YYYY-MM-DD): ");
+        LocalDate fechaNac = LocalDate.parse(lector.nextLine());
+
+        System.out.print("Género: ");
+        String genero = lector.nextLine();
+
+        System.out.print("Rol del administrador (Ej: Administrador, Administrador General): ");
+        String rol = lector.nextLine();
+
+        // Crear administrador
+        Administrador nuevoAdmin = new Administrador(
+                nombre,
+                ap1,
+                ap2,
+                contraseña,
+                dni,
+                direccion,
+                telefono,
+                email,
+                fechaNac,
+                genero,
+                rol);
+
+        // Agregar al hospital
+        hospital.agregarAdministrador(nuevoAdmin);
+
+        System.out.println("Administrador registrado correctamente.");
+    }
+
+    public static void registrarPersonalLimpieza(Hospital hospital) {
+
+        System.out.println("=== REGISTRAR PERSONAL DE LIMPIEZA ===");
+
+        System.out.print("Nombre: ");
+        String nombre = lector.nextLine();
+
+        System.out.print("Primer Apellido: ");
+        String ap1 = lector.nextLine();
+
+        System.out.print("Segundo Apellido: ");
+        String ap2 = lector.nextLine();
+
+        System.out.print("Contraseña: ");
+        String contraseña = lector.nextLine();
+
+        System.out.print("DNI: ");
+        int dni = lector.nextInt();
+        lector.nextLine();
+
+        System.out.print("Dirección: ");
+        String direccion = lector.nextLine();
+
+        System.out.print("Teléfono: ");
+        String telefono = lector.nextLine();
+
+        System.out.print("Email: ");
+        String email = lector.nextLine();
+
+        System.out.print("Fecha de nacimiento (YYYY-MM-DD): ");
+        LocalDate fechaNac = LocalDate.parse(lector.nextLine());
+
+        System.out.print("Género: ");
+        String genero = lector.nextLine();
+
+        System.out.print("Turno (Mañana / Tarde / Noche): ");
+        String turno = lector.nextLine();
+
+        System.out.print("Área asignada (Ej: Pasillos, Emergencias, Habitaciones): ");
+        String areaAsignada = lector.nextLine();
+
+        // Crear el objeto
+        PersonalLimpieza limpieza = new PersonalLimpieza(
+                areaAsignada,
+                nombre,
+                ap1,
+                ap2,
+                contraseña,
+                dni,
+                direccion,
+                telefono,
+                email,
+                fechaNac,
+                genero,
+                turno);
+
+        // Agregar al hospital
+        hospital.agregarPersonalLimpieza(limpieza);
+
+        System.out.println("Personal de limpieza registrado correctamente.");
+    }
+
+    public static void registrarCocinero(Hospital hospital) {
+
+        System.out.println("\n=== REGISTRAR COCINERO ===");
+
+        System.out.print("Ingrese nombre: ");
+        String nombre = lector.nextLine();
+
+        System.out.print("Ingrese primer apellido: ");
+        String primerApellido = lector.nextLine();
+
+        System.out.print("Ingrese segundo apellido: ");
+        String segundoApellido = lector.nextLine();
+
+        System.out.print("Ingrese contraseña: ");
+        String contraseña = lector.nextLine();
+
+        System.out.print("Ingrese DNI: ");
+        int dni = Integer.parseInt(lector.nextLine());
+
+        System.out.print("Ingrese dirección: ");
+        String direccion = lector.nextLine();
+
+        System.out.print("Ingrese teléfono: ");
+        String telefono = lector.nextLine();
+
+        System.out.print("Ingrese email: ");
+        String email = lector.nextLine();
+
+        System.out.print("Ingrese fecha de nacimiento (YYYY-MM-DD): ");
+        LocalDate fechaNacimiento = LocalDate.parse(lector.nextLine());
+
+        System.out.print("Ingrese género: ");
+        String genero = lector.nextLine();
+
+        System.out.print("Ingrese turno (mañana/tarde/noche): ");
+        String turno = lector.nextLine();
+
+        System.out.print("Ingrese especialidad del cocinero: ");
+        String especialidad = lector.nextLine();
+
+        // Crear objeto Cocinero
+        Cocinero cocinero = new Cocinero(
+                nombre,
+                primerApellido,
+                segundoApellido,
+                contraseña,
+                dni,
+                direccion,
+                telefono,
+                email,
+                fechaNacimiento,
+                genero,
+                turno,
+                especialidad);
+
+        // Registrar en el hospital
+        hospital.agregarCocinero(cocinero);
+
+        System.out.println("\nCocinero registrado correctamente.");
+    }
+
+    public static void registrarGuardiaSeguridad(Hospital hospital) {
+
+        System.out.println("\n=== REGISTRAR GUARDIA DE SEGURIDAD ===");
+
+        System.out.print("Ingrese nombre: ");
+        String nombre = lector.nextLine();
+
+        System.out.print("Ingrese primer apellido: ");
+        String primerApellido = lector.nextLine();
+
+        System.out.print("Ingrese segundo apellido: ");
+        String segundoApellido = lector.nextLine();
+
+        System.out.print("Ingrese contraseña: ");
+        String contraseña = lector.nextLine();
+
+        System.out.print("Ingrese DNI: ");
+        int dni = Integer.parseInt(lector.nextLine());
+
+        System.out.print("Ingrese dirección: ");
+        String direccion = lector.nextLine();
+
+        System.out.print("Ingrese teléfono: ");
+        String telefono = lector.nextLine();
+
+        System.out.print("Ingrese email: ");
+        String email = lector.nextLine();
+
+        System.out.print("Ingrese fecha de nacimiento (YYYY-MM-DD): ");
+        LocalDate fechaNacimiento = LocalDate.parse(lector.nextLine());
+
+        System.out.print("Ingrese género: ");
+        String genero = lector.nextLine();
+
+        System.out.print("Ingrese turno (mañana/tarde/noche): ");
+        String turno = lector.nextLine();
+
+        System.out.print("Área asignada de vigilancia: ");
+        String areaAsignada = lector.nextLine();
+
+        System.out.print("¿Está armado? (si/no): ");
+        String armadoInput = lector.nextLine();
+        boolean armado = armadoInput.equalsIgnoreCase("si");
+
+        // Crear objeto según tu constructor EXACTO
+        GuardiaSeguridad guardia = new GuardiaSeguridad(
+                areaAsignada,
+                armado,
+                nombre,
+                primerApellido,
+                segundoApellido,
+                contraseña,
+                dni,
+                direccion,
+                telefono,
+                email,
+                fechaNacimiento,
+                genero,
+                turno);
+
+        // Registrar en el hospital
+        hospital.agregarguardiaSeguridad(guardia);
+
+        System.out.println("\nGuardia de Seguridad registrado correctamente.");
+    }
+
     public static void crearDepartamento(Hospital hospital) {
         System.out.print("Nombre del Dpartamento: ");
         String nombreDepa = lector.nextLine();
@@ -784,6 +1029,843 @@ public class Main {
         int totalDepartamentos = depaDAO.contarDepartamentos();
         System.out.println("Total de departamentos: " + totalDepartamentos);
         // Más estadísticas aquí...
+    }
+
+    public static void registrarUsuario(Hospital hospital, Administrador admin) {
+        int opcion;
+        boolean validar123 = true;
+        do {
+            System.out.println(SEPARACION);
+            System.out.println("=== REGISTRAR ===");
+            System.out.println("1. Doctor");
+            System.out.println("2. Enfermera");
+            System.out.println("3. Paciente");
+
+            // Solo Administrador General puede ver la opción de registrar a un
+            // Administrador
+            if (admin.getRolAdministrador().equalsIgnoreCase("Administrador General")) {
+                System.out.println("4. Administrador");
+            }
+
+            System.out.println("5. Personal de Limpieza");
+            System.out.println("6. Cocinero");
+            System.out.println("7. Guardia de Seguridad");
+            System.out.println("0. Volver");
+
+            System.out.print("Seleccione una opción: ");
+            opcion = lector.nextInt();
+            lector.nextLine();
+
+            switch (opcion) {
+
+                case 1:
+                    registrarDoctor(hospital);
+                    break;
+
+                case 2:
+                    registrarEnfermera(hospital);
+                    break;
+
+                case 3:
+                    registrarPaciente();
+                    break;
+
+                case 4:
+                    if (admin.getRolAdministrador().equalsIgnoreCase("Administrador General")) {
+                        registrarAdministrador(hospital);
+                    } else {
+                        System.out.println("No tienes permiso para registrar administradores.");
+                    }
+                    break;
+
+                case 5:
+                    registrarPersonalLimpieza(hospital);
+                    break;
+
+                case 6:
+                    registrarCocinero(hospital);
+                    break;
+
+                case 7:
+                    registrarGuardiaSeguridad(hospital);
+                    break;
+
+                case 0:
+                    System.out.println("Volviendo...");
+                    validar123 = false;
+                    break;
+
+                default:
+                    System.out.println("Opción inválida.");
+                    break;
+            }
+
+        } while (validar123 == true);
+    }
+
+    public static void buscarUsuario(Hospital hospital) {
+        boolean salir = false;
+        while (!salir) {
+            System.out.println(SEPARACION);
+            System.out.println("=== BUSCAR USUARIO ===");
+            System.out.println("1. Doctor");
+            System.out.println("2. Enfermera");
+            System.out.println("3. Paciente");
+            System.out.println("4. Administrador");
+            System.out.println("5. Personal de Limpieza");
+            System.out.println("6. Cocinero");
+            System.out.println("7. Guardia de Seguridad");
+            System.out.println("0. Volver");
+            System.out.print("Opción: ");
+
+            try {
+                int opcion = lector.nextInt();
+                lector.nextLine();
+
+                switch (opcion) {
+                    case 1:
+                        System.out.print("Ingrese el DNI: ");
+                        int dni = lector.nextInt();
+                        System.out.println("Bucando doctor...");
+                        Doctor doctorBuscado = hospital.buscarDoctor(dni);
+                        boolean validar = true;
+                        do {
+                            System.out.println("=== USUARIO ENCONTRADO ===");
+                            System.out.println(doctorBuscado.getNombre() + " " + doctorBuscado.getPrimerApellido() + " "
+                                    + doctorBuscado.getSegundoApellido());
+                            System.out.println("¿Qué desea hacer?");
+                            System.out.println("1. Ver información completa");
+                            System.out.println("2. Actualizar datos");
+                            System.out.println("3. Eliminar usuario");
+                            System.out.println("0. Volver");
+                            int opcionDesea = lector.nextInt();
+                            switch (opcionDesea) {
+                                case 1:
+                                    doctorBuscado.mostrarDatos();
+                                    System.out.println("==============================");
+                                    break;
+                                case 2:
+                                    System.out.println("===== ACTUALIZAR DATOS DEL DOCTOR =====");
+                                    System.out.println("1. Actualizar nombre");
+                                    System.out.println("2. Actualizar primer apellido");
+                                    System.out.println("3. Actualizar segundo apellido");
+                                    System.out.println("4. Actualizar dirección");
+                                    System.out.println("5. Actualizar teléfono");
+                                    System.out.println("6. Actualizar email");
+                                    System.out.println("7. Actualizar contraseña");
+                                    System.out.println("8. Actualizar especialidad");
+                                    System.out.println("9. Actualizar número de licencia");
+                                    System.out.println("0. Volver");
+                                    System.out.print("Seleccione una opción: ");
+                                    int opcionDatoActualizar = lector.nextInt();
+                                    lector.nextLine();
+                                    switch (opcionDatoActualizar) {
+
+                                        case 1:
+                                            // Lógica para actualizar nombre
+                                            System.out.print("Nuevo nombre: ");
+                                            String nuevoNombre = lector.nextLine();
+                                            doctorBuscado.actualizarNombre(dni, nuevoNombre);
+                                            System.out.println("Nombre actualizado exitosamente.");
+                                            break;
+
+                                        case 2:
+                                            // Lógica para actualizar primer apellido
+                                            System.out.print("Nuevo primer apellido: ");
+                                            String nuevoPrimerApellido = lector.nextLine();
+                                            doctorBuscado.actualizarPrimerApellido(dni, nuevoPrimerApellido);
+                                            System.out.println("Primer apellido actualizado exitosamente.");
+                                            break;
+
+                                        case 3:
+                                            // Lógica para actualizar segundo apellido
+                                            System.out.print("Nuevo segundo apellido: ");
+                                            String nuevoSegundoApellido = lector.nextLine();
+                                            doctorBuscado.actualizarSegundoApellido(dni, nuevoSegundoApellido);
+                                            System.out.println("Segundo apellido actualizado exitosamente.");
+                                            break;
+
+                                        case 4:
+                                            // Lógica para actualizar dirección
+                                            System.out.print("Nueva dirección: ");
+                                            String nuevaDireccion = lector.nextLine();
+                                            doctorBuscado.actualizarDireccion(dni, nuevaDireccion);
+                                            System.out.println("Dirección actualizada exitosamente.");
+                                            break;
+
+                                        case 5:
+                                            // Lógica para actualizar teléfono
+                                            System.out.print("Nuevo teléfono: ");
+                                            String nuevoTelefono = lector.nextLine();
+                                            doctorBuscado.actualizarTelefono(dni, nuevoTelefono);
+                                            System.out.println("Teléfono actualizado exitosamente.");
+                                            break;
+
+                                        case 6:
+                                            // Lógica para actualizar email
+                                            System.out.print("Nuevo email: ");
+                                            String nuevoEmail = lector.nextLine();
+                                            doctorBuscado.actualizarEmail(dni, nuevoEmail);
+                                            System.out.println("Email actualizado exitosamente.");
+                                            break;
+
+                                        case 7:
+                                            // Lógica para actualizar contraseña
+                                            System.out.print("Nueva contraseña: ");
+                                            String nuevaContrasena = lector.nextLine();
+                                            doctorBuscado.actualizarContrasena(dni, nuevaContrasena);
+                                            System.out.println("Contraseña actualizada exitosamente.");
+                                            break;
+
+                                        case 8:
+                                            // Lógica para actualizar especialidad
+                                            System.out.print("Nueva especialidad: ");
+                                            String nuevaEspecialidad = lector.nextLine();
+                                            doctorBuscado.actualizarEspecialidad(dni, nuevaEspecialidad);
+                                            System.out.println("Especialidad actualizada exitosamente.");
+                                            break;
+
+                                        case 9:
+                                            // Lógica para actualizar número de licencia
+                                            System.out.print("Nuevo número de licencia: ");
+                                            String nuevaLicencia = lector.nextLine();
+                                            doctorBuscado.actualizarNumeroLicencia(dni, nuevaLicencia);
+                                            System.out.println("Número de licencia actualizado exitosamente.");
+                                            break;
+
+                                        case 0:
+                                            System.out.println("Volviendo...");
+                                            break;
+
+                                        default:
+                                            System.out.println("Opción inválida.");
+                                            break;
+                                    }
+                                    System.out.println(SEPARACION);
+                                    break;
+                                case 3:
+                                    System.out.println("=== ELIMINAR DOCTOR ===");
+                                    doctorBuscado.eliminarPorDni(dni);
+                                    break;
+                                case 0:
+                                    System.out.println("Volviendo...");
+                                    validar = false;
+                                    break;
+                                default:
+                                    System.out.println("Opcion inválida.");
+                            }
+                        } while (validar = true);
+                        break;
+                    case 2:
+                        System.out.print("Ingrese el DNI de la enfermera: ");
+                        int dniEnf = lector.nextInt();
+                        lector.nextLine();
+
+                        Enfermera enfermeraBuscada = hospital.buscarEnfermera(dniEnf);
+
+                        if (enfermeraBuscada == null) {
+                            System.out.println("No se encontró la enfermera.");
+                            break;
+                        }
+
+                        boolean continuarEnf = true;
+
+                        while (continuarEnf) {
+                            System.out.println("=== ENFERMERA ENCONTRADA ===");
+                            System.out.println(enfermeraBuscada.getNombre() + " " +
+                                    enfermeraBuscada.getPrimerApellido() + " " +
+                                    enfermeraBuscada.getSegundoApellido());
+
+                            System.out.println("1. Ver información completa");
+                            System.out.println("2. Actualizar datos");
+                            System.out.println("3. Eliminar enfermera");
+                            System.out.println("0. Volver");
+                            int op = lector.nextInt();
+                            lector.nextLine();
+
+                            switch (op) {
+                                case 1:
+                                    enfermeraBuscada.mostrarDatos();
+                                    break;
+
+                                case 2:
+                                    System.out.println("===== ACTUALIZAR DATOS =====");
+                                    System.out.println("1. Nombre");
+                                    System.out.println("2. Primer apellido");
+                                    System.out.println("3. Segundo apellido");
+                                    System.out.println("4. Dirección");
+                                    System.out.println("5. Teléfono");
+                                    System.out.println("6. Email");
+                                    System.out.println("7. Turno");
+                                    System.out.println("8. Contraseña");
+                                    System.out.println("0. Volver");
+                                    int a = lector.nextInt();
+                                    lector.nextLine();
+
+                                    switch (a) {
+                                        case 1:
+                                            System.out.print("Nuevo nombre: ");
+                                            enfermeraBuscada.actualizarNombre(dniEnf, lector.nextLine());
+                                            break;
+
+                                        case 2:
+                                            System.out.print("Nuevo primer apellido: ");
+                                            enfermeraBuscada.actualizarPrimerApellido(dniEnf, lector.nextLine());
+                                            break;
+
+                                        case 3:
+                                            System.out.print("Nuevo segundo apellido: ");
+                                            enfermeraBuscada.actualizarSegundoApellido(dniEnf, lector.nextLine());
+                                            break;
+
+                                        case 4:
+                                            System.out.print("Nueva dirección: ");
+                                            enfermeraBuscada.actualizarDireccion(dniEnf, lector.nextLine());
+                                            break;
+
+                                        case 5:
+                                            System.out.print("Nuevo teléfono: ");
+                                            enfermeraBuscada.actualizarTelefono(dniEnf, lector.nextLine());
+                                            break;
+
+                                        case 6:
+                                            System.out.print("Nuevo email: ");
+                                            enfermeraBuscada.actualizarEmail(dniEnf, lector.nextLine());
+                                            break;
+
+                                        case 7:
+                                            System.out.print("Nuevo turno: ");
+                                            enfermeraBuscada.actualizarTurno(dniEnf, lector.nextLine());
+                                            break;
+
+                                        case 8:
+                                            System.out.print("Nueva contraseña: ");
+                                            enfermeraBuscada.actualizarContrasena(dniEnf, lector.nextLine());
+                                            break;
+
+                                        case 0:
+                                            break;
+
+                                        default:
+                                            System.out.println("Opción inválida.");
+                                            break;
+                                    }
+                                    break;
+
+                                case 3:
+                                    System.out.println("¿Seguro que deseas eliminar? (s/n)");
+                                    if (lector.nextLine().equalsIgnoreCase("s")) {
+                                        enfermeraBuscada.eliminarPorDni(dniEnf);
+                                        System.out.println("Enfermera eliminada.");
+                                        continuarEnf = false;
+                                    }
+                                    break;
+
+                                case 0:
+                                    continuarEnf = false;
+                                    break;
+
+                                default:
+                                    System.out.println("Opción inválida.");
+                            }
+                        }
+                        break;
+                    case 3:
+                        System.out.print("Ingrese el DNI del paciente: ");
+                        int dniPac = lector.nextInt();
+                        lector.nextLine();
+
+                        Paciente pacienteBuscado = hospital.buscarPaciente(dniPac);
+
+                        if (pacienteBuscado == null) {
+                            System.out.println("No se encontró el paciente.");
+                            break;
+                        }
+
+                        boolean continuarPac = true;
+
+                        while (continuarPac) {
+                            System.out.println("=== PACIENTE ENCONTRADO ===");
+                            System.out.println(pacienteBuscado.getNombre() + " " +
+                                    pacienteBuscado.getPrimerApellido() + " " +
+                                    pacienteBuscado.getSegundoApellido());
+
+                            System.out.println("1. Ver información completa");
+                            System.out.println("2. Actualizar datos");
+                            System.out.println("3. Eliminar paciente");
+                            System.out.println("0. Volver");
+                            int op = lector.nextInt();
+                            lector.nextLine();
+
+                            switch (op) {
+                                case 1:
+                                    pacienteBuscado.mostrarDatos();
+                                    break;
+
+                                case 2:
+                                    System.out.println("===== ACTUALIZAR DATOS =====");
+                                    System.out.println("1. Nombre");
+                                    System.out.println("2. Primer apellido");
+                                    System.out.println("3. Segundo apellido");
+                                    System.out.println("4. Dirección");
+                                    System.out.println("5. Teléfono");
+                                    System.out.println("6. Email");
+                                    System.out.println("7. Contraseña");
+                                    System.out.println("0. Volver");
+                                    int a = lector.nextInt();
+                                    lector.nextLine();
+
+                                    switch (a) {
+                                        case 1:
+                                            System.out.print("Nuevo nombre: ");
+                                            pacienteBuscado.actualizarNombre(dniPac, lector.nextLine());
+                                            break;
+
+                                        case 2:
+                                            System.out.print("Nuevo primer apellido: ");
+                                            pacienteBuscado.actualizarPrimerApellido(dniPac, lector.nextLine());
+                                            break;
+
+                                        case 3:
+                                            System.out.print("Nuevo segundo apellido: ");
+                                            pacienteBuscado.actualizarSegundoApellido(dniPac, lector.nextLine());
+                                            break;
+
+                                        case 4:
+                                            System.out.print("Nueva dirección: ");
+                                            pacienteBuscado.actualizarDireccion(dniPac, lector.nextLine());
+                                            break;
+
+                                        case 5:
+                                            System.out.print("Nuevo teléfono: ");
+                                            pacienteBuscado.actualizarTelefono(dniPac, lector.nextLine());
+                                            break;
+
+                                        case 6:
+                                            System.out.print("Nuevo email: ");
+                                            pacienteBuscado.actualizarEmail(dniPac, lector.nextLine());
+                                            break;
+
+                                        case 7:
+                                            System.out.print("Nueva contraseña: ");
+                                            pacienteBuscado.actualizarContrasena(dniPac, lector.nextLine());
+                                            break;
+
+                                        case 0:
+                                            break;
+
+                                        default:
+                                            System.out.println("Opción inválida.");
+                                    }
+                                    break;
+
+                                case 3:
+                                    System.out.println("¿Seguro que deseas eliminar? (s/n)");
+                                    if (lector.nextLine().equalsIgnoreCase("s")) {
+                                        pacienteBuscado.eliminarPorDni(dniPac);
+                                        System.out.println("Paciente eliminado.");
+                                        continuarPac = false;
+                                    }
+                                    break;
+
+                                case 0:
+                                    continuarPac = false;
+                                    break;
+
+                                default:
+                                    System.out.println("Opción inválida.");
+                            }
+                        }
+                        break;
+
+                    case 4:
+                        System.out.print("Ingrese el DNI del administrador: ");
+                        int dniAdmin = lector.nextInt();
+                        lector.nextLine();
+
+                        Administrador adminBuscado = hospital.buscarAdministrador(dniAdmin);
+
+                        if (adminBuscado == null) {
+                            System.out.println("No se encontró administrador con ese DNI.");
+                            break;
+                        }
+
+                        boolean continuarAdmin = true;
+
+                        while (continuarAdmin) {
+                            System.out.println("=== ADMINISTRADOR ENCONTRADO ===");
+                            System.out.println(adminBuscado.getNombre() + " " +
+                                    adminBuscado.getPrimerApellido() + " " +
+                                    adminBuscado.getSegundoApellido());
+
+                            System.out.println("1. Ver información completa");
+                            System.out.println("0. Volver");
+                            int op = lector.nextInt();
+                            lector.nextLine();
+
+                            switch (op) {
+                                case 1:
+                                    adminBuscado.mostrarDatos(); // Método que imprime todos los datos del administrador
+                                    break;
+
+                                case 0:
+                                    continuarAdmin = false;
+                                    break;
+
+                                default:
+                                    System.out.println("Opción inválida.");
+                            }
+                        }
+                        break;
+
+                    case 5:
+                        System.out.print("Ingrese el DNI del personal de limpieza: ");
+                        int dniLimp = lector.nextInt();
+                        lector.nextLine();
+
+                        PersonalLimpieza limpiezaBuscado = hospital.buscarPersonalLimpieza(dniLimp);
+
+                        if (limpiezaBuscado == null) {
+                            System.out.println("No se encontró personal de limpieza con ese DNI.");
+                            break;
+                        }
+
+                        boolean continuarLimp = true;
+
+                        while (continuarLimp) {
+                            System.out.println("=== PERSONAL DE LIMPIEZA ENCONTRADO ===");
+                            System.out.println(limpiezaBuscado.getNombre() + " " +
+                                    limpiezaBuscado.getPrimerApellido() + " " +
+                                    limpiezaBuscado.getSegundoApellido());
+
+                            System.out.println("1. Ver información completa");
+                            System.out.println("2. Actualizar datos");
+                            System.out.println("3. Eliminar personal de limpieza");
+                            System.out.println("0. Volver");
+                            int op = lector.nextInt();
+                            lector.nextLine();
+
+                            switch (op) {
+                                case 1:
+                                    limpiezaBuscado.mostrarDatos();
+                                    break;
+
+                                case 2:
+                                    System.out.println("===== ACTUALIZAR DATOS =====");
+                                    System.out.println("1. Nombre");
+                                    System.out.println("2. Primer apellido");
+                                    System.out.println("3. Segundo apellido");
+                                    System.out.println("4. Dirección");
+                                    System.out.println("5. Teléfono");
+                                    System.out.println("6. Email");
+                                    System.out.println("7. Área asignada");
+                                    System.out.println("8. Turno");
+                                    System.out.println("9. Contraseña");
+                                    System.out.println("0. Volver");
+                                    int a = lector.nextInt();
+                                    lector.nextLine();
+
+                                    switch (a) {
+                                        case 1:
+                                            System.out.print("Nuevo nombre: ");
+                                            limpiezaBuscado.actualizarNombre(dniLimp, lector.nextLine());
+                                            break;
+                                        case 2:
+                                            System.out.print("Nuevo primer apellido: ");
+                                            limpiezaBuscado.actualizarPrimerApellido(dniLimp, lector.nextLine());
+                                            break;
+                                        case 3:
+                                            System.out.print("Nuevo segundo apellido: ");
+                                            limpiezaBuscado.actualizarSegundoApellido(dniLimp, lector.nextLine());
+                                            break;
+                                        case 4:
+                                            System.out.print("Nueva dirección: ");
+                                            limpiezaBuscado.actualizarDireccion(dniLimp, lector.nextLine());
+                                            break;
+                                        case 5:
+                                            System.out.print("Nuevo teléfono: ");
+                                            limpiezaBuscado.actualizarTelefono(dniLimp, lector.nextLine());
+                                            break;
+                                        case 6:
+                                            System.out.print("Nuevo email: ");
+                                            limpiezaBuscado.actualizarEmail(dniLimp, lector.nextLine());
+                                            break;
+                                        case 7:
+                                            System.out.print("Nueva área asignada: ");
+                                            limpiezaBuscado.actualizarAreaAsignada(dniLimp, lector.nextLine());
+                                            break;
+                                        case 8:
+                                            System.out.print("Nuevo turno: ");
+                                            limpiezaBuscado.actualizarTurno(dniLimp, lector.nextLine());
+                                            break;
+                                        case 9:
+                                            System.out.print("Nueva contraseña: ");
+                                            limpiezaBuscado.actualizarContrasena(dniLimp, lector.nextLine());
+                                            break;
+                                        case 0:
+                                            break;
+                                        default:
+                                            System.out.println("Opción inválida.");
+                                    }
+                                    break;
+
+                                case 3:
+                                    System.out.print("¿Seguro que deseas eliminar? (s/n): ");
+                                    if (lector.nextLine().equalsIgnoreCase("s")) {
+                                        limpiezaBuscado.eliminarPorDni(dniLimp);
+                                        System.out.println("Personal de limpieza eliminado.");
+                                        continuarLimp = false;
+                                    }
+                                    break;
+
+                                case 0:
+                                    continuarLimp = false;
+                                    break;
+
+                                default:
+                                    System.out.println("Opción inválida.");
+                            }
+                        }
+                        break;
+
+                    case 6:
+                        System.out.print("Ingrese el DNI del cocinero: ");
+                        int dniCocinero = lector.nextInt();
+                        lector.nextLine();
+
+                        Cocinero cocineroBuscado = hospital.buscarCocinero(dniCocinero);
+
+                        if (cocineroBuscado == null) {
+                            System.out.println("No se encontró cocinero con ese DNI.");
+                            break;
+                        }
+
+                        boolean continuarCocinero = true;
+
+                        while (continuarCocinero) {
+                            System.out.println("=== COCINERO ENCONTRADO ===");
+                            System.out.println(cocineroBuscado.getNombre() + " " +
+                                    cocineroBuscado.getPrimerApellido() + " " +
+                                    cocineroBuscado.getSegundoApellido());
+
+                            System.out.println("1. Ver información completa");
+                            System.out.println("2. Actualizar datos");
+                            System.out.println("3. Eliminar cocinero");
+                            System.out.println("0. Volver");
+                            int op = lector.nextInt();
+                            lector.nextLine();
+
+                            switch (op) {
+                                case 1:
+                                    cocineroBuscado.mostrarDatos();
+                                    break;
+
+                                case 2:
+                                    System.out.println("===== ACTUALIZAR DATOS =====");
+                                    System.out.println("1. Nombre");
+                                    System.out.println("2. Primer apellido");
+                                    System.out.println("3. Segundo apellido");
+                                    System.out.println("4. Dirección");
+                                    System.out.println("5. Teléfono");
+                                    System.out.println("6. Email");
+                                    System.out.println("7. Turno");
+                                    System.out.println("8. Especialidad");
+                                    System.out.println("9. Contraseña");
+                                    System.out.println("0. Volver");
+                                    int a = lector.nextInt();
+                                    lector.nextLine();
+
+                                    switch (a) {
+                                        case 1:
+                                            System.out.print("Nuevo nombre: ");
+                                            cocineroBuscado.actualizarNombre(dniCocinero, lector.nextLine());
+                                            break;
+                                        case 2:
+                                            System.out.print("Nuevo primer apellido: ");
+                                            cocineroBuscado.actualizarPrimerApellido(dniCocinero, lector.nextLine());
+                                            break;
+                                        case 3:
+                                            System.out.print("Nuevo segundo apellido: ");
+                                            cocineroBuscado.actualizarSegundoApellido(dniCocinero, lector.nextLine());
+                                            break;
+                                        case 4:
+                                            System.out.print("Nueva dirección: ");
+                                            cocineroBuscado.actualizarDireccion(dniCocinero, lector.nextLine());
+                                            break;
+                                        case 5:
+                                            System.out.print("Nuevo teléfono: ");
+                                            cocineroBuscado.actualizarTelefono(dniCocinero, lector.nextLine());
+                                            break;
+                                        case 6:
+                                            System.out.print("Nuevo email: ");
+                                            cocineroBuscado.actualizarEmail(dniCocinero, lector.nextLine());
+                                            break;
+                                        case 7:
+                                            System.out.print("Nuevo turno: ");
+                                            cocineroBuscado.actualizarTurno(dniCocinero, lector.nextLine());
+                                            break;
+                                        case 8:
+                                            System.out.print("Nueva especialidad: ");
+                                            cocineroBuscado.actualizarEspecialidad(dniCocinero, lector.nextLine());
+                                            break;
+                                        case 9:
+                                            System.out.print("Nueva contraseña: ");
+                                            cocineroBuscado.actualizarContrasena(dniCocinero, lector.nextLine());
+                                            break;
+                                        case 0:
+                                            break;
+                                        default:
+                                            System.out.println("Opción inválida.");
+                                    }
+                                    break;
+
+                                case 3:
+                                    System.out.print("¿Seguro que deseas eliminar? (s/n): ");
+                                    if (lector.nextLine().equalsIgnoreCase("s")) {
+                                        cocineroBuscado.eliminarPorDni(dniCocinero);
+                                        System.out.println("Cocinero eliminado.");
+                                        continuarCocinero = false;
+                                    }
+                                    break;
+
+                                case 0:
+                                    continuarCocinero = false;
+                                    break;
+
+                                default:
+                                    System.out.println("Opción inválida.");
+                            }
+                        }
+                        break;
+
+                    case 7:
+                        System.out.print("Ingrese el DNI del guardia: ");
+                        int dniGuardia = lector.nextInt();
+                        lector.nextLine();
+
+                        GuardiaSeguridad guardiaBuscado = hospital.buscarGuardiaSeguridad(dniGuardia);
+
+                        if (guardiaBuscado == null) {
+                            System.out.println("No se encontró guardia con ese DNI.");
+                            break;
+                        }
+
+                        boolean continuarGuardia = true;
+
+                        while (continuarGuardia) {
+                            System.out.println("=== GUARDIA DE SEGURIDAD ENCONTRADO ===");
+                            System.out.println(guardiaBuscado.getNombre() + " " +
+                                    guardiaBuscado.getPrimerApellido() + " " +
+                                    guardiaBuscado.getSegundoApellido());
+
+                            System.out.println("1. Ver información completa");
+                            System.out.println("2. Actualizar datos");
+                            System.out.println("3. Eliminar guardia");
+                            System.out.println("0. Volver");
+                            int op = lector.nextInt();
+                            lector.nextLine();
+
+                            switch (op) {
+                                case 1:
+                                    guardiaBuscado.mostrarDatos();
+                                    break;
+
+                                case 2:
+                                    System.out.println("===== ACTUALIZAR DATOS =====");
+                                    System.out.println("1. Nombre");
+                                    System.out.println("2. Primer apellido");
+                                    System.out.println("3. Segundo apellido");
+                                    System.out.println("4. Dirección");
+                                    System.out.println("5. Teléfono");
+                                    System.out.println("6. Email");
+                                    System.out.println("7. Área asignada");
+                                    System.out.println("8. Armado");
+                                    System.out.println("9. Turno");
+                                    System.out.println("10. Contraseña");
+                                    System.out.println("0. Volver");
+                                    int a = lector.nextInt();
+                                    lector.nextLine();
+
+                                    switch (a) {
+                                        case 1:
+                                            System.out.print("Nuevo nombre: ");
+                                            guardiaBuscado.actualizarNombre(dniGuardia, lector.nextLine());
+                                            break;
+                                        case 2:
+                                            System.out.print("Nuevo primer apellido: ");
+                                            guardiaBuscado.actualizarPrimerApellido(dniGuardia, lector.nextLine());
+                                            break;
+                                        case 3:
+                                            System.out.print("Nuevo segundo apellido: ");
+                                            guardiaBuscado.actualizarSegundoApellido(dniGuardia, lector.nextLine());
+                                            break;
+                                        case 4:
+                                            System.out.print("Nueva dirección: ");
+                                            guardiaBuscado.actualizarDireccion(dniGuardia, lector.nextLine());
+                                            break;
+                                        case 5:
+                                            System.out.print("Nuevo teléfono: ");
+                                            guardiaBuscado.actualizarTelefono(dniGuardia, lector.nextLine());
+                                            break;
+                                        case 6:
+                                            System.out.print("Nuevo email: ");
+                                            guardiaBuscado.actualizarEmail(dniGuardia, lector.nextLine());
+                                            break;
+                                        case 7:
+                                            System.out.print("Nueva área asignada: ");
+                                            guardiaBuscado.actualizarAreaAsignada(dniGuardia, lector.nextLine());
+                                            break;
+                                        case 8:
+                                            System.out.print("Armado (sí/no): ");
+                                            guardiaBuscado.actualizarArmado(dniGuardia, lector.nextLine());
+                                            break;
+                                        case 9:
+                                            System.out.print("Nuevo turno: ");
+                                            guardiaBuscado.actualizarTurno(dniGuardia, lector.nextLine());
+                                            break;
+                                        case 10:
+                                            System.out.print("Nueva contraseña: ");
+                                            guardiaBuscado.actualizarContrasena(dniGuardia, lector.nextLine());
+                                            break;
+                                        case 0:
+                                            break;
+                                        default:
+                                            System.out.println("Opción inválida.");
+                                    }
+                                    break;
+
+                                case 3:
+                                    System.out.print("¿Seguro que deseas eliminar? (s/n): ");
+                                    if (lector.nextLine().equalsIgnoreCase("s")) {
+                                        guardiaBuscado.eliminarPorDni(dniGuardia);
+                                        System.out.println("Guardia eliminado.");
+                                        continuarGuardia = false;
+                                    }
+                                    break;
+
+                                case 0:
+                                    continuarGuardia = false;
+                                    break;
+
+                                default:
+                                    System.out.println("Opción inválida.");
+                            }
+                        }
+                        break;
+
+                    case 0:
+                        System.out.println("Volviendo...");
+                        System.out.println("===========================");
+                        salir = true;
+                        break;
+                    default:
+                        System.out.println("Opción no válida.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Debe ingresar un número.");
+                lector.nextLine();
+            }
+        }
     }
 
     public static void verRegistros(Hospital hospital) {

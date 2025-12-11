@@ -2,22 +2,22 @@
 import java.time.LocalDate;
 
 public class Administrador extends Usuario {
-    private String rol;
+    private String rolAdministrador;
 
     public Administrador(String nombre, String primerApellido, String segundoApellido, 
                         String contraseña, int dni, String direccion, String telefono, 
                         String email, LocalDate fechaNacimiento, String genero, 
-                        String rol) {
+                        String rolAdministrador) {
         super(nombre, primerApellido, segundoApellido, contraseña, dni, direccion, 
               telefono, email, fechaNacimiento, genero);
-        this.rol = rol;
+        this.rolAdministrador = rolAdministrador;
     }
 
-    public String getRol() { 
-        return rol; 
+    public String getRolAdministrador() { 
+        return rolAdministrador; 
     }
-    public void setRol(String rol) { 
-        this.rol = rol; 
+    public void setRol(String rolAdministrador) { 
+        this.rolAdministrador = rolAdministrador; 
     }
 
     @Override
@@ -25,7 +25,7 @@ public class Administrador extends Usuario {
         System.out.println("\n=== DATOS DEL ADMINISTRADOR ===");
         System.out.println("Nombre: " + nombre + " " + primerApellido + " " + segundoApellido);
         System.out.println("DNI: " + dni);
-        System.out.println("Rol: " + rol);
+        System.out.println("Rol: " + rolAdministrador);
         System.out.println("Teléfono: " + telefono);
         System.out.println("Email: " + email);
     }

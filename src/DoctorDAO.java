@@ -78,25 +78,27 @@ public class DoctorDAO {
         return null;
     }
 
-    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     public int contarDoctores() {
-    String sql = "SELECT COUNT(*) AS total FROM Doctores";
+        String sql = "SELECT COUNT(*) AS total FROM Doctores";
 
-    try (Connection con = ConexionSQL.getConexion();
-         PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = ConexionSQL.getConexion();
+                PreparedStatement ps = con.prepareStatement(sql)) {
 
-        if (con == null) return 0;
+            if (con == null)
+                return 0;
 
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            return rs.getInt("total");
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return 0;
     }
-
-    return 0;
-}
+    // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 }
