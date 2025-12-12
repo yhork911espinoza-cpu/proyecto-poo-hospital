@@ -273,10 +273,11 @@ public class Main {
                     doctor.getPrimerApellido() + " " + doctor.getSegundoApellido());
             System.out.println("=== MENÚ DOCTOR ===");
             System.out.println("1. Ver mis datos");
-            System.out.println("2. Ver mis citas");
-            System.out.println("3. Ver mis pacientes");
-            System.out.println("4. Agregar diagnóstico");
-            System.out.println("5. Agregar tratamiento");
+            System.out.println("2. Editar datos");
+            System.out.println("3. Ver mis citas");
+            System.out.println("4. Ver mis pacientes");
+            System.out.println("5. Agregar diagnóstico");
+            System.out.println("6. Agregar tratamiento");
             System.out.println("0. Cerrar sesión");
             System.out.print("Opción: ");
 
@@ -289,15 +290,114 @@ public class Main {
                         doctor.mostrarDatos();
                         break;
                     case 2:
-                        doctor.mostrarCitas();
+                        System.out.println("===== EDITAR DATOS=====");
+                        System.out.println("1. Nombre");
+                        System.out.println("2. Primer apellido");
+                        System.out.println("3. Segundo apellido");
+                        System.out.println("4. Dirección");
+                        System.out.println("5. Teléfono");
+                        System.out.println("6. Email");
+                        System.out.println("7. Contraseña");
+                        System.out.println("8. Especialidad");
+                        System.out.println("9. Número de licencia");
+                        System.out.println("0. Volver");
+                        System.out.print("Seleccione una opción: ");
+                        int opcionDatoActualizar = lector.nextInt();
+                        lector.nextLine();
+                        switch (opcionDatoActualizar) {
+
+                            case 1:
+                                // Lógica para actualizar nombre
+                                System.out.print("Nuevo nombre: ");
+                                String nuevoNombre = lector.nextLine();
+                                doctor.actualizarNombre(doctor.getDni(), nuevoNombre);
+                                System.out.println("Nombre actualizado exitosamente.");
+                                break;
+
+                            case 2:
+                                // Lógica para actualizar primer apellido
+                                System.out.print("Nuevo primer apellido: ");
+                                String nuevoPrimerApellido = lector.nextLine();
+                                doctor.actualizarPrimerApellido(doctor.getDni(), nuevoPrimerApellido);
+                                System.out.println("Primer apellido actualizado exitosamente.");
+                                break;
+
+                            case 3:
+                                // Lógica para actualizar segundo apellido
+                                System.out.print("Nuevo segundo apellido: ");
+                                String nuevoSegundoApellido = lector.nextLine();
+                                doctor.actualizarSegundoApellido(doctor.getDni(), nuevoSegundoApellido);
+                                System.out.println("Segundo apellido actualizado exitosamente.");
+                                break;
+
+                            case 4:
+                                // Lógica para actualizar dirección
+                                System.out.print("Nueva dirección: ");
+                                String nuevaDireccion = lector.nextLine();
+                                doctor.actualizarDireccion(doctor.getDni(), nuevaDireccion);
+                                System.out.println("Dirección actualizada exitosamente.");
+                                break;
+
+                            case 5:
+                                // Lógica para actualizar teléfono
+                                System.out.print("Nuevo teléfono: ");
+                                String nuevoTelefono = lector.nextLine();
+                                doctor.actualizarTelefono(doctor.getDni(), nuevoTelefono);
+                                System.out.println("Teléfono actualizado exitosamente.");
+                                break;
+
+                            case 6:
+                                // Lógica para actualizar email
+                                System.out.print("Nuevo email: ");
+                                String nuevoEmail = lector.nextLine();
+                                doctor.actualizarEmail(doctor.getDni(), nuevoEmail);
+                                System.out.println("Email actualizado exitosamente.");
+                                break;
+
+                            case 7:
+                                // Lógica para actualizar contraseña
+                                System.out.print("Nueva contraseña: ");
+                                String nuevaContrasena = lector.nextLine();
+                                doctor.actualizarContrasena(doctor.getDni(), nuevaContrasena);
+                                System.out.println("Contraseña actualizada exitosamente.");
+                                break;
+
+                            case 8:
+                                // Lógica para actualizar especialidad
+                                System.out.print("Nueva especialidad: ");
+                                String nuevaEspecialidad = lector.nextLine();
+                                doctor.actualizarEspecialidad(doctor.getDni(), nuevaEspecialidad);
+                                System.out.println("Especialidad actualizada exitosamente.");
+                                break;
+
+                            case 9:
+                                // Lógica para actualizar número de licencia
+                                System.out.print("Nuevo número de licencia: ");
+                                String nuevaLicencia = lector.nextLine();
+                                doctor.actualizarNumeroLicencia(doctor.getDni(), nuevaLicencia);
+                                System.out.println("Número de licencia actualizado exitosamente.");
+                                break;
+
+                            case 0:
+                                System.out.println("Volviendo...");
+                                break;
+
+                            default:
+                                System.out.println("Opción inválida.");
+                                break;
+                        }
+                        System.out.println(SEPARACION);
                         break;
                     case 3:
-                        doctor.mostrarPacientes();
+                        doctor.mostrarCitas();
                         break;
                     case 4:
-                        agregarDiagnostico(doctor, hospital);
+                        doctor.mostrarPacientes();
                         break;
                     case 5:
+                        agregarDiagnostico(doctor, hospital);
+                        break;
+                    case 6:
                         agregarTratamiento(doctor, hospital);
                         break;
                     case 0:
@@ -322,8 +422,9 @@ public class Main {
                     enfermera.getPrimerApellido());
             System.out.println("=== MENÚ ENFERMERA ===");
             System.out.println("1. Ver mis datos");
-            System.out.println("2. Ver mis pacientes");
-            System.out.println("3. Buscar paciente");
+            System.out.println("2. Editar datos");
+            System.out.println("3. Ver mis pacientes");
+            System.out.println("4. Buscar paciente");
             System.out.println("0. Cerrar sesión");
             System.out.print("Opción: ");
 
@@ -336,9 +437,72 @@ public class Main {
                         enfermera.mostrarDatos();
                         break;
                     case 2:
-                        enfermera.mostrarPacientes();
+                        System.out.println("===== EDITAR DATOS =====");
+                        System.out.println("1. Nombre");
+                        System.out.println("2. Primer apellido");
+                        System.out.println("3. Segundo apellido");
+                        System.out.println("4. Dirección");
+                        System.out.println("5. Teléfono");
+                        System.out.println("6. Email");
+                        System.out.println("7. Turno");
+                        System.out.println("8. Contraseña");
+                        System.out.println("0. Volver");
+                        int a = lector.nextInt();
+                        lector.nextLine();
+
+                        switch (a) {
+                            case 1:
+                                System.out.print("Nuevo nombre: ");
+                                enfermera.actualizarNombre(enfermera.getDni(), lector.nextLine());
+                                break;
+
+                            case 2:
+                                System.out.print("Nuevo primer apellido: ");
+                                enfermera.actualizarPrimerApellido(enfermera.getDni(), lector.nextLine());
+                                break;
+
+                            case 3:
+                                System.out.print("Nuevo segundo apellido: ");
+                                enfermera.actualizarSegundoApellido(enfermera.getDni(), lector.nextLine());
+                                break;
+
+                            case 4:
+                                System.out.print("Nueva dirección: ");
+                                enfermera.actualizarDireccion(enfermera.getDni(), lector.nextLine());
+                                break;
+
+                            case 5:
+                                System.out.print("Nuevo teléfono: ");
+                                enfermera.actualizarTelefono(enfermera.getDni(), lector.nextLine());
+                                break;
+
+                            case 6:
+                                System.out.print("Nuevo email: ");
+                                enfermera.actualizarEmail(enfermera.getDni(), lector.nextLine());
+                                break;
+
+                            case 7:
+                                System.out.print("Nuevo turno: ");
+                                enfermera.actualizarTurno(enfermera.getDni(), lector.nextLine());
+                                break;
+
+                            case 8:
+                                System.out.print("Nueva contraseña: ");
+                                enfermera.actualizarContrasena(enfermera.getDni(), lector.nextLine());
+                                break;
+
+                            case 0:
+                                break;
+
+                            default:
+                                System.out.println("Opción inválida.");
+                                break;
+                        }
                         break;
                     case 3:
+                        enfermera.mostrarPacientes();
+                        break;
+                    case 4:
                         buscarPacienteEnfermera(hospital);
                         break;
                     case 0:
@@ -363,11 +527,12 @@ public class Main {
                     admin.getPrimerApellido() + " " + admin.getSegundoApellido());
             System.out.println("=== MENÚ ADMINISTRADOR ===");
             System.out.println("1. Ver mis datos");
-            System.out.println("2. Ver estadísticas");
-            System.out.println("3. Registrar un Usuario");
-            System.out.println("4. Buscar un usuario");
-            System.out.println("5. Crear departamento");
-            System.out.println("6. Ver registros");
+            System.out.println("2. Editar Datos");
+            System.out.println("3. Ver estadísticas");
+            System.out.println("4. Registrar un Usuario");
+            System.out.println("5. Buscar un usuario");
+            System.out.println("6. Crear departamento");
+            System.out.println("7. Ver registros");
             System.out.println("0. Cerrar sesión");
             System.out.print("Opción: ");
 
@@ -380,18 +545,108 @@ public class Main {
                         admin.mostrarDatos();
                         break;
                     case 2:
+                        System.out.println("===== EDITAR DATOS =====");
+                        System.out.println("1. Nombre");
+                        System.out.println("2. Primer apellido");
+                        System.out.println("3. Segundo apellido");
+                        System.out.println("4. Contraseña");
+                        System.out.println("5. Dirección");
+                        System.out.println("6. Teléfono");
+                        System.out.println("7. Email");
+                        System.out.print("Opción: ");
+                        int opcionEditarDatos = lector.nextInt();
+                        lector.nextLine();
+
+                        switch (opcionEditarDatos) {
+                            case 1:
+                                System.out.print("Nuevo nombre: ");
+                                String nuevoNombre = lector.nextLine();
+                                if (admin.actualizarNombre(admin.getDni(), nuevoNombre)) {
+                                    System.out.println("Nombre actualizado correctamente.");
+                                } else {
+                                    System.out.println("Error al actualizar el nombre.");
+                                }
+                                break;
+
+                            case 2:
+                                System.out.print("Nuevo primer apellido: ");
+                                String nuevoPrimerApellido = lector.nextLine();
+                                if (admin.actualizarPrimerApellido(admin.getDni(), nuevoPrimerApellido)) {
+                                    System.out.println("Primer apellido actualizado correctamente.");
+                                } else {
+                                    System.out.println("Error al actualizar el primer apellido.");
+                                }
+                                break;
+
+                            case 3:
+                                System.out.print("Nuevo segundo apellido: ");
+                                String nuevoSegundoApellido = lector.nextLine();
+                                if (admin.actualizarSegundoApellido(admin.getDni(), nuevoSegundoApellido)) {
+                                    System.out.println("Segundo apellido actualizado correctamente.");
+                                } else {
+                                    System.out.println("Error al actualizar el segundo apellido.");
+                                }
+                                break;
+
+                            case 4:
+                                System.out.print("Nueva contraseña: ");
+                                String nuevaContrasena = lector.nextLine();
+                                if (admin.actualizarContrasena(admin.getDni(), nuevaContrasena)) {
+                                    System.out.println("Contraseña actualizada correctamente.");
+                                } else {
+                                    System.out.println("Error al actualizar la contraseña.");
+                                }
+                                break;
+
+                            case 5:
+                                System.out.print("Nueva dirección: ");
+                                String nuevaDireccion = lector.nextLine();
+                                if (admin.actualizarDireccion(admin.getDni(), nuevaDireccion)) {
+                                    System.out.println("Dirección actualizada correctamente.");
+                                } else {
+                                    System.out.println("Error al actualizar la dirección.");
+                                }
+                                break;
+
+                            case 6:
+                                System.out.print("Nuevo teléfono: ");
+                                String nuevoTelefono = lector.nextLine();
+                                if (admin.actualizarTelefono(admin.getDni(), nuevoTelefono)) {
+                                    System.out.println("Teléfono actualizado correctamente.");
+                                } else {
+                                    System.out.println("Error al actualizar el teléfono.");
+                                }
+                                break;
+
+                            case 7:
+                                System.out.print("Nuevo email: ");
+                                String nuevoEmail = lector.nextLine();
+                                if (admin.actualizarEmail(admin.getDni(), nuevoEmail)) {
+                                    System.out.println("Email actualizado correctamente.");
+                                } else {
+                                    System.out.println("Error al actualizar el email.");
+                                }
+                                break;
+
+                            default:
+                                System.out.println("Opción inválida.");
+                                break;
+                        }
+                        break; // fin del case 2
+
+                    case 3:
                         mostrarEstadisticas(hospital);
                         break;
-                    case 3:
+                    case 4:
                         registrarUsuario(hospital, admin);
                         break;
-                    case 4:
+                    case 5:
                         buscarUsuario(hospital);
                         break;
-                    case 5:
+                    case 6:
                         crearDepartamento(hospital);
                         break;
-                    case 6:
+                    case 7:
                         verRegistros(hospital);
                         break;
                     case 0:
@@ -416,8 +671,9 @@ public class Main {
                     "BIENVENIDO: " + L.getNombre() + " " + L.getPrimerApellido() + " " + L.getSegundoApellido());
             System.out.println("\n=== MENÚ PERSONAL DE LIMPIEZA ===");
             System.out.println("1. Ver mis datos");
-            System.out.println("2. Ver área asignada");
-            System.out.println("3. Registrar limpieza realizada");
+            System.out.println("2. Editar datos");
+            System.out.println("3. Ver área asignada");
+            System.out.println("4. Registrar limpieza realizada");
             System.out.println("0. Cerrar sesión");
             System.out.print("Opción: ");
 
@@ -429,9 +685,67 @@ public class Main {
                     L.mostrarDatos();
                     break;
                 case 2:
-                    System.out.println("Área asignada: " + L.getAreaAsignada());
+                    System.out.println("===== EDITAr DATOS =====");
+                    System.out.println("1. Nombre");
+                    System.out.println("2. Primer apellido");
+                    System.out.println("3. Segundo apellido");
+                    System.out.println("4. Dirección");
+                    System.out.println("5. Teléfono");
+                    System.out.println("6. Email");
+                    System.out.println("7. Área asignada");
+                    System.out.println("8. Turno");
+                    System.out.println("9. Contraseña");
+                    System.out.println("0. Volver");
+                    int a = lector.nextInt();
+                    lector.nextLine();
+
+                    switch (a) {
+                        case 1:
+                            System.out.print("Nuevo nombre: ");
+                            L.actualizarNombre(L.getDni(), lector.nextLine());
+                            break;
+                        case 2:
+                            System.out.print("Nuevo primer apellido: ");
+                            L.actualizarPrimerApellido(L.getDni(), lector.nextLine());
+                            break;
+                        case 3:
+                            System.out.print("Nuevo segundo apellido: ");
+                            L.actualizarSegundoApellido(L.getDni(), lector.nextLine());
+                            break;
+                        case 4:
+                            System.out.print("Nueva dirección: ");
+                            L.actualizarDireccion(L.getDni(), lector.nextLine());
+                            break;
+                        case 5:
+                            System.out.print("Nuevo teléfono: ");
+                            L.actualizarTelefono(L.getDni(), lector.nextLine());
+                            break;
+                        case 6:
+                            System.out.print("Nuevo email: ");
+                            L.actualizarEmail(L.getDni(), lector.nextLine());
+                            break;
+                        case 7:
+                            System.out.print("Nueva área asignada: ");
+                            L.actualizarAreaAsignada(L.getDni(), lector.nextLine());
+                            break;
+                        case 8:
+                            System.out.print("Nuevo turno: ");
+                            L.actualizarTurno(L.getDni(), lector.nextLine());
+                            break;
+                        case 9:
+                            System.out.print("Nueva contraseña: ");
+                            L.actualizarContrasena(L.getDni(), lector.nextLine());
+                            break;
+                        case 0:
+                            break;
+                        default:
+                            System.out.println("Opción inválida.");
+                    }
                     break;
                 case 3:
+                    System.out.println("Área asignada: " + L.getAreaAsignada());
+                    break;
+                case 4:
                     System.out.println("Registro guardado!");
                     break;
                 case 0:
@@ -452,8 +766,9 @@ public class Main {
                     "BIENVENIDO: " + G.getNombre() + " " + G.getPrimerApellido() + " " + G.getSegundoApellido());
             System.out.println("\n=== MENÚ GUARDIA DE SEGURIDAD ===");
             System.out.println("1. Ver mis datos");
-            System.out.println("2. Ver turno");
-            System.out.println("3. Registrar incidencia");
+            System.out.println("2. Editar datos");
+            System.out.println("3. Ver turno");
+            System.out.println("4. Registrar incidencia");
             System.out.println("0. Cerrar sesión");
             System.out.print("Opción: ");
 
@@ -465,9 +780,90 @@ public class Main {
                     G.mostrarDatos();
                     break;
                 case 2:
+                    System.out.println("===== EDITAR DATOS =====");
+                    System.out.println("1. Nombre");
+                    System.out.println("2. Primer apellido");
+                    System.out.println("3. Segundo apellido");
+                    System.out.println("4. Dirección");
+                    System.out.println("5. Teléfono");
+                    System.out.println("6. Email");
+                    System.out.println("7. Área asignada");
+                    System.out.println("8. Armado");
+                    System.out.println("9. Turno");
+                    System.out.println("10. Contraseña");
+                    System.out.println("0. Volver");
+                    int a = lector.nextInt();
+                    lector.nextLine();
+
+                    switch (a) {
+                        case 1:
+                            System.out.print("Nuevo nombre: ");
+                            G.actualizarNombre(G.getDni(), lector.nextLine());
+                            break;
+                        case 2:
+                            System.out.print("Nuevo primer apellido: ");
+                            G.actualizarPrimerApellido(G.getDni(), lector.nextLine());
+                            break;
+                        case 3:
+                            System.out.print("Nuevo segundo apellido: ");
+                            G.actualizarSegundoApellido(G.getDni(), lector.nextLine());
+                            break;
+                        case 4:
+                            System.out.print("Nueva dirección: ");
+                            G.actualizarDireccion(G.getDni(), lector.nextLine());
+                            break;
+                        case 5:
+                            System.out.print("Nuevo teléfono: ");
+                            G.actualizarTelefono(G.getDni(), lector.nextLine());
+                            break;
+                        case 6:
+                            System.out.print("Nuevo email: ");
+                            G.actualizarEmail(G.getDni(), lector.nextLine());
+                            break;
+                        case 7:
+                            System.out.print("Nueva área asignada: ");
+                            G.actualizarAreaAsignada(G.getDni(), lector.nextLine());
+                            break;
+                        case 8:
+                            System.out.print("Armado (sí/no): ");
+                            String armadoStr = lector.nextLine().trim().toLowerCase();
+
+                            boolean armadoBool;
+                            if (armadoStr.equals("sí") || armadoStr.equals("si")) {
+                                armadoBool = true;
+                            } else if (armadoStr.equals("no")) {
+                                armadoBool = false;
+                            } else {
+                                System.out.println("Opción inválida, se mantiene el valor actual.");
+                                break;
+                            }
+
+                            if (G.actualizarArmado(G.getDni(), armadoBool)) { // DAO
+                                G.setArmado(armadoBool); // <- actualizar objeto local
+                                System.out.println("Armado actualizado correctamente.");
+                            } else {
+                                System.out.println("No se pudo actualizar el armado.");
+                            }
+                            break;
+                        case 9:
+                            System.out.print("Nuevo turno: ");
+                            G.actualizarTurno(G.getDni(), lector.nextLine());
+                            break;
+                        case 10:
+                            System.out.print("Nueva contraseña: ");
+                            G.actualizarContrasena(G.getDni(), lector.nextLine());
+                            break;
+                        case 0:
+                            break;
+                        default:
+                            System.out.println("Opción inválida.");
+                    }
+                    break;
+
+                case 3:
                     System.out.println("Turno: " + G.getTurno());
                     break;
-                case 3:
+                case 4:
                     System.out.println("Incidencia registrada.");
                     break;
                 case 0:
@@ -488,8 +884,9 @@ public class Main {
                     "BIENVENIDO: " + C.getNombre() + " " + C.getPrimerApellido() + " " + C.getSegundoApellido());
             System.out.println("\n=== MENÚ COCINERO ===");
             System.out.println("1. Ver mis datos");
-            System.out.println("2. Ver menú del día");
-            System.out.println("3. Registrar comida preparada");
+            System.out.println("2. Editar datos");
+            System.out.println("3. Ver menú del día");
+            System.out.println("4. Registrar comida preparada");
             System.out.println("0. Cerrar sesión");
             System.out.print("Opción: ");
 
@@ -501,9 +898,68 @@ public class Main {
                     C.mostrarDatos();
                     break;
                 case 2:
+                    System.out.println("===== EDITAR DATOS =====");
+                    System.out.println("1. Nombre");
+                    System.out.println("2. Primer apellido");
+                    System.out.println("3. Segundo apellido");
+                    System.out.println("4. Dirección");
+                    System.out.println("5. Teléfono");
+                    System.out.println("6. Email");
+                    System.out.println("7. Turno");
+                    System.out.println("8. Especialidad");
+                    System.out.println("9. Contraseña");
+                    System.out.println("0. Volver");
+                    int a = lector.nextInt();
+                    lector.nextLine();
+
+                    switch (a) {
+                        case 1:
+                            System.out.print("Nuevo nombre: ");
+                            C.actualizarNombre(C.getDni(), lector.nextLine());
+                            break;
+                        case 2:
+                            System.out.print("Nuevo primer apellido: ");
+                            C.actualizarPrimerApellido(C.getDni(), lector.nextLine());
+                            break;
+                        case 3:
+                            System.out.print("Nuevo segundo apellido: ");
+                            C.actualizarSegundoApellido(C.getDni(), lector.nextLine());
+                            break;
+                        case 4:
+                            System.out.print("Nueva dirección: ");
+                            C.actualizarDireccion(C.getDni(), lector.nextLine());
+                            break;
+                        case 5:
+                            System.out.print("Nuevo teléfono: ");
+                            C.actualizarTelefono(C.getDni(), lector.nextLine());
+                            break;
+                        case 6:
+                            System.out.print("Nuevo email: ");
+                            C.actualizarEmail(C.getDni(), lector.nextLine());
+                            break;
+                        case 7:
+                            System.out.print("Nuevo turno: ");
+                            C.actualizarTurno(C.getDni(), lector.nextLine());
+                            break;
+                        case 8:
+                            System.out.print("Nueva especialidad: ");
+                            C.actualizarEspecialidad(C.getDni(), lector.nextLine());
+                            break;
+                        case 9:
+                            System.out.print("Nueva contraseña: ");
+                            C.actualizarContrasena(C.getDni(), lector.nextLine());
+                            break;
+                        case 0:
+                            break;
+                        default:
+                            System.out.println("Opción inválida.");
+                    }
+                    break;
+
+                case 3:
                     System.out.println("Menú del día: Sopa + Segundo");
                     break;
-                case 3:
+                case 4:
                     System.out.println("Registro guardado!");
                     break;
                 case 0:
@@ -1146,15 +1602,15 @@ public class Main {
                                     break;
                                 case 2:
                                     System.out.println("===== ACTUALIZAR DATOS DEL DOCTOR =====");
-                                    System.out.println("1. Actualizar nombre");
-                                    System.out.println("2. Actualizar primer apellido");
-                                    System.out.println("3. Actualizar segundo apellido");
-                                    System.out.println("4. Actualizar dirección");
-                                    System.out.println("5. Actualizar teléfono");
-                                    System.out.println("6. Actualizar email");
-                                    System.out.println("7. Actualizar contraseña");
-                                    System.out.println("8. Actualizar especialidad");
-                                    System.out.println("9. Actualizar número de licencia");
+                                    System.out.println("1. Nombre");
+                                    System.out.println("2. Primer apellido");
+                                    System.out.println("3. Segundo apellido");
+                                    System.out.println("4. Dirección");
+                                    System.out.println("5. Teléfono");
+                                    System.out.println("6. Email");
+                                    System.out.println("7. Contraseña");
+                                    System.out.println("8. Especialidad");
+                                    System.out.println("9. Número de licencia");
                                     System.out.println("0. Volver");
                                     System.out.print("Seleccione una opción: ");
                                     int opcionDatoActualizar = lector.nextInt();
@@ -1762,6 +2218,7 @@ public class Main {
                             System.out.println("2. Actualizar datos");
                             System.out.println("3. Eliminar guardia");
                             System.out.println("0. Volver");
+                            System.out.print("Opcion: ");
                             int op = lector.nextInt();
                             lector.nextLine();
 
@@ -1817,7 +2274,24 @@ public class Main {
                                             break;
                                         case 8:
                                             System.out.print("Armado (sí/no): ");
-                                            guardiaBuscado.actualizarArmado(dniGuardia, lector.nextLine());
+                                            String armadoStr = lector.nextLine().trim().toLowerCase();
+
+                                            boolean armadoBool;
+                                            if (armadoStr.equals("sí") || armadoStr.equals("si")) {
+                                                armadoBool = true;
+                                            } else if (armadoStr.equals("no")) {
+                                                armadoBool = false;
+                                            } else {
+                                                System.out.println("Opción inválida, se mantiene el valor actual.");
+                                                break;
+                                            }
+
+                                            if (guardiaBuscado.actualizarArmado(dniGuardia, armadoBool)) { // DAO
+                                                guardiaBuscado.setArmado(armadoBool); // <- actualizar objeto local
+                                                System.out.println("Armado actualizado correctamente.");
+                                            } else {
+                                                System.out.println("No se pudo actualizar el armado.");
+                                            }
                                             break;
                                         case 9:
                                             System.out.print("Nuevo turno: ");

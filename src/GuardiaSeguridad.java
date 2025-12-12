@@ -20,7 +20,7 @@ public class GuardiaSeguridad extends PersonalHospital {
 
     @Override
     public void mostrarDatos() {
-        System.out.println("\n=== DATOS DEL PACIENTE ===");
+        System.out.println("\n=== DATOS DEL GUARDIA DE SEGURIDAD ===");
         System.out.println("Nombre: " + nombre + " " + primerApellido + " " + segundoApellido);
         System.out.println("DNI: " + dni);
         System.out.println("Fecha de nacimiento: " + fechaNacimiento);
@@ -28,11 +28,18 @@ public class GuardiaSeguridad extends PersonalHospital {
         System.out.println("Dirección: " + direccion);
         System.out.println("Teléfono: " + telefono);
         System.out.println("Email: " + email);
+        if (armado == true) {
+            System.out.println("Esta armado");
+        }
+        if (armado == false) {
+            System.out.println("No esta armado");
+        }
     }
 
     public String getAreaAsignada() {
         return areaAsignada;
     }
+    
 
     public boolean isArmado() {
         return armado;
@@ -167,17 +174,17 @@ public class GuardiaSeguridad extends PersonalHospital {
     // ================================
     // ACTUALIZAR ARMADO
     // ================================
-    public boolean actualizarArmado(int dni, String armado) {
+    public boolean actualizarArmado(int dni, boolean armado) {
         String sql = "UPDATE GuardiasSeguridad SET armado = ? WHERE dni = ?";
         try (Connection con = ConexionSQL.getConexion();
                 PreparedStatement ps = con.prepareStatement(sql)) {
-            if (con == null)
-                return false;
-            ps.setString(1, armado);
+
+            ps.setBoolean(1, armado); // <- aquí va boolean, no String
             ps.setInt(2, dni);
             return ps.executeUpdate() > 0;
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Error al actualizar armado: " + e.getMessage());
             return false;
         }
     }
@@ -231,6 +238,14 @@ public class GuardiaSeguridad extends PersonalHospital {
             System.out.println("Error al eliminar guardia: " + e.getMessage());
             return false;
         }
+    }
+
+    public void setAreaAsignada(String areaAsignada) {
+        this.areaAsignada = areaAsignada;
+    }
+
+    public void setArmado(boolean armado) {
+        this.armado = armado;
     }
 
 }
