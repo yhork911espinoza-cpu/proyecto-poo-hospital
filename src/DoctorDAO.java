@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DoctorDAO {
 
@@ -99,6 +100,39 @@ public class DoctorDAO {
 
         return 0;
     }
+
     // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    public ArrayList<Doctor> obtenerTodosDoctores() {
+        ArrayList<Doctor> lista = new ArrayList<>();
+        String sql = "SELECT TOP (1000) * FROM Doctores"; // coincide con tu consulta
+
+        try (Connection con = ConexionSQL.getConexion();
+                PreparedStatement ps = con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Doctor doctor = new Doctor(
+                        rs.getString("nombre"),
+                        rs.getString("primerApellido"),
+                        rs.getString("segundoApellido"),
+                        rs.getString("contraseña"),
+                        rs.getInt("dni"),
+                        rs.getString("direccion"),
+                        rs.getString("telefono"),
+                        rs.getString("email"),
+                        rs.getDate("fechaNacimiento") != null ? rs.getDate("fechaNacimiento").toLocalDate() : null,
+                        rs.getString("genero"),
+                        rs.getString("especialidad"),
+                        rs.getString("numeroLicencia"));
+
+                lista.add(doctor);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
 
 }

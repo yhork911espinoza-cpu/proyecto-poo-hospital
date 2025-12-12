@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class EnfermeraDAO {
     // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -75,14 +76,15 @@ public class EnfermeraDAO {
         return null;
     }
 
-    //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     public int contarEnfermeras() {
         String sql = "SELECT COUNT(*) AS total FROM Enfermeras";
 
         try (Connection con = ConexionSQL.getConexion();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+                PreparedStatement ps = con.prepareStatement(sql)) {
 
-            if (con == null) return 0;
+            if (con == null)
+                return 0;
 
             ResultSet rs = ps.executeQuery();
 
@@ -97,4 +99,36 @@ public class EnfermeraDAO {
         return 0;
     }
 
+    // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    public ArrayList<Enfermera> obtenerTodasEnfermeras() {
+        ArrayList<Enfermera> lista = new ArrayList<>();
+        String sql = "SELECT TOP (1000) * FROM Enfermeras"; // coincide con tu tabla
+
+        try (Connection con = ConexionSQL.getConexion();
+                PreparedStatement ps = con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Enfermera enf = new Enfermera(
+                        rs.getString("nombre"),
+                        rs.getString("primerApellido"),
+                        rs.getString("segundoApellido"),
+                        rs.getString("contraseña"),
+                        rs.getInt("dni"),
+                        rs.getString("direccion"),
+                        rs.getString("telefono"),
+                        rs.getString("email"),
+                        rs.getDate("fechaNacimiento") != null ? rs.getDate("fechaNacimiento").toLocalDate() : null,
+                        rs.getString("genero"),
+                        rs.getString("turno"));
+
+                lista.add(enf);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
 }

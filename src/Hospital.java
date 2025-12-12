@@ -122,60 +122,123 @@ public class Hospital {
 
     // Metodos para mostrar usuarios total xd
     public void mostrarPacientesTotal() {
+        PacienteDAO pacienteDAO = new PacienteDAO();
+        ArrayList<Paciente> pacientes = pacienteDAO.obtenerTodosPacientes();
+
         if (pacientes.isEmpty()) {
             System.out.println("No hay pacientes registrados");
         } else {
-            for (int i = 0; i < pacientes.size(); i++) {
-                Paciente pacien = pacientes.get(i);
-                System.out.println((i + 1) + ". " + pacien.getNombre() + " " + pacien.getPrimerApellido() + " "
-                        + pacien.getSegundoApellido());
+            System.out.println("=== LISTA DE PACIENTES ===");
+            for (Paciente p : pacientes) {
+                p.mostrarDatos();
+                System.out.println("-------------------------");
             }
         }
     }
 
     public void mostrarDoctoresTotal() {
+        DoctorDAO doctorDAO = new DoctorDAO();
+        ArrayList<Doctor> doctores = doctorDAO.obtenerTodosDoctores();
+
         if (doctores.isEmpty()) {
             System.out.println("No hay doctores registrados");
         } else {
-            for (int i = 0; i < doctores.size(); i++) {
-                Doctor doc = doctores.get(i);
-                System.out.println((i + 1) + ". " + doc.getNombre() + " " + doc.getPrimerApellido() + " "
-                        + doc.getSegundoApellido());
+            System.out.println("=== LISTA DE DOCTORES ===");
+            for (Doctor d : doctores) {
+                d.mostrarDatos();
+                System.out.println("-------------------------");
             }
         }
     }
 
     public void mostrarEnfermerasTotal() {
+        EnfermeraDAO enfermeraDAO = new EnfermeraDAO();
+        ArrayList<Enfermera> enfermeras = enfermeraDAO.obtenerTodasEnfermeras();
+
         if (enfermeras.isEmpty()) {
-            System.out.println("No hay enfermeras registrados");
+            System.out.println("No hay enfermeras registradas");
         } else {
-            for (int i = 0; i < enfermeras.size(); i++) {
-                Enfermera enfer = enfermeras.get(i);
-                System.out.println((i + 1) + ". " + enfer.getNombre() + " " + enfer.getPrimerApellido() + " "
-                        + enfer.getSegundoApellido());
+            System.out.println("=== LISTA DE ENFERMERAS ===");
+            for (Enfermera enfer : enfermeras) {
+                enfer.mostrarDatos();
+                System.out.println("-------------------------");
             }
         }
     }
 
     public void mostrarAdministradoresTotal() {
+        AdministradorDAO adminDAO = new AdministradorDAO();
+        ArrayList<Administrador> administradores = adminDAO.obtenerTodosAdministradores();
+
         if (administradores.isEmpty()) {
-            System.out.println("No hay Administradores registrados");
+            System.out.println("No hay administradores registrados");
         } else {
-            for (int i = 0; i < administradores.size(); i++) {
-                Administrador admin = administradores.get(i);
-                System.out.println((i + 1) + ". " + admin.getNombre() + " " + admin.getPrimerApellido() + " "
-                        + admin.getSegundoApellido());
+            System.out.println("=== LISTA DE ADMINISTRADORES ===");
+            for (Administrador admin : administradores) {
+                admin.mostrarDatos();
+                System.out.println("-------------------------");
+            }
+        }
+    }
+
+    public void mostrarCocinerosTotal() {
+        CocineroDAO cocineroDAO = new CocineroDAO();
+        ArrayList<Cocinero> cocineros = cocineroDAO.obtenerTodosCocineros();
+
+        if (cocineros.isEmpty()) {
+            System.out.println("No hay cocineros registrados");
+        } else {
+            System.out.println("=== LISTA DE COCINEROS ===");
+            for (Cocinero c : cocineros) {
+                System.out.println("- " + c.getNombre() + " " + c.getPrimerApellido() + " " + c.getSegundoApellido()
+                        + " | Turno: " + c.getTurno() + " | Especialidad: " + c.getEspecialidad());
+            }
+        }
+    }
+
+    public void mostrarGuardiasSeguridadTotal() {
+        GuardiaSeguridadDAO dao = new GuardiaSeguridadDAO();
+        ArrayList<GuardiaSeguridad> guardias = dao.obtenerTodosGuardias();
+
+        if (guardias.isEmpty()) {
+            System.out.println("No hay guardias de seguridad registrados");
+        } else {
+            System.out.println("=== LISTA DE GUARDIAS DE SEGURIDAD ===");
+            for (GuardiaSeguridad g : guardias) {
+                System.out.println("- " + g.getNombre() + " " + g.getPrimerApellido() + " " + g.getSegundoApellido()
+                        + " | Turno: " + g.getTurno()
+                        + " | Área: " + g.getAreaAsignada()
+                        + " | Armado: " + (g.isArmado() ? "Sí" : "No"));
+            }
+        }
+    }
+
+    public void mostrarPersonalLimpiezaTotal() {
+        PersonalLimpiezaDAO dao = new PersonalLimpiezaDAO();
+        ArrayList<PersonalLimpieza> personal = dao.obtenerTodosPersonalLimpieza();
+
+        if (personal.isEmpty()) {
+            System.out.println("No hay personal de limpieza registrado");
+        } else {
+            System.out.println("=== LISTA DE PERSONAL DE LIMPIEZA ===");
+            for (PersonalLimpieza pl : personal) {
+                System.out.println("- " + pl.getNombre() + " " + pl.getPrimerApellido() + " " + pl.getSegundoApellido()
+                        + " | Turno: " + pl.getTurno()
+                        + " | Área: " + pl.getAreaAsignada());
             }
         }
     }
 
     public void mostrarDepartamentosTotal() {
+        DepartamentoDAO depaDAO = new DepartamentoDAO();
+        ArrayList<Departamento> departamentos = depaDAO.obtenerTodosDepartamentos();
+
         if (departamentos.isEmpty()) {
-            System.out.println("No hay Departamentos");
+            System.out.println("No hay departamentos registrados");
         } else {
-            for (int i = 0; i < departamentos.size(); i++) {
-                Departamento depa = departamentos.get(i);
-                System.out.println((i + 1) + ". " + depa.getNombreDepartamento());
+            System.out.println("=== LISTA DE DEPARTAMENTOS ===");
+            for (Departamento depa : departamentos) {
+                System.out.println("- " + depa.getNombreDepartamento() + " | Ubicación: " + depa.getUbicacion());
             }
         }
     }

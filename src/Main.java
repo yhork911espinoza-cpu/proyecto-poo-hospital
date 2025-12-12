@@ -2352,6 +2352,9 @@ public class Main {
             System.out.println("3. Enfermeras");
             System.out.println("4. Administradores");
             System.out.println("5. Departamentos");
+            System.out.println("6. Cocineros");
+            System.out.println("7. Guardias de Seguridad");
+            System.out.println("8. Personal de Limpieza");
             System.out.println("0. Volver");
             System.out.print("Opción: ");
 
@@ -2383,6 +2386,21 @@ public class Main {
                     case 5:
                         System.out.println("Departamentos:");
                         hospital.mostrarDepartamentosTotal();
+                        System.out.println("===========================");
+                        break;
+                    case 6:
+                        System.out.println("Cocineros:");
+                        hospital.mostrarCocinerosTotal();
+                        System.out.println("===========================");
+                        break;
+                    case 7:
+                        System.out.println("Guardias de Seguridad:");
+                        hospital.mostrarGuardiasSeguridadTotal();
+                        System.out.println("===========================");
+                        break;
+                    case 8:
+                        System.out.println("Personal de Limpieza:");
+                        hospital.mostrarPersonalLimpiezaTotal();
                         System.out.println("===========================");
                         break;
                     case 0:

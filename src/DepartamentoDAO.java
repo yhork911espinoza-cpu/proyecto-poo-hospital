@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DepartamentoDAO {
     // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -64,5 +65,29 @@ public class DepartamentoDAO {
         }
 
         return 0;
+    }
+    //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    public ArrayList<Departamento> obtenerTodosDepartamentos() {
+        ArrayList<Departamento> lista = new ArrayList<>();
+        String sql = "SELECT TOP (1000) * FROM Departamentos"; // coincide con tu tabla
+
+        try (Connection conn = ConexionSQL.getConexion();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Departamento depa = new Departamento(
+                        rs.getString("nombreDepartamento"),
+                        rs.getString("ubicacion")
+                );
+
+                lista.add(depa);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener departamentos: " + e.getMessage());
+        }
+
+        return lista;
     }
 }

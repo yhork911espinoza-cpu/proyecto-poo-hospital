@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class GuardiaSeguridadDAO {
 
@@ -89,5 +90,39 @@ public class GuardiaSeguridadDAO {
         }
 
         return 0; // Si ocurre un error, retorna 0
+    }
+    //|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    public ArrayList<GuardiaSeguridad> obtenerTodosGuardias() {
+        ArrayList<GuardiaSeguridad> lista = new ArrayList<>();
+        String sql = "SELECT TOP (1000) * FROM GuardiasSeguridad";
+
+        try (Connection conn = ConexionSQL.getConexion();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                GuardiaSeguridad guardia = new GuardiaSeguridad(
+                        rs.getString("areaAsignada"),
+                        rs.getBoolean("armado"),
+                        rs.getString("nombre"),
+                        rs.getString("primerApellido"),
+                        rs.getString("segundoApellido"),
+                        rs.getString("contraseña"),
+                        rs.getInt("dni"),
+                        rs.getString("direccion"),
+                        rs.getString("telefono"),
+                        rs.getString("email"),
+                        rs.getDate("fechaNacimiento") != null ? rs.getDate("fechaNacimiento").toLocalDate() : null,
+                        rs.getString("genero"),
+                        rs.getString("turno")
+                );
+                lista.add(guardia);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener guardias de seguridad: " + e.getMessage());
+        }
+
+        return lista;
     }
 }

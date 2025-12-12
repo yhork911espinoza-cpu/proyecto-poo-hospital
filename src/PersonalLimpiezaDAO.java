@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class PersonalLimpiezaDAO {
     // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -86,6 +87,39 @@ public class PersonalLimpiezaDAO {
         }
 
         return 0;
+    }
+
+    // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    public ArrayList<PersonalLimpieza> obtenerTodosPersonalLimpieza() {
+        ArrayList<PersonalLimpieza> lista = new ArrayList<>();
+        String sql = "SELECT TOP (1000) * FROM PersonalLimpieza";
+
+        try (Connection conn = ConexionSQL.getConexion();
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                PersonalLimpieza pl = new PersonalLimpieza(
+                        rs.getString("areaAsignada"),
+                        rs.getString("nombre"),
+                        rs.getString("primerApellido"),
+                        rs.getString("segundoApellido"),
+                        rs.getString("contraseña"),
+                        rs.getInt("dni"),
+                        rs.getString("direccion"),
+                        rs.getString("telefono"),
+                        rs.getString("email"),
+                        rs.getDate("fechaNacimiento") != null ? rs.getDate("fechaNacimiento").toLocalDate() : null,
+                        rs.getString("genero"),
+                        rs.getString("turno"));
+                lista.add(pl);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener personal de limpieza: " + e.getMessage());
+        }
+
+        return lista;
     }
 
 }

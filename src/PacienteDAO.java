@@ -208,5 +208,49 @@ public class PacienteDAO {
         }
     }
     //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    public ArrayList<Paciente> obtenerTodosPacientes() {
+    ArrayList<Paciente> lista = new ArrayList<>();
+    String sqlPaciente = "SELECT * FROM Pacientes";
+    String sqlAlergias = "SELECT alergia FROM Alergias WHERE dniPaciente = ?";
+
+    try (Connection con = ConexionSQL.getConexion();
+         PreparedStatement ps = con.prepareStatement(sqlPaciente);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            int dni = rs.getInt("dni");
+
+            Paciente paciente = new Paciente(
+                    rs.getString("nombre"),
+                    rs.getString("primerApellido"),
+                    rs.getString("segundoApellido"),
+                    rs.getString("contraseña"),
+                    dni,
+                    rs.getString("direccion"),
+                    rs.getString("telefono"),
+                    rs.getString("email"),
+                    rs.getDate("fechaNacimiento") != null ? rs.getDate("fechaNacimiento").toLocalDate() : null,
+                    rs.getString("genero"),
+                    new ArrayList<>()
+            );
+
+            // Cargar alergias
+            try (PreparedStatement psA = con.prepareStatement(sqlAlergias)) {
+                psA.setInt(1, dni);
+                ResultSet rsA = psA.executeQuery();
+                while (rsA.next()) {
+                    paciente.agregarAlergia(rsA.getString("alergia"));
+                }
+            }
+
+            lista.add(paciente);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return lista;
+}
 
 }
