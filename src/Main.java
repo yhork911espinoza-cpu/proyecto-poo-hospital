@@ -885,8 +885,6 @@ public class Main {
             System.out.println("\n=== MENÚ COCINERO ===");
             System.out.println("1. Ver mis datos");
             System.out.println("2. Editar datos");
-            System.out.println("3. Ver menú del día");
-            System.out.println("4. Registrar comida preparada");
             System.out.println("0. Cerrar sesión");
             System.out.print("Opción: ");
 
@@ -956,12 +954,6 @@ public class Main {
                     }
                     break;
 
-                case 3:
-                    System.out.println("Menú del día: Sopa + Segundo");
-                    break;
-                case 4:
-                    System.out.println("Registro guardado!");
-                    break;
                 case 0:
                     salir = true;
                     System.out.println("Cerrando sesión...");
