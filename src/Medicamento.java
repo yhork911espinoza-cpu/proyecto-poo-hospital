@@ -1,28 +1,42 @@
 public class Medicamento {
 
     private String nombre;
-    private String dosis; 
-    private String frecuencia; 
-    private int duracionDias; 
-    private String instrucciones; 
+    private String descripcion;
+    private int cantidad;
+    private double precio;
 
-    public Medicamento(String nombre, String dosis, String frecuencia, int duracionDias, String instrucciones) {
+    public Medicamento(String nombre, String descripcion, int cantidad, double precio) {
         this.nombre = nombre;
-        this.dosis = dosis;
-        this.frecuencia = frecuencia;
-        this.duracionDias = duracionDias;
-        this.instrucciones = instrucciones;
+        this.descripcion = descripcion;
+        this.cantidad = cantidad;
+        this.precio = precio;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
     public void mostrarMedicamento() {
-        System.out.println("Medicamento: " + nombre);
-        System.out.println("Dosis: " + dosis);
-        System.out.println("Frecuencia: " + frecuencia);
-        System.out.println("Duración: " + duracionDias + " días");
-        System.out.println("Instrucciones: " + instrucciones);
-        System.out.println("----------------------------------------");
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Descripción: " + descripcion);
+        System.out.println("Cantidad: " + cantidad);
+        System.out.println("Precio: " + precio);
+        System.out.println("-----------------------------");
     }
-
-    // Getters
-    public String getNombre() { return nombre; }
 }

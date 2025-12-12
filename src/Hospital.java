@@ -1,14 +1,17 @@
-
-// ==================== Hospital.java ====================
 import java.util.ArrayList;
 import java.util.List;
 
 public class Hospital {
+
     private String nombreHospital;
     private String direccion;
     private String telefono;
     private String email;
     private int capacidadCamas;
+
+    private ArrayList<Farmacia> farmacias;
+
+    // Listas (solo para manejo en memoria si deseas)
     private List<Paciente> pacientes;
     private List<Doctor> doctores;
     private List<Enfermera> enfermeras;
@@ -20,11 +23,15 @@ public class Hospital {
 
     public Hospital(String nombreHospital, String direccion, String telefono,
             String email, int capacidadCamas) {
+
         this.nombreHospital = nombreHospital;
         this.direccion = direccion;
         this.telefono = telefono;
         this.email = email;
         this.capacidadCamas = capacidadCamas;
+
+        this.farmacias = new ArrayList<>();
+
         this.pacientes = new ArrayList<>();
         this.doctores = new ArrayList<>();
         this.enfermeras = new ArrayList<>();
@@ -35,217 +42,216 @@ public class Hospital {
         this.departamentos = new ArrayList<>();
     }
 
-    public String getNombreHospital() {
-        return nombreHospital;
-    }
+    // ============================================================
+    // MÉTODOS PARA AGREGAR (LLAMAN A LA BD - DAO)
+    // ============================================================
 
-    // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-    // Métodos para agregar usuarios
     public boolean agregarPaciente(Paciente paciente) {
-        PacienteDAO pacientADO = new PacienteDAO();
-        return pacientADO.agregarPaciente(paciente);
+        return new PacienteDAO().agregarPaciente(paciente);
     }
 
     public boolean agregarDoctor(Doctor doctor) {
-        DoctorDAO doctorADO = new DoctorDAO();
-        return doctorADO.agregarDoctor(doctor);
+        return new DoctorDAO().agregarDoctor(doctor);
     }
 
     public boolean agregarEnfermera(Enfermera enfermera) {
-        EnfermeraDAO enfermeraADO = new EnfermeraDAO();
-        return enfermeraADO.agregarEnfermera(enfermera);
+        return new EnfermeraDAO().agregarEnfermera(enfermera);
     }
 
     public boolean agregarAdministrador(Administrador admin) {
-        AdministradorDAO dao = new AdministradorDAO();
-        return dao.agregarAdministrador(admin);
+        return new AdministradorDAO().agregarAdministrador(admin);
     }
 
-    public boolean agregarPersonalLimpieza(PersonalLimpieza perLimpieza) {
-        PersonalLimpiezaDAO personalLimmpiezaDAO = new PersonalLimpiezaDAO();
-        return personalLimmpiezaDAO.agregarPersonalLimpieza(perLimpieza);
+    public boolean agregarPersonalLimpieza(PersonalLimpieza pl) {
+        return new PersonalLimpiezaDAO().agregarPersonalLimpieza(pl);
     }
 
-    public boolean agregarguardiaSeguridad(GuardiaSeguridad guardiaSeguridad) {
-        GuardiaSeguridadDAO guardiaDao = new GuardiaSeguridadDAO();
-        return guardiaDao.agregarGuardiaSeguridad(guardiaSeguridad);
+    public boolean agregarGuardiaSeguridad(GuardiaSeguridad guardia) {
+        return new GuardiaSeguridadDAO().agregarGuardiaSeguridad(guardia);
     }
 
     public boolean agregarCocinero(Cocinero cocinero) {
-        CocineroDAO cocineroDAO = new CocineroDAO();
-        return cocineroDAO.agregarCocinero(cocinero);
+        return new CocineroDAO().agregarCocinero(cocinero);
     }
 
-    public boolean agregarDepartamento(Departamento depto) {
-        DepartamentoDAO depaDAO = new DepartamentoDAO();
-        return depaDAO.agregarDepartamento(depto);
+    public boolean agregarDepartamento(Departamento dep) {
+        return new DepartamentoDAO().agregarDepartamento(dep);
     }
 
-    // ===================================================================================
-    // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-    // Métodos de búsqueda
+    // ============================================================
+    // FARMACIA - CORREGIDO
+    // ============================================================
+
+    public boolean agregarFarmacia(Farmacia farmacia) {
+    return farmacia.agregarFarmacia(farmacia);
+}
+
+public ArrayList<Farmacia> getFarmacias() {
+    Farmacia farm = new Farmacia();
+    return farm.obtenerTodasFarmacias();
+}
+    // ============================================================
+    // BÚSQUEDA
+    // ============================================================
+
     public Paciente buscarPaciente(int dni) {
-        PacienteDAO pacienteADO = new PacienteDAO();
-        return pacienteADO.buscarPaciente(dni);
+        return new PacienteDAO().buscarPaciente(dni);
     }
 
     public Doctor buscarDoctor(int dni) {
-        DoctorDAO doctorADO = new DoctorDAO();
-        return doctorADO.buscarDoctor(dni);
+        return new DoctorDAO().buscarDoctor(dni);
     }
 
     public Enfermera buscarEnfermera(int dni) {
-        EnfermeraDAO enfermeraADO = new EnfermeraDAO();
-        return enfermeraADO.buscarEnfermera(dni);
+        return new EnfermeraDAO().buscarEnfermera(dni);
     }
 
     public Administrador buscarAdministrador(int dni) {
-        AdministradorDAO dao = new AdministradorDAO();
-        return dao.buscarAdministrador(dni);
+        return new AdministradorDAO().buscarAdministrador(dni);
     }
 
     public PersonalLimpieza buscarPersonalLimpieza(int dni) {
-        PersonalLimpiezaDAO personalLimpiezaDao = new PersonalLimpiezaDAO();
-        return personalLimpiezaDao.buscarPersonalLimpieza(dni);
+        return new PersonalLimpiezaDAO().buscarPersonalLimpieza(dni);
     }
 
     public GuardiaSeguridad buscarGuardiaSeguridad(int dni) {
-        GuardiaSeguridadDAO guardiaDao = new GuardiaSeguridadDAO();
-        return guardiaDao.buscarGuardiaSeguridad(dni);
+        return new GuardiaSeguridadDAO().buscarGuardiaSeguridad(dni);
     }
 
     public Cocinero buscarCocinero(int dni) {
-        CocineroDAO cocinerodao = new CocineroDAO();
-        return cocinerodao.buscarCocinero(dni);
+        return new CocineroDAO().buscarCocinero(dni);
     }
-    // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-    // Metodos para mostrar usuarios total xd
+    // ============================================================
+    // MOSTRAR LISTAS COMPLETAS
+    // ============================================================
+
     public void mostrarPacientesTotal() {
-        PacienteDAO pacienteDAO = new PacienteDAO();
-        ArrayList<Paciente> pacientes = pacienteDAO.obtenerTodosPacientes();
+        ArrayList<Paciente> lista = new PacienteDAO().obtenerTodosPacientes();
 
-        if (pacientes.isEmpty()) {
+        if (lista.isEmpty()) {
             System.out.println("No hay pacientes registrados");
-        } else {
-            System.out.println("=== LISTA DE PACIENTES ===");
-            for (Paciente p : pacientes) {
-                p.mostrarDatos();
-                System.out.println("-------------------------");
-            }
+            return;
+        }
+
+        System.out.println("=== LISTA DE PACIENTES ===");
+        for (Paciente p : lista) {
+            p.mostrarDatos();
+            System.out.println("-------------------------");
         }
     }
 
     public void mostrarDoctoresTotal() {
-        DoctorDAO doctorDAO = new DoctorDAO();
-        ArrayList<Doctor> doctores = doctorDAO.obtenerTodosDoctores();
+        ArrayList<Doctor> lista = new DoctorDAO().obtenerTodosDoctores();
 
-        if (doctores.isEmpty()) {
+        if (lista.isEmpty()) {
             System.out.println("No hay doctores registrados");
-        } else {
-            System.out.println("=== LISTA DE DOCTORES ===");
-            for (Doctor d : doctores) {
-                d.mostrarDatos();
-                System.out.println("-------------------------");
-            }
+            return;
+        }
+
+        System.out.println("=== LISTA DE DOCTORES ===");
+        for (Doctor d : lista) {
+            d.mostrarDatos();
+            System.out.println("-------------------------");
         }
     }
 
     public void mostrarEnfermerasTotal() {
-        EnfermeraDAO enfermeraDAO = new EnfermeraDAO();
-        ArrayList<Enfermera> enfermeras = enfermeraDAO.obtenerTodasEnfermeras();
+        ArrayList<Enfermera> lista = new EnfermeraDAO().obtenerTodasEnfermeras();
 
-        if (enfermeras.isEmpty()) {
+        if (lista.isEmpty()) {
             System.out.println("No hay enfermeras registradas");
-        } else {
-            System.out.println("=== LISTA DE ENFERMERAS ===");
-            for (Enfermera enfer : enfermeras) {
-                enfer.mostrarDatos();
-                System.out.println("-------------------------");
-            }
+            return;
+        }
+
+        System.out.println("=== LISTA DE ENFERMERAS ===");
+        for (Enfermera e : lista) {
+            e.mostrarDatos();
+            System.out.println("-------------------------");
         }
     }
 
     public void mostrarAdministradoresTotal() {
-        AdministradorDAO adminDAO = new AdministradorDAO();
-        ArrayList<Administrador> administradores = adminDAO.obtenerTodosAdministradores();
+        ArrayList<Administrador> lista = new AdministradorDAO().obtenerTodosAdministradores();
 
-        if (administradores.isEmpty()) {
+        if (lista.isEmpty()) {
             System.out.println("No hay administradores registrados");
-        } else {
-            System.out.println("=== LISTA DE ADMINISTRADORES ===");
-            for (Administrador admin : administradores) {
-                admin.mostrarDatos();
-                System.out.println("-------------------------");
-            }
+            return;
+        }
+
+        System.out.println("=== LISTA DE ADMINISTRADORES ===");
+        for (Administrador a : lista) {
+            a.mostrarDatos();
+            System.out.println("-------------------------");
         }
     }
 
     public void mostrarCocinerosTotal() {
-        CocineroDAO cocineroDAO = new CocineroDAO();
-        ArrayList<Cocinero> cocineros = cocineroDAO.obtenerTodosCocineros();
+        ArrayList<Cocinero> lista = new CocineroDAO().obtenerTodosCocineros();
 
-        if (cocineros.isEmpty()) {
+        if (lista.isEmpty()) {
             System.out.println("No hay cocineros registrados");
-        } else {
-            System.out.println("=== LISTA DE COCINEROS ===");
-            for (Cocinero c : cocineros) {
-                System.out.println("- " + c.getNombre() + " " + c.getPrimerApellido() + " " + c.getSegundoApellido()
-                        + " | Turno: " + c.getTurno() + " | Especialidad: " + c.getEspecialidad());
-            }
+            return;
+        }
+
+        System.out.println("=== LISTA DE COCINEROS ===");
+        for (Cocinero c : lista) {
+            System.out.println("- " + c.getNombre() + " " + c.getPrimerApellido() + " " + c.getSegundoApellido()
+                    + " | Turno: " + c.getTurno() + " | Especialidad: " + c.getEspecialidad());
         }
     }
 
     public void mostrarGuardiasSeguridadTotal() {
-        GuardiaSeguridadDAO dao = new GuardiaSeguridadDAO();
-        ArrayList<GuardiaSeguridad> guardias = dao.obtenerTodosGuardias();
+        ArrayList<GuardiaSeguridad> lista = new GuardiaSeguridadDAO().obtenerTodosGuardias();
 
-        if (guardias.isEmpty()) {
-            System.out.println("No hay guardias de seguridad registrados");
-        } else {
-            System.out.println("=== LISTA DE GUARDIAS DE SEGURIDAD ===");
-            for (GuardiaSeguridad g : guardias) {
-                System.out.println("- " + g.getNombre() + " " + g.getPrimerApellido() + " " + g.getSegundoApellido()
-                        + " | Turno: " + g.getTurno()
-                        + " | Área: " + g.getAreaAsignada()
-                        + " | Armado: " + (g.isArmado() ? "Sí" : "No"));
-            }
+        if (lista.isEmpty()) {
+            System.out.println("No hay guardias registrados");
+            return;
+        }
+
+        System.out.println("=== LISTA DE GUARDIAS DE SEGURIDAD ===");
+        for (GuardiaSeguridad g : lista) {
+            System.out.println("- " + g.getNombre() + " " + g.getPrimerApellido() + " " + g.getSegundoApellido()
+                    + " | Turno: " + g.getTurno()
+                    + " | Área: " + g.getAreaAsignada()
+                    + " | Armado: " + (g.isArmado() ? "Sí" : "No"));
         }
     }
 
     public void mostrarPersonalLimpiezaTotal() {
-        PersonalLimpiezaDAO dao = new PersonalLimpiezaDAO();
-        ArrayList<PersonalLimpieza> personal = dao.obtenerTodosPersonalLimpieza();
+        ArrayList<PersonalLimpieza> lista = new PersonalLimpiezaDAO().obtenerTodosPersonalLimpieza();
 
-        if (personal.isEmpty()) {
+        if (lista.isEmpty()) {
             System.out.println("No hay personal de limpieza registrado");
-        } else {
-            System.out.println("=== LISTA DE PERSONAL DE LIMPIEZA ===");
-            for (PersonalLimpieza pl : personal) {
-                System.out.println("- " + pl.getNombre() + " " + pl.getPrimerApellido() + " " + pl.getSegundoApellido()
-                        + " | Turno: " + pl.getTurno()
-                        + " | Área: " + pl.getAreaAsignada());
-            }
+            return;
+        }
+
+        System.out.println("=== LISTA PERSONAL DE LIMPIEZA ===");
+        for (PersonalLimpieza pl : lista) {
+            System.out.println("- " + pl.getNombre() + " " + pl.getPrimerApellido() + " " + pl.getSegundoApellido()
+                    + " | Turno: " + pl.getTurno()
+                    + " | Área: " + pl.getAreaAsignada());
         }
     }
 
     public void mostrarDepartamentosTotal() {
-        DepartamentoDAO depaDAO = new DepartamentoDAO();
-        ArrayList<Departamento> departamentos = depaDAO.obtenerTodosDepartamentos();
+        ArrayList<Departamento> lista = new DepartamentoDAO().obtenerTodosDepartamentos();
 
-        if (departamentos.isEmpty()) {
+        if (lista.isEmpty()) {
             System.out.println("No hay departamentos registrados");
-        } else {
-            System.out.println("=== LISTA DE DEPARTAMENTOS ===");
-            for (Departamento depa : departamentos) {
-                System.out.println("- " + depa.getNombreDepartamento() + " | Ubicación: " + depa.getUbicacion());
-            }
+            return;
+        }
+
+        System.out.println("=== LISTA DE DEPARTAMENTOS ===");
+        for (Departamento d : lista) {
+            System.out.println("- " + d.getNombreDepartamento() + " | Ubicación: " + d.getUbicacion());
         }
     }
 
-    // TOAL de USUARIOS
-
+    // ============================================================
     // GETTERS
+    // ============================================================
+
     public List<Doctor> getDoctores() {
         return doctores;
     }
@@ -261,4 +267,97 @@ public class Hospital {
     public List<Departamento> getDepartamentos() {
         return departamentos;
     }
+
+    public String getNombreHospital() {
+        return nombreHospital;
+    }
+
+    public void setNombreHospital(String nombreHospital) {
+        this.nombreHospital = nombreHospital;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getCapacidadCamas() {
+        return capacidadCamas;
+    }
+
+    public void setCapacidadCamas(int capacidadCamas) {
+        this.capacidadCamas = capacidadCamas;
+    }
+
+    public void setFarmacias(ArrayList<Farmacia> farmacias) {
+        this.farmacias = farmacias;
+    }
+
+    public void setPacientes(List<Paciente> pacientes) {
+        this.pacientes = pacientes;
+    }
+
+    public void setDoctores(List<Doctor> doctores) {
+        this.doctores = doctores;
+    }
+
+    public List<Enfermera> getEnfermeras() {
+        return enfermeras;
+    }
+
+    public void setEnfermeras(List<Enfermera> enfermeras) {
+        this.enfermeras = enfermeras;
+    }
+
+    public void setAdministradores(List<Administrador> administradores) {
+        this.administradores = administradores;
+    }
+
+    public List<PersonalLimpieza> getPersonalLimpieza() {
+        return personalLimpieza;
+    }
+
+    public void setPersonalLimpieza(List<PersonalLimpieza> personalLimpieza) {
+        this.personalLimpieza = personalLimpieza;
+    }
+
+    public List<GuardiaSeguridad> getGuardiasSeguridad() {
+        return guardiasSeguridad;
+    }
+
+    public void setGuardiasSeguridad(List<GuardiaSeguridad> guardiasSeguridad) {
+        this.guardiasSeguridad = guardiasSeguridad;
+    }
+
+    public List<Cocinero> getCocineros() {
+        return cocineros;
+    }
+
+    public void setCocineros(List<Cocinero> cocineros) {
+        this.cocineros = cocineros;
+    }
+
+    public void setDepartamentos(List<Departamento> departamentos) {
+        this.departamentos = departamentos;
+    }
+    
 }

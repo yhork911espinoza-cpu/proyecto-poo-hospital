@@ -533,6 +533,8 @@ public class Main {
             System.out.println("5. Buscar un usuario");
             System.out.println("6. Crear departamento");
             System.out.println("7. Ver registros");
+            System.out.println("8. Agregar Farmacia");
+            System.out.println("9. Ver Farmacia");
             System.out.println("0. Cerrar sesión");
             System.out.print("Opción: ");
 
@@ -648,6 +650,12 @@ public class Main {
                         break;
                     case 7:
                         verRegistros(hospital);
+                        break;
+                    case 8:
+                        agregarFarmacia(hospital);
+                        break;
+                    case 9:
+                        verFarmacia(hospital);
                         break;
                     case 0:
                         System.out.println("Cerrando sesión...");
@@ -1427,7 +1435,7 @@ public class Main {
                 turno);
 
         // Registrar en el hospital
-        hospital.agregarguardiaSeguridad(guardia);
+        hospital.agregarGuardiaSeguridad(guardia);
 
         System.out.println("\nGuardia de Seguridad registrado correctamente.");
     }
@@ -2407,6 +2415,51 @@ public class Main {
                 System.out.println("Debe ingresar un número.");
                 lector.nextLine();
             }
+        }
+    }
+
+    public static void verFarmacia(Hospital hospital) {
+
+        ArrayList<Farmacia> lista = hospital.getFarmacias();
+
+        System.out.println("=== LISTA DE FARMACIAS REGISTRADAS ===");
+
+        if (lista.isEmpty()) {
+            System.out.println("No hay farmacias registradas.");
+            return;
+        }
+
+        int i = 1;
+        for (Farmacia f : lista) {
+            System.out.println(i + ". Nombre: " + f.getNombre());
+            System.out.println("   Dirección: " + f.getDireccion());
+            System.out.println("   Teléfono: " + f.getTelefono());
+            System.out.println("   Medicamentos registrados (solo local): " + f.contarMedicamentos());
+            System.out.println("---------------------------------------");
+            i++;
+        }
+    }
+
+    public static void agregarFarmacia(Hospital hospital) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("=== AGREGAR FARMACIA ===");
+
+        System.out.print("Nombre de la farmacia: ");
+        String nombre = sc.nextLine();
+
+        System.out.print("Dirección: ");
+        String direccion = sc.nextLine();
+
+        System.out.print("Teléfono: ");
+        String telefono = sc.nextLine();
+
+        Farmacia nueva = new Farmacia(nombre, direccion, telefono);
+
+        if (hospital.agregarFarmacia(nueva)) {
+            System.out.println("Farmacia registrada correctamente en la base de datos.");
+        } else {
+            System.out.println("Error al registrar la farmacia.");
         }
     }
 
